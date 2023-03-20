@@ -1,10 +1,17 @@
-13:21:17 **** Incremental Build of configuration Debug for project Practica2 ****
+07:44:08 **** Build of configuration Debug for project Practica2 ****
 make -j8 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F429ZITx -DSTM32F4 -DNUCLEO_F429ZI -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Inc -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica2/Drivers/STM32F4xx_HAL_Driver/Inc" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica2/Drivers/CMSIS/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica2/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica2/Drivers/BSP/STM32F4xx_Nucleo_144" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica2/Drivers/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "Practica2.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica2/STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Practica2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Practica2.elf
+ 
 arm-none-eabi-size   Practica2.elf 
+arm-none-eabi-objdump -h -S  Practica2.elf  > "Practica2.list"
    text	   data	    bss	    dec	    hex	filename
    6512	     32	   1568	   8112	   1fb0	Practica2.elf
 Finished building: default.size.stdout
  
+Finished building: Practica2.list
+ 
 
-13:21:18 Build Finished. 0 errors, 0 warnings. (took 609ms)
+07:44:10 Build Finished. 0 errors, 0 warnings. (took 2s.189ms)
 

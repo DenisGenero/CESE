@@ -20,8 +20,6 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include <stdint.h>
-#include <stdbool.h>
 
 /** @addtogroup STM32F4xx_HAL_Examples
   * @{
@@ -34,22 +32,21 @@
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
+//#defined FIRST_TIME 200
+//#defined SECOND_TIME 400
+//#defined THIRD_TIME 600
+//#defined FOURTH_TIME 800
 /* Private variables ---------------------------------------------------------*/
 /* UART handler declaration */
 UART_HandleTypeDef UartHandle;
-
-#define MAX_LEDS_COUNT 3
-#define MAX_SEQUENCE_COUNT 2
 
 /* Private function prototypes -----------------------------------------------*/
 
 static void SystemClock_Config(void);
 static void Error_Handler(void);
-void delayInit( delay_t * delay, tick_t duration );
-bool_t delayRead( delay_t * delay );
-void delayWrite( delay_t * delay, tick_t duration );
 
 /* Private functions ---------------------------------------------------------*/
+
 
 /**
   * @brief  Main program
@@ -73,31 +70,57 @@ int main(void)
   /* Configure the system clock to 180 MHz */
   SystemClock_Config();
 
-  typedef uint32_t tick_t; // Qué biblioteca se debe incluir para que esto compile?
-  typedef bool bool_t;	  // Qué biblioteca se debe incluir para que esto compile?
-  typedef struct{
-     tick_t startTime;
-     tick_t duration;
-     bool_t running;
-  } delay_t;
-
-
   /* Initialize BSP Led for LEDs */
   BSP_LED_Init(LED_RED);
-  BSP_LED_Init(LED_GREEN);
   BSP_LED_Init(LED_BLUE);
+  BSP_LED_Init(LED_GREEN);
 
-  uint8_t ledsArray[MAX_SEQUENCE_COUNT][MAX_LEDS_COUNT]={{LED_RED, LED_GREEN, LED_BLUE}, {LED_BLUE, LED_GREEN, LED_RED}};
-  uint8_t sequence = 0;
-  uint8_t led = 0;
+  /* Delay structures for each led */
+  delay_t red, blue, green;
+  delay_t *red_led = &red;
+  delay_t *blue_led = &blue;
+  delay_t *green_led = &green;
 
-  /* Initialize BSP PB for BUTTON_USER */
-  BSP_PB_Init(BUTTON_USER, BUTTON_MODE_GPIO);
+//  tick_t count = 0;
+
+  /* Toggle duration */
+  tick_t red_duration = 200;
+  tick_t blue_duration = 200;
+  tick_t green_duration = 200;
+
+  /*Initialize each delay with their respective durations */
+  delayInit(red_led, red_duration);
+  delayInit(blue_led, blue_duration);
+  delayInit(green_led, green_duration);
+
+  /*Start the counts for each led */
+  delayRead(red_led);
+  BSP_LED_On(LED_RED);
+//  delayRead(blue_led);
+//  delayRead(green_led);
 
   /* Infinite loop */
   while (1)
   {
 
+	  if(delayRead(red_led)){
+		  BSP_LED_Off(LED_GREEN);
+		  BSP_LED_On(LED_RED);
+		  /*Reset the sequence */
+		  delayRead(blue_led);
+	  }
+	  if(delayRead(blue_led)){
+		  BSP_LED_Off(LED_RED);
+		  BSP_LED_On(LED_BLUE);
+		  /*Reset the sequence */
+		  delayRead(green_led);
+	  }
+	  if(delayRead(green_led)){
+		  BSP_LED_Off(LED_BLUE);
+		  BSP_LED_On(LED_GREEN);
+		  /*Reset the sequence */
+		  delayRead(red_led);
+	  	  }
   }
 }
 
@@ -183,12 +206,6 @@ static void Error_Handler(void)
   {
   }
 }
-
-void delayInit( delay_t * delay, tick_t duration ){
-
-}
-bool_t delayRead( delay_t * delay );
-void delayWrite( delay_t * delay, tick_t duration );
 
 #ifdef  USE_FULL_ASSERT
 /**

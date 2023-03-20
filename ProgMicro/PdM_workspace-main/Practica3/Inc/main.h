@@ -23,10 +23,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include <stdio.h>
-//#include "stm32f4xx_hal.h"  		/* <- HAL include */
 #include "stm32f4xx_nucleo_144.h" 	/* <- BSP include */
-//#include <stdint.h>					/* <- Standard integer library */
-//#include <stdbool.h>				/* <- Standar bool library*/
 #include "API_delay.h"
 
 

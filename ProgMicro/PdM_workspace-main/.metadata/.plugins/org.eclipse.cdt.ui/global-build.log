@@ -1113,3 +1113,303 @@ arm-none-eabi-size   Practica3.elf
    6512	     32	   1568	   8112	   1fb0	Practica3.elf
 Finished building: default.size.stdout
  
+07:25:31 **** Incremental Build of configuration Debug for project Practica3 ****
+make -j8 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F429ZITx -DSTM32F4 -DNUCLEO_F429ZI -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Inc -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/STM32F4xx_HAL_Driver/Inc" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/CMSIS/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/BSP/STM32F4xx_Nucleo_144" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/Core/Inc" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/API" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/API/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+../Src/main.c:35:2: error: invalid preprocessing directive #defined; did you mean #define?
+   35 | #defined FIRST_TIME 200
+      |  ^~~~~~~
+      |  define
+../Src/main.c:36:2: error: invalid preprocessing directive #defined; did you mean #define?
+   36 | #defined SECOND_TIME 400
+      |  ^~~~~~~
+      |  define
+../Src/main.c:37:2: error: invalid preprocessing directive #defined; did you mean #define?
+   37 | #defined THIRD_TIME 600
+      |  ^~~~~~~
+      |  define
+../Src/main.c:38:2: error: invalid preprocessing directive #defined; did you mean #define?
+   38 | #defined FOURTH_TIME 800
+      |  ^~~~~~~
+      |  define
+../Src/main.c: In function 'main':
+../Src/main.c:84:10: warning: unused variable 'count' [-Wunused-variable]
+   84 |   tick_t count = 0;
+      |          ^~~~~
+make: *** [Src/subdir.mk:19: Src/main.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+07:26:02 **** Incremental Build of configuration Debug for project Practica3 ****
+make -j8 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F429ZITx -DSTM32F4 -DNUCLEO_F429ZI -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Inc -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/STM32F4xx_HAL_Driver/Inc" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/CMSIS/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/BSP/STM32F4xx_Nucleo_144" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/Core/Inc" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/API" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/API/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+../Src/main.c: In function 'main':
+../Src/main.c:84:10: warning: unused variable 'count' [-Wunused-variable]
+   84 |   tick_t count = 0;
+      |          ^~~~~
+arm-none-eabi-gcc -o "Practica3.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Practica3.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Practica3.elf
+ 
+arm-none-eabi-size   Practica3.elf 
+arm-none-eabi-objdump -h -S  Practica3.elf  > "Practica3.list"
+   text	   data	    bss	    dec	    hex	filename
+   6472	     32	   1568	   8072	   1f88	Practica3.elf
+Finished building: default.size.stdout
+ 
+Finished building: Practica3.list
+ 
+07:26:18 **** Incremental Build of configuration Debug for project Practica3 ****
+make -j8 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F429ZITx -DSTM32F4 -DNUCLEO_F429ZI -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Inc -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/STM32F4xx_HAL_Driver/Inc" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/CMSIS/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/BSP/STM32F4xx_Nucleo_144" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/Core/Inc" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/API" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/API/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "Practica3.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Practica3.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Practica3.elf
+ 
+arm-none-eabi-size   Practica3.elf 
+arm-none-eabi-objdump -h -S  Practica3.elf  > "Practica3.list"
+   text	   data	    bss	    dec	    hex	filename
+   6468	     32	   1568	   8068	   1f84	Practica3.elf
+Finished building: default.size.stdout
+ 
+Finished building: Practica3.list
+ 
+07:26:26 **** Incremental Build of configuration Debug for project Practica3 ****
+make -j8 all 
+arm-none-eabi-size   Practica3.elf 
+   text	   data	    bss	    dec	    hex	filename
+   6468	     32	   1568	   8068	   1f84	Practica3.elf
+Finished building: default.size.stdout
+ 
+07:27:56 **** Incremental Build of configuration Debug for project Practica3 ****
+make -j8 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F429ZITx -DSTM32F4 -DNUCLEO_F429ZI -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Inc -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/STM32F4xx_HAL_Driver/Inc" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/CMSIS/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/BSP/STM32F4xx_Nucleo_144" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/Core/Inc" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/API" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/API/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "Practica3.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Practica3.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Practica3.elf
+ 
+arm-none-eabi-size   Practica3.elf 
+arm-none-eabi-objdump -h -S  Practica3.elf  > "Practica3.list"
+   text	   data	    bss	    dec	    hex	filename
+   6468	     32	   1568	   8068	   1f84	Practica3.elf
+Finished building: default.size.stdout
+ 
+Finished building: Practica3.list
+ 
+07:28:06 **** Incremental Build of configuration Debug for project Practica3 ****
+make -j8 all 
+arm-none-eabi-size   Practica3.elf 
+   text	   data	    bss	    dec	    hex	filename
+   6468	     32	   1568	   8068	   1f84	Practica3.elf
+Finished building: default.size.stdout
+ 
+07:30:11 **** Incremental Build of configuration Debug for project Practica3 ****
+make -j8 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F429ZITx -DSTM32F4 -DNUCLEO_F429ZI -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Inc -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/STM32F4xx_HAL_Driver/Inc" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/CMSIS/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/BSP/STM32F4xx_Nucleo_144" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/Core/Inc" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/API" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/API/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "Practica3.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Practica3.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Practica3.elf
+ 
+arm-none-eabi-size   Practica3.elf 
+arm-none-eabi-objdump -h -S  Practica3.elf  > "Practica3.list"
+   text	   data	    bss	    dec	    hex	filename
+   6464	     32	   1568	   8064	   1f80	Practica3.elf
+Finished building: default.size.stdout
+ 
+Finished building: Practica3.list
+ 
+07:30:27 **** Incremental Build of configuration Debug for project Practica3 ****
+make -j8 all 
+arm-none-eabi-size   Practica3.elf 
+   text	   data	    bss	    dec	    hex	filename
+   6464	     32	   1568	   8064	   1f80	Practica3.elf
+Finished building: default.size.stdout
+ 
+07:44:08 **** Build of configuration Debug for project Practica2 ****
+make -j8 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F429ZITx -DSTM32F4 -DNUCLEO_F429ZI -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Inc -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica2/Drivers/STM32F4xx_HAL_Driver/Inc" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica2/Drivers/CMSIS/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica2/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica2/Drivers/BSP/STM32F4xx_Nucleo_144" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica2/Drivers/Core/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "Practica2.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica2/STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Practica2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Practica2.elf
+ 
+arm-none-eabi-size   Practica2.elf 
+arm-none-eabi-objdump -h -S  Practica2.elf  > "Practica2.list"
+   text	   data	    bss	    dec	    hex	filename
+   6512	     32	   1568	   8112	   1fb0	Practica2.elf
+Finished building: default.size.stdout
+ 
+Finished building: Practica2.list
+ 
+07:44:11 **** Incremental Build of configuration Debug for project Practica3 ****
+make -j8 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F429ZITx -DSTM32F4 -DNUCLEO_F429ZI -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Inc -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/STM32F4xx_HAL_Driver/Inc" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/CMSIS/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/BSP/STM32F4xx_Nucleo_144" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/Core/Inc" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/API" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/API/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+../Src/main.c: In function 'main':
+../Src/main.c:110:26: error: expected ')' before '{' token
+  110 |     if(delayRead(red_led){
+      |       ~                  ^
+      |                          )
+../Src/main.c:116:4: error: expected expression before '}' token
+  116 |    }
+      |    ^
+../Src/main.c:87:10: warning: unused variable 'green_flag' [-Wunused-variable]
+   87 |   bool_t green_flag = false;
+      |          ^~~~~~~~~~
+../Src/main.c:86:10: warning: unused variable 'blue_flag' [-Wunused-variable]
+   86 |   bool_t blue_flag = false;
+      |          ^~~~~~~~~
+make: *** [Src/subdir.mk:19: Src/main.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+07:44:30 **** Incremental Build of configuration Debug for project Practica3 ****
+make -j8 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F429ZITx -DSTM32F4 -DNUCLEO_F429ZI -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Inc -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/STM32F4xx_HAL_Driver/Inc" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/CMSIS/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/BSP/STM32F4xx_Nucleo_144" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/Core/Inc" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/API" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/API/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+../Src/main.c: In function 'main':
+../Src/main.c:110:26: error: expected ')' before '{' token
+  110 |     if(delayRead(red_led){
+      |       ~                  ^
+      |                          )
+../Src/main.c:116:4: error: expected expression before '}' token
+  116 |    }
+      |    ^
+../Src/main.c:87:10: warning: unused variable 'green_flag' [-Wunused-variable]
+   87 |   bool_t green_flag = false;
+      |          ^~~~~~~~~~
+../Src/main.c:86:10: warning: unused variable 'blue_flag' [-Wunused-variable]
+   86 |   bool_t blue_flag = false;
+      |          ^~~~~~~~~
+make: *** [Src/subdir.mk:19: Src/main.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+07:48:08 **** Incremental Build of configuration Debug for project Practica3 ****
+make -j8 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F429ZITx -DSTM32F4 -DNUCLEO_F429ZI -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Inc -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/STM32F4xx_HAL_Driver/Inc" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/CMSIS/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/BSP/STM32F4xx_Nucleo_144" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/Core/Inc" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/API" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/API/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+../Src/main.c: In function 'main':
+../Src/main.c:116:17: error: 'flase' undeclared (first use in this function); did you mean 'false'?
+  116 |      red_flag = flase;
+      |                 ^~~~~
+      |                 false
+../Src/main.c:116:17: note: each undeclared identifier is reported only once for each function it appears in
+make: *** [Src/subdir.mk:19: Src/main.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+07:48:21 **** Incremental Build of configuration Debug for project Practica3 ****
+make -j8 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F429ZITx -DSTM32F4 -DNUCLEO_F429ZI -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Inc -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/STM32F4xx_HAL_Driver/Inc" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/CMSIS/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/BSP/STM32F4xx_Nucleo_144" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/Core/Inc" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/API" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/API/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+../Src/main.c: In function 'main':
+../Src/main.c:136:19: error: 'flase' undeclared (first use in this function); did you mean 'false'?
+  136 |      green_flag = flase;
+      |                   ^~~~~
+      |                   false
+../Src/main.c:136:19: note: each undeclared identifier is reported only once for each function it appears in
+make: *** [Src/subdir.mk:19: Src/main.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+07:48:33 **** Incremental Build of configuration Debug for project Practica3 ****
+make -j8 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F429ZITx -DSTM32F4 -DNUCLEO_F429ZI -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Inc -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/STM32F4xx_HAL_Driver/Inc" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/CMSIS/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/BSP/STM32F4xx_Nucleo_144" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/Core/Inc" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/API" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/API/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "Practica3.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Practica3.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Practica3.elf
+ 
+arm-none-eabi-size   Practica3.elf 
+arm-none-eabi-objdump -h -S  Practica3.elf  > "Practica3.list"
+   text	   data	    bss	    dec	    hex	filename
+   6548	     32	   1568	   8148	   1fd4	Practica3.elf
+Finished building: default.size.stdout
+ 
+Finished building: Practica3.list
+ 
+07:48:42 **** Incremental Build of configuration Debug for project Practica3 ****
+make -j8 all 
+arm-none-eabi-size   Practica3.elf 
+   text	   data	    bss	    dec	    hex	filename
+   6548	     32	   1568	   8148	   1fd4	Practica3.elf
+Finished building: default.size.stdout
+ 
+07:49:48 **** Incremental Build of configuration Debug for project Practica3 ****
+make -j8 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F429ZITx -DSTM32F4 -DNUCLEO_F429ZI -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Inc -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/STM32F4xx_HAL_Driver/Inc" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/CMSIS/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/BSP/STM32F4xx_Nucleo_144" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/Core/Inc" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/API" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/API/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "Practica3.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Practica3.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Practica3.elf
+ 
+arm-none-eabi-size   Practica3.elf 
+arm-none-eabi-objdump -h -S  Practica3.elf  > "Practica3.list"
+   text	   data	    bss	    dec	    hex	filename
+   6552	     32	   1568	   8152	   1fd8	Practica3.elf
+Finished building: default.size.stdout
+ 
+Finished building: Practica3.list
+ 
+07:50:27 **** Incremental Build of configuration Debug for project Practica3 ****
+make -j8 all 
+arm-none-eabi-size   Practica3.elf 
+   text	   data	    bss	    dec	    hex	filename
+   6552	     32	   1568	   8152	   1fd8	Practica3.elf
+Finished building: default.size.stdout
+ 
+08:30:11 **** Incremental Build of configuration Debug for project Practica3 ****
+make -j8 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F429ZITx -DSTM32F4 -DNUCLEO_F429ZI -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Inc -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/STM32F4xx_HAL_Driver/Inc" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/CMSIS/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/BSP/STM32F4xx_Nucleo_144" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/Core/Inc" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/API" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/API/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_msp.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F429ZITx -DSTM32F4 -DNUCLEO_F429ZI -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Inc -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/STM32F4xx_HAL_Driver/Inc" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/CMSIS/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/BSP/STM32F4xx_Nucleo_144" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/Core/Inc" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/API" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/API/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_msp.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_msp.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_msp.o"
+arm-none-eabi-gcc "../Drivers/Core/Src/stm32f4xx_it.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F429ZITx -DSTM32F4 -DNUCLEO_F429ZI -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Inc -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/STM32F4xx_HAL_Driver/Inc" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/CMSIS/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/BSP/STM32F4xx_Nucleo_144" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/Core/Inc" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/API" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/API/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/Core/Src/stm32f4xx_it.d" -MT"Drivers/Core/Src/stm32f4xx_it.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/Core/Src/stm32f4xx_it.o"
+arm-none-eabi-gcc "../Drivers/API/Src/API_delay.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F429ZITx -DSTM32F4 -DNUCLEO_F429ZI -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Inc -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/STM32F4xx_HAL_Driver/Inc" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/CMSIS/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/BSP/STM32F4xx_Nucleo_144" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/Core/Inc" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/API" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/API/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/API/Src/API_delay.d" -MT"Drivers/API/Src/API_delay.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/API/Src/API_delay.o"
+../Src/main.c: In function 'main':
+../Src/main.c:99:10: error: redefinition of 'blue_flag'
+   99 |   bool_t blue_flag = true;
+      |          ^~~~~~~~~
+../Src/main.c:82:10: note: previous definition of 'blue_flag' was here
+   82 |   bool_t blue_flag = false;
+      |          ^~~~~~~~~
+../Src/main.c:100:10: error: redefinition of 'green_flag'
+  100 |   bool_t green_flag = true;
+      |          ^~~~~~~~~~
+../Src/main.c:83:10: note: previous definition of 'green_flag' was here
+   83 |   bool_t green_flag = false;
+      |          ^~~~~~~~~~
+make: *** [Src/subdir.mk:19: Src/main.o] Error 1
+make: *** Waiting for unfinished jobs....
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+08:30:23 **** Incremental Build of configuration Debug for project Practica3 ****
+make -j8 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F429ZITx -DSTM32F4 -DNUCLEO_F429ZI -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Inc -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/STM32F4xx_HAL_Driver/Inc" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/CMSIS/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/BSP/STM32F4xx_Nucleo_144" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/Core/Inc" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/API" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/API/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "Practica3.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Practica3.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Practica3.elf
+ 
+arm-none-eabi-size   Practica3.elf 
+arm-none-eabi-objdump -h -S  Practica3.elf  > "Practica3.list"
+   text	   data	    bss	    dec	    hex	filename
+   6560	     32	   1568	   8160	   1fe0	Practica3.elf
+Finished building: default.size.stdout
+ 
+Finished building: Practica3.list
+ 
+08:30:48 **** Incremental Build of configuration Debug for project Practica3 ****
+make -j8 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F429ZITx -DSTM32F4 -DNUCLEO_F429ZI -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Inc -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/STM32F4xx_HAL_Driver/Inc" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/CMSIS/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/BSP/STM32F4xx_Nucleo_144" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/Core/Inc" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/API" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/API/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "Practica3.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Practica3.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Practica3.elf
+ 
+arm-none-eabi-size   Practica3.elf 
+arm-none-eabi-objdump -h -S  Practica3.elf  > "Practica3.list"
+   text	   data	    bss	    dec	    hex	filename
+   6524	     32	   1568	   8124	   1fbc	Practica3.elf
+Finished building: default.size.stdout
+ 
+Finished building: Practica3.list
+ 
+08:30:56 **** Incremental Build of configuration Debug for project Practica3 ****
+make -j8 all 
+arm-none-eabi-size   Practica3.elf 
+   text	   data	    bss	    dec	    hex	filename
+   6524	     32	   1568	   8124	   1fbc	Practica3.elf
+Finished building: default.size.stdout
+ 
+08:41:35 **** Incremental Build of configuration Debug for project Practica3 ****
+make -j8 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F429ZITx -DSTM32F4 -DNUCLEO_F429ZI -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Inc -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/STM32F4xx_HAL_Driver/Inc" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/CMSIS/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/CMSIS/Device/ST/STM32F4xx/Include" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/BSP/STM32F4xx_Nucleo_144" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/Core/Inc" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/API" -I"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/Drivers/API/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "Practica3.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica3/STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Practica3.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Practica3.elf
+ 
+arm-none-eabi-size   Practica3.elf 
+arm-none-eabi-objdump -h -S  Practica3.elf  > "Practica3.list"
+   text	   data	    bss	    dec	    hex	filename
+   6548	     32	   1568	   8148	   1fd4	Practica3.elf
+Finished building: default.size.stdout
+ 
+Finished building: Practica3.list
+ 
+08:41:48 **** Incremental Build of configuration Debug for project Practica3 ****
+make -j8 all 
+arm-none-eabi-size   Practica3.elf 
+   text	   data	    bss	    dec	    hex	filename
+   6548	     32	   1568	   8148	   1fd4	Practica3.elf
+Finished building: default.size.stdout
+ 
