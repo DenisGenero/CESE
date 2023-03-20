@@ -4,4 +4,4 @@ Se hizo un programa para hacer una secuencia de leds, de encendido y apagado, de
 
 Se aplicaron las funciones que se desarrollaron en el práctico 2.
 
-Grupo de trabajo: Azarte, Féliz y Genero Denis
+Grupo de trabajo: Azarte, Félix y Genero Denis
