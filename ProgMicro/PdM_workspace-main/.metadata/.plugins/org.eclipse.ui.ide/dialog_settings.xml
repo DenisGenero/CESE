@@ -7,6 +7,7 @@
 		<item key="WizardProjectsImportPage.STORE_CLOSE_CREATED_PROJECTS_ID" value="false"/>
 		<item key="WizardProjectsImportPage.STORE_HIDE_CONFLICTING_PROJECTS_ID" value="false"/>
 		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica4"/>
 			<item value="/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main"/>
 			<item value="/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/practica_2"/>
 		</list>
