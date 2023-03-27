@@ -1,7 +1,6 @@
-Practica 3
+Practica 4, punto 2
 
-Se hizo un programa para hacer una secuencia de leds, de encendido y apagado, de manera no simultanea, con una duración de encendido de 200 milisegundos.
+Se utilizó la FSM realizada en el punto 4 para detectar cuando se presiona una tecla, evitando detectar rebotes.
+Cuando se detecta la presión del botón, se cambia la frecuencia de parpadeo del led 2 de la placa (led azul), entre 100 y 500 milisegundos.
 
-Se aplicaron las funciones que se desarrollaron en el práctico 2.
-
-Grupo de trabajo: Azarte, Félix y Genero Denis
+Grupo de trabajo: Díaz, Leandro y Genero, Denis
