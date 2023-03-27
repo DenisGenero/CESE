@@ -1,7 +1,5 @@
-Practica 3
+Practica 4, punto 1.
 
-Se hizo un programa para hacer una secuencia de leds, de encendido y apagado, de manera no simultanea, con una duración de encendido de 200 milisegundos.
+Se implemento una maquina de estados finitos (FSM) para hacer un sistema anti-rebote al presionar una tecla. El tiempo de anti-rebote seleccionado fue de 40 milisegundos.
 
-Se aplicaron las funciones que se desarrollaron en el práctico 2.
-
-Grupo de trabajo: Azarte, Félix y Genero Denis
+Grupo de trabajo: Díaz, Leandro y Genero, Denis
