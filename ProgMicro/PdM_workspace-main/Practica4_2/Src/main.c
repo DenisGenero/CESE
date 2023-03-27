@@ -21,6 +21,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "API_delay.h"
+#include "API_debounce.h"
 
 /** @addtogroup STM32F4xx_HAL_Examples
   * @{
@@ -31,20 +32,12 @@
   */
 
 /* Private typedef -----------------------------------------------------------*/
-typedef enum{
-BUTTON_UP,
-BUTTON_FALLING,
-BUTTON_DOWN,
-BUTTON_RISING,
-} debounceState_t;
-
-delay_t delay;
-
+#define DELAY_100_MS 100
+#define DELAY_500_MS 500
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
-#define DEBOUNCE_TIME 40
 /* Private variables ---------------------------------------------------------*/
-debounceState_t actualState;
+
 /* UART handler declaration */
 UART_HandleTypeDef UartHandle;
 
@@ -52,111 +45,6 @@ UART_HandleTypeDef UartHandle;
 
 static void SystemClock_Config(void);
 static void Error_Handler(void);
-
-/*
- * @brief
- * Toggle LED1 state whenever a press state is detected
- * @param  None
- * @retval None
- * */
-void buttonPressed(){
-	BSP_LED_Toggle(LED_GREEN);
-}
-
-/*
- * @brief
- * Toggle LED3 state whenever a release state is detected
- * @param  None
- * @retval None
- * */
-void buttonReleased(){
-	BSP_LED_Toggle(LED_RED);
-}
-
-/*
- * @brief
- * Initialize the Finite State Machine assuming that
- * the button is release (normal button state --> normal open)
- * @param  None
- * @retval None
- * */
-void debounceFSM_init(){
-	/* Set the initial state --> normal state is open */
-	actualState = BUTTON_UP;
-	/* Load the de-bouncing time */
-	delayInit(&delay, DEBOUNCE_TIME);
-}
-
-/*
- * @brief
- * Ask for the actual state and determine if the button was hold down or up
- *  applying a de-bouncing method, that consist in check twice with a 40 milliseconds wait,
- *  if it was a real state change or a spurious mechanic noise.
- * @param  None
- * @retval None
- * */
-void debounceFSM_update(){
-	switch(actualState){
-		case BUTTON_UP:
-			if(BSP_PB_GetState(BUTTON_USER)){
-				/* Update to next state */
-				actualState = BUTTON_FALLING;
-				/* Start the delay count */
-				delayRead(&delay);
-			}
-		break;
-
-		case BUTTON_FALLING:
-			/* Check for the de-bouncing time */
-			if(delayRead(&delay)){
-				/* If after de-bouncing time the button is still pressed, it is assumed
-				 * that the user has pressed the button */
-				if(BSP_PB_GetState(BUTTON_USER)) {
-					/* Update to next state */
-					actualState = BUTTON_DOWN;
-					/* Toggle led */
-					buttonPressed();
-				}
-				else{
-					/* If spurious noise detected, return to previous state */
-					actualState = BUTTON_UP;
-				}
-			}
-		  break;
-
-		case BUTTON_DOWN:
-		  if(!BSP_PB_GetState(BUTTON_USER)){
-			  /* Update to next state */
-			  actualState = BUTTON_RISING;
-			  /* Start the delay count */
-			  delayRead(&delay);
-		  }
-		  break;
-
-		case BUTTON_RISING:
-			/* If after de-bouncing time the button is still released, it is assumed
-			 * that the user has released the button */
-			if(delayRead(&delay)){
-				if(!BSP_PB_GetState(BUTTON_USER)){
-					/* Update to next state */
-					actualState = BUTTON_UP;
-					/* Toggle led */
-					buttonReleased();
-				}
-				else{
-					/* If spurious noise detected, return to previous state */
-					actualState = BUTTON_DOWN;
-				}
-			}
-		  break;
-	  default:
-		  /* Defensive guard: if another state is loaded in actualState variable,
-		   * return to the first state */
-		  actualState = BUTTON_UP;
-		  break;
-	}
-
-}
 
 /* Private functions ---------------------------------------------------------*/
 
@@ -183,9 +71,8 @@ int main(void)
   /* Configure the system clock to 180 MHz */
   SystemClock_Config();
 
-  /* Initialize BSP Led for LEDs */
-  BSP_LED_Init(LED_GREEN);
-  BSP_LED_Init(LED_RED);
+  /* Initialize BSP Led for blue led (LED2) */
+  BSP_LED_Init(LED_BLUE);
 
   /* Initialize BSP for button */
   BSP_PB_Init(BUTTON_USER, BUTTON_MODE_GPIO);
@@ -193,11 +80,37 @@ int main(void)
   /* Start the FSM */
   debounceFSM_init();
 
+  /* Variable definitions */
+  uint8_t delaySelect = 0;
+  delay_t ledDelay;
+
+  /* Initialize delay structure and run it */
+  delayInit(&ledDelay, DELAY_100_MS);
+  delayRead(&ledDelay);
+
   /* Infinite loop */
   while (1)
   {
 	  /* Check for the actual state and update the FSM if necessary */
 	  debounceFSM_update();
+	  /* Check if the key was pressed */
+	  if(readKey()){
+		  /* Change the led toggle delay time with defensive programming */
+		  if(delaySelect >= 1) {
+			  delaySelect = 0;
+			  delayWrite(&ledDelay, DELAY_100_MS);
+		  }
+		  else{
+			  delaySelect = 1;
+			  delayWrite(&ledDelay, DELAY_500_MS);
+		  }
+
+	  }
+	  /* Ask for toggle delay time */
+	  if(delayRead(&ledDelay)){
+		  BSP_LED_Toggle(LED_BLUE);
+	  }
+
   }
 }
 

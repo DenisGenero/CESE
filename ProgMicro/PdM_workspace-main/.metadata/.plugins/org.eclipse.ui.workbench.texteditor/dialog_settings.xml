@@ -6,7 +6,9 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
+		<item key="selection" value="actualState"/>
 		<list key="findhistory">
+			<item value="actualState"/>
 			<item value="&#x09;BSP_LED_Init(LED_RED);"/>
 		</list>
 		<list key="replacehistory">

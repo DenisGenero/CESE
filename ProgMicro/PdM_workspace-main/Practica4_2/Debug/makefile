@@ -39,34 +39,34 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := Practica4_1
+BUILD_ARTIFACT_NAME := Practica4_2
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-Practica4_1.elf \
+Practica4_2.elf \
 
 MAP_FILES += \
-Practica4_1.map \
+Practica4_2.map \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-Practica4_1.list \
+Practica4_2.list \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: Practica4_1.elf secondary-outputs
+main-build: Practica4_2.elf secondary-outputs
 
 # Tool invocations
-Practica4_1.elf Practica4_1.map: $(OBJS) $(USER_OBJS) /home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica4_1/STM32F429ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "Practica4_1.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica4_1/STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Practica4_1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Practica4_2.elf Practica4_2.map: $(OBJS) $(USER_OBJS) /home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica4_2/STM32F429ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "Practica4_2.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/denis/Documentos/CESE/ProgMicro/PdM_workspace-main/Practica4_2/STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Practica4_2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -75,14 +75,14 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-Practica4_1.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "Practica4_1.list"
+Practica4_2.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "Practica4_2.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) Practica4_1.elf Practica4_1.list Practica4_1.map default.size.stdout
+	-$(RM) Practica4_2.elf Practica4_2.list Practica4_2.map default.size.stdout
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)

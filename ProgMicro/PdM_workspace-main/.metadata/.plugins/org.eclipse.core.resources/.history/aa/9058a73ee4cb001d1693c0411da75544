@@ -1,0 +1,24 @@
+
+/* Includes ------------------------------------------------------------------*/
+#include "API_debounce.h"
+
+/* Private functions ---------------------------------------------------------*/
+
+/* @brief
+ * Toggle LED1 state whenever a press state is detected
+ * @param  None
+ * @retval None*/
+bool_t readKey(){
+	bool_t flag;
+	if(BSP_PB_GetState(BUTTON_USER)
+}
+
+/* @brief
+ * Toggle LED1 state whenever a press state is detected
+ * @param  None
+ * @retval None*/
+
+void buttonPressed(){
+	BSP_LED_Toggle(LED_GREEN);
+}
+
