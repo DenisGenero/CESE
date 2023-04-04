@@ -1,0 +1,22 @@
+/* Define to prevent recursive inclusion -------------------------------------*/
+#ifndef __API_UART_H
+#define __API_UART_H
+
+/* Includes ------------------------------------------------------------------*/
+#include <stdio.h>
+#include <stdbool.h>
+#include "stm32f4xx_hal_uart.h"
+//#include "stm32f4xx_hal.h"
+//#include "stm32f4xx_nucleo_144.h"
+
+/* Exported types ------------------------------------------------------------*/
+typedef bool bool_t;
+/* Exported constants --------------------------------------------------------*/
+/* Exported macro ------------------------------------------------------------*/
+/* Exported functions ------------------------------------------------------- */
+bool_t uartInit();
+void uartSendString(uint8_t * pstring);
+void uartSendStringSize(uint8_t * pstring, uint16_t size);
+void uartReceiveStringSize(uint8_t * pstring, uint16_t size);
+
+#endif /* __API_UART_H */
