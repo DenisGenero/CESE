@@ -15,12 +15,17 @@ UART_HandleTypeDef UartHandle;
 
 uint8_t initialConfig [] = "\r UART configured: 115200 Baud-rate, 8 bits, Parity: None, 1 stop bit \n\r";
 
+/* @brief: initialize USART3 module. Print UART configuration
+ * @param: none
+ * @retval: none */
+
 bool_t uartInit(){
 
+	/* Flag to indicate correct initialization */
 	bool_t correct_init = true;
-	  /*##-1- Configure the UART peripheral ######################################*/
-	  /* Put the USART peripheral in the Asynchronous mode (UART Mode) */
-	  /* UART configured as follows:
+	/*##-1- Configure the UART peripheral ######################################*/
+	/* Put the USART peripheral in the Asynchronous mode (UART Mode) */
+	/* UART configured as follows:
 	      - Word Length = 8 Bits (7 data bit + 1 parity bit) :
 		                  BE CAREFUL : Program 7 data bits + 1 parity bit in PC HyperTerminal
 	      - Stop Bit    = One Stop bit
@@ -47,18 +52,33 @@ bool_t uartInit(){
 	  return(correct_init);
 }
 
+/* @brief: Send a string chain
+ * @param: pointer to data
+ * @retval: none*/
 void uartSendString(uint8_t * pstring){
 	while(*pstring){
 		HAL_UART_Transmit(&UartHandle, pstring, 1, DEFAULT_TIMEOUT);
 		pstring += 1;
 	}
 }
+
+/* @brief: Send a string chain specifying the data length
+ * @param:
+ * 	- pointer to data
+ * 	- data length
+ * @retva: none*/
 void uartSendStringSize(uint8_t * pstring, uint16_t size){
 	for(uint8_t i=0; i<size; i ++){
 			HAL_UART_Transmit(&UartHandle, pstring, size, DEFAULT_TIMEOUT);
 			pstring ++;
 		}
 }
+
+/* @brief: Receive a string chain data
+ * @param:
+ * 	- pointer to data
+ * 	- data length
+ * @retval: none*/
 void uartReceiveStringSize(uint8_t * pstring, uint16_t size){
 	HAL_UART_Receive(&UartHandle, pstring, size, DEFAULT_TIMEOUT);
 }

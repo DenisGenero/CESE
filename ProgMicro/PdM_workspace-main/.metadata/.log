@@ -6844,3 +6844,6 @@ C Model Exception: C Model Status [Element API_uart.c does not exist.]
 	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:207)
 !SUBENTRY 1 org.eclipse.cdt.core 4 969 2023-04-03 20:42:25.706
 !MESSAGE Element API_uart.c does not exist.
+
+!ENTRY org.eclipse.cdt.core 1 0 2023-04-04 08:49:42.980
+!MESSAGE Indexed 'Practica5_2' (101 sources, 211 headers) in 9,61 sec: 29.591 declarations; 93.807 references; 2 unresolved inclusions; 42 syntax errors; 147 unresolved names (0,12 %)

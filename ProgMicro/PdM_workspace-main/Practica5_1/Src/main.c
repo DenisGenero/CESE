@@ -11,7 +11,14 @@ int main(void)
   /* Configure the system clock to 180 MHz */
   SystemClock_Config();
 
-  uartInit();
+  /* If uart fail to initialize, trap the cpu and blink red led*/
+  if(!uartInit()){
+	  BSP_LED_Init(LED_RED);
+	  while(1){
+		  BSP_LED_Toggle(LED_RED);
+		  HAL_Delay(300);
+	  }
+  }
 
   /* Initialize BSP Led for LED3*/
   BSP_LED_Init(LED3);
