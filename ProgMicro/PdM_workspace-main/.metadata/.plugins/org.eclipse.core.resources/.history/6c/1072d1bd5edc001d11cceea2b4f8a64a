@@ -1,0 +1,124 @@
+/*
+ * mpu9265_SPI.c
+ *
+ *  Created on: 16 abr. 2023
+ *      Author: denis
+ */
+#include "mpu9265_SPI.h"
+
+/* mpu9265 register's directions macros */
+#define GYRO_RESOLUTION		27
+#define ACCEL_RESOLUTION 	28
+#define ACCEL_2G_RES		0bx00010 // 0bx00000000
+#define ACCEL_4G_RES		22 //
+#define ACCEL_8G_RES		2
+#define ACCEL_16G_RES		2
+#define ACCEL_DATA			59
+#define ACCEL_XAXIS			59
+#define ACCEL_YAXIS			61
+#define ACCEL_ZAXIS			63
+#define TEMPERATURE			65
+#define GYRO_DATA			67
+#define GYRO_XAXIS			67
+#define GYRO_YAXIS			69
+#define GYRO_ZAXIS			71
+
+
+
+void MPURead(uint8_t reg, uint8_t *data, uint8_t bytes){
+	CSEnable();
+	SPIRead(reg, data, bytes);
+	CSDisable();
+}
+
+void MPUWrite(uint8_t reg, uint8_t data, uint8_t bytes){
+	CSEnable();
+	SPIWrite(reg, data, bytes);
+	CSDisable();
+}
+
+uint16_t converData(uint8_t msbData, uint8_t lsbData){
+	uint16_t result = msbData<<8 | lsbData;
+	return (result);
+}
+
+/* Accelerometer functions */
+void MPUReadAccel(uint8_t *data){
+	/* Accelerometer gives 6 bytes of data:
+	 * two bytes for each axis */
+	uint8_t byteCount = 6;
+	MPURead(ACCEL_DATA, data, byteCount);
+}
+
+uint16_t MPUReadAccelXAxis(){
+	uint8_t byteCount = 2;
+	uint8_t *data;
+	MPURead(ACCEL_XAXIS, data, byteCount);
+	uint16_t result = converData(data[0], data[1]);
+	return(result);
+}
+
+uint16_t MPUReadAccelYAxis(){
+	uint8_t byteCount = 2;
+	uint8_t *data;
+	MPURead(ACCEL_YAXIS, data, byteCount);
+	uint16_t result = converData(data[0], data[1]);
+	return(result);
+}
+
+uint16_t MPUReadAccelZAxis(){
+	uint8_t byteCount = 2;
+	uint8_t *data;
+	MPURead(ACCEL_YAXIS, data, byteCount);
+	uint16_t result = converData(data[0], data[1]);
+	return(result);
+}
+
+//uint8_t getActualAccelRes(){
+//void SPIRead(uint8_t reg, uint8_t *data, uint8_t length);
+//}
+
+void MPUAccelCalibration(){
+
+}
+
+/* Temperature sensor */
+uint16_t MPUReadTemperature(){
+	uint8_t byteCount = 2;
+	uint8_t *data;
+	MPURead(TEMPERATURE, data, byteCount);
+	uint16_t result = converData(data[0], data[1]);
+	return(result);
+}
+
+/* Gyroscope functions */
+void MPUReadGyro(uint8_t *data){
+	/* Gyroscope gives 6 bytes of data:
+	 * two bytes for each axis */
+	uint8_t byteCount = 6;
+	MPURead(GYRO_DATA, data, byteCount);
+}
+
+uint16_t MPUReadGyroXAxis(){
+	uint8_t byteCount = 2;
+	uint8_t *data;
+	MPURead(GYRO_XAXIS, data, byteCount);
+	uint16_t result = converData(data[0], data[1]);
+	return(result);
+}
+
+uint16_t MPUReadGyroYAxis(){
+	uint8_t byteCount = 2;
+	uint8_t *data;
+	MPURead(GYRO_YAXIS, data, byteCount);
+	uint16_t result = converData(data[0], data[1]);
+	return(result);
+}
+
+uint16_t MPUReadGyroZAxis(){
+	uint8_t byteCount = 2;
+	uint8_t *data;
+	MPURead(GYRO_ZAXIS, data, byteCount);
+	uint16_t result = converData(data[0], data[1]);
+	return(result);
+}

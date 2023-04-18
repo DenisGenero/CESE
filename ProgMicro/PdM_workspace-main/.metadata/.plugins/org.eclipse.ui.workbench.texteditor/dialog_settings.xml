@@ -6,19 +6,34 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="actualState"/>
+		<item key="selection" value="LD1"/>
 		<list key="findhistory">
-			<item value="actualState"/>
-			<item value="&#x09;BSP_LED_Init(LED_RED);"/>
+			<item value="LD1"/>
+			<item value="CS_"/>
+			<item value="nvic"/>
+			<item value="RX"/>
+			<item value="NVIC"/>
+			<item value="usart"/>
+			<item value="polling"/>
+			<item value="non blocking"/>
+			<item value="static"/>
+			<item value="MPUWrite"/>
+			<item value="CSDisable"/>
+			<item value="Timeout"/>
+			<item value="setLedOn"/>
+			<item value="sendBuffer"/>
+			<item value="colorFlag"/>
 		</list>
 		<list key="replacehistory">
+			<item value="turnLedOn"/>
+			<item value="DMAStoped"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="782"/>
-		<item key="DIALOG_Y_ORIGIN" value="196"/>
-		<item key="DIALOG_WIDTH" value="363"/>
-		<item key="DIALOG_HEIGHT" value="437"/>
-		<item key="DIALOG_FONT_NAME" value="1|Ubuntu|11.0|0|GTK|1|"/>
+		<item key="DIALOG_X_ORIGIN" value="1476"/>
+		<item key="DIALOG_Y_ORIGIN" value="527"/>
+		<item key="DIALOG_WIDTH" value="414"/>
+		<item key="DIALOG_HEIGHT" value="454"/>
+		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
 	</section>
 </section>

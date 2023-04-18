@@ -1,0 +1,74 @@
+/*
+ * mpu9265_SPI.c
+ *
+ *  Created on: 16 abr. 2023
+ *      Author: denis
+ */
+#include "mpu9265_SPI.h"
+
+/* mpu9265 register's directions macros */
+#define GYRO_RESOLUTION		27
+#define ACCEL_RESOLUTION 	28
+#define ACCEL_DATA			59
+#define ACCEL_XAXIS			59
+#define ACCEL_YAXIS			61
+#define ACCEL_ZAXIS			63
+#define TEMPERATURE			65
+#define GYRO_DATA			67
+#define GYRO_XAXIS			67
+#define GYRO_YAXIS			69
+#define GYRO_ZAXIS			71
+
+
+
+void MPURead(uint8_t reg, uint_16 *data, uint8_t bytes){
+	CSEnalbe();
+	SPIRead(reg, data, bytes);
+	CSDisable();
+}
+
+uint16_t converData(uint8_t msbData, uint8_t lsbData){
+	uint16_t result = msbData<<8 | lsbData;
+	return (result)
+}
+
+/* Accelerometer functions */
+void MPUReadAccel(uint16_t *data){
+	/* Accelerometer gives 6 bytes of data:
+	 * two bytes for each axis */
+	uint8_t byteCount = 6;
+	MPURead(ACCEL_DATA, data, byteCount);
+}
+
+uint16_t MPUReadAccelXAxis(uint16_t *data){
+	uint8_t byteCount = 2;
+	MPURead(ACCEL_XAXIS, data, byteCount);
+	uint16_t result = converData(data[0], data[1]);
+	return(result);
+}
+
+uint16_t MPUReadAccelYAxis(uint16_t *data){
+	uint8_t byteCount = 2;
+	MPURead(ACCEL_YAXIS, data, byteCount);
+	uint16_t result = converData(*data, *(data++));
+	return(result);
+}
+
+void MPUReadAccelZAxis(uint16_t *data){
+	uint8_t byteCount = 2;
+	MPURead(ACCEL_YAXIS, data, byteCount);
+}
+
+void MPUAccelCalibration();
+
+/* Temperature sensor */
+void MPUReadTemperature(uint16_t *data){
+	uint8_t byteCount = 2;
+	MPURead(TEMPERATURE, data, byteCount);
+}
+
+/* Gyroscope functions */
+void MPUReadGyro(uint16_t *data);
+void MPUReadGyroXAxis(uint16_t *data);
+void MPUReadGyroYAxis(uint16_t *data);
+void MPUReadGyroZAxis(uint16_t *data);

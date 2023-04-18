@@ -1,0 +1,14 @@
+Neopixel4x4.c:52:6:peripheralInit	1
+Neopixel4x4.c:62:6:neopixelInit	4
+Neopixel4x4.c:94:6:loadLedColor	5
+Neopixel4x4.c:117:6:loadNumLedColor	4
+Neopixel4x4.c:136:6:turnLedOn	3
+Neopixel4x4.c:150:6:turnLedOff	3
+Neopixel4x4.c:166:6:turnColumnOn	3
+Neopixel4x4.c:181:6:turnColumnOff	2
+Neopixel4x4.c:196:6:turnRowOn	3
+Neopixel4x4.c:211:6:turnRowOff	2
+Neopixel4x4.c:225:6:turnCenterOn	1
+Neopixel4x4.c:237:6:turnAllOff	3
+Neopixel4x4.c:250:6:turnSecuenceOn	1
+Neopixel4x4.c:259:6:fillSendBuffer	6

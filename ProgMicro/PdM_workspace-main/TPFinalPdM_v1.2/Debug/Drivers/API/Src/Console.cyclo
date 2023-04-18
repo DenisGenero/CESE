@@ -1,0 +1,6 @@
+Console.c:12:6:ConsoleInit	1
+Console.c:16:6:ConsoleNewData	1
+Console.c:24:6:ConsolePrintStr	1
+Console.c:35:6:ConsolePrintFloat	6
+Console.c:80:9:ConsoleDataReceive	1
+Console.c:84:6:ConsoleClear	2

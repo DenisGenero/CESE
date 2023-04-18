@@ -1,0 +1,26 @@
+#include "main.h"
+#include "mpu9265_SPI.h"
+
+int main(void){
+
+	APISysInit();
+
+	uint16_t accel_x, accel_y;
+	/* USER CODE END 2 */
+
+	/* Infinite loop */
+	/* USER CODE BEGIN WHILE */
+	while (1)
+	{
+		/*El registro 59 es a partir de donde está la información del acelerómetro*/
+		accel_x = MPUReadAccelXAxis();
+		accel_y = MPUReadAccelYAxis();
+		HAL_Delay(100);
+		/* USER CODE END WHILE */
+
+		/* USER CODE BEGIN 3 */
+	}
+	/* USER CODE END 3 */
+}
+
+

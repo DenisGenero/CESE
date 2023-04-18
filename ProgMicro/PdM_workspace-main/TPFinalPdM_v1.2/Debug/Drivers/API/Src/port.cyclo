@@ -1,0 +1,13 @@
+port.c:27:6:uartInit	1
+port.c:31:6:HAL_UART_RxCpltCallback	1
+port.c:41:6:uartSendString	2
+port.c:52:9:uartReceiveString	1
+port.c:60:6:uartNewData	1
+port.c:71:6:APISysInit	1
+port.c:86:6:SystemClock_Config	3
+port.c:132:6:MX_SPI1_Init	2
+port.c:158:6:MX_TIM1_Init	7
+port.c:222:6:MX_USART3_UART_Init	2
+port.c:241:6:MX_DMA_Init	1
+port.c:259:6:MX_GPIO_Init	1
+port.c:356:6:Error_Handler	1

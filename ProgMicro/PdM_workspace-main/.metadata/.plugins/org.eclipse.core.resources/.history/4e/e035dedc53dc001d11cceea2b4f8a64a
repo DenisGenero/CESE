@@ -1,0 +1,39 @@
+/*
+ * mpu9265_SPI.h
+ *
+ *  Created on: 16 abr. 2023
+ *      Author: denis
+ */
+
+#ifndef API_MPU9265_SPI_H_
+#define API_MPU9265_SPI_H_
+
+#include <stdint.h>
+#include "stm32f4xx_hal_spi.h"
+#include "stm32f4xx_hal_gpio.h"
+
+void MPURead(uint8_t reg, uint8_t *data, uint8_t bytes);
+
+/* Accelerometer functions */
+void MPUReadAccel(uint8_t *data);
+uint16_t MPUReadAccelXAxis(uint8_t *data);
+uint16_t MPUReadAccelYAxis(uint8_t *data);
+uint16_t MPUReadAccelZAxis(uint8_t *data);
+void MPUAccelCalibration();
+
+/* Temperature sensor */
+uint16_t MPUReadTemperature(uint8_t *data);
+
+/* Gyroscope functions */
+void MPUReadGyro(uint8_t *data);
+void MPUReadGyroXAxis(uint8_t *data);
+void MPUReadGyroYAxis(uint8_t *data);
+void MPUReadGyroZAxis(uint8_t *data);
+
+/* Wrappers */
+void CSEnable();
+void CSDisable();
+void SPIRead(uint8_t reg, uint8_t *data, uint8_t length);
+
+
+#endif /* API_MPU9265_SPI_H_ */

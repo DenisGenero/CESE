@@ -1,0 +1,28 @@
+#include "main.h"
+#include "mpu9265_SPI.h"
+
+int main(void){
+
+	APISysInit();
+
+	uint16_t accel_x, accel_y;
+
+	while (1)
+	{
+//		setAccel2G();
+		for (uint8_t i = 0; i < 10; i++){
+			accel_x = MPUReadAccelXAxis();
+			accel_y = MPUReadAccelYAxis();
+			HAL_Delay(100);
+		}
+
+//		setAccel16G();
+		for (uint8_t i = 0; i < 10; i++){
+			accel_x = MPUReadAccelXAxis();
+			accel_y = MPUReadAccelYAxis();
+			HAL_Delay(100);
+		}
+	}
+}
+
+
