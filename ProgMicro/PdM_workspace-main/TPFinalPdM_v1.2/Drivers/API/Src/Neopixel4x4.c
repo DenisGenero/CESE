@@ -215,6 +215,74 @@ void turnRowOff(uint8_t row){
 	}
 }
 
+/* @brief: turn on the 4 center leds
+ * @params:
+ *			- red: red color intensity (zero is off)
+ * 			- green: green color intensity (zero is off)
+ * 			- blue: blue color intensity (zero is off)
+ * @retval: None
+ * */
+void turnCenterOn(uint8_t red, uint8_t green, uint8_t blue){
+	loadNumLedColor(6, red, green, blue);
+	loadNumLedColor(7, red, green, blue);
+	loadNumLedColor(10, red, green, blue);
+	loadNumLedColor(11, red, green, blue);
+	turnSecuenceOn();
+}
+
+/* @brief: Turn on left-up corner according to the above graphic.
+ * @param: None
+ * @retval: None
+ * */
+void turnCornerOn00(){
+	turnLedOn(0, 0, 1, 0, 0);
+	turnLedOn(0, 1, 1, 0, 0);
+	turnLedOn(1, 0, 1, 0, 0);
+}
+
+/* @brief: Turn on right-up corner according to the above graphic.
+ * @param: None
+ * @retval: None
+ * */
+void turnCornerOn03(){
+	turnLedOn(2, 0, 1, 0, 0);
+	turnLedOn(3, 0, 1, 0, 0);
+	turnLedOn(3, 1, 1, 0, 0);
+}
+
+/* @brief: Turn on left-down corner according to the above graphic.
+ * @param: None
+ * @retval: None
+ * */
+void turnCornerOn30(){
+	turnLedOn(0, 2, 1, 0, 0);
+	turnLedOn(0, 3, 1, 0, 0);
+	turnLedOn(1, 3, 1, 0, 0);
+}
+
+/* @brief: Turn on right-down corner according to the above graphic.
+ * @param: None
+ * @retval: None
+ * */
+void turnCornerOn33(){
+	turnLedOn(2, 3, 1, 0, 0);
+	turnLedOn(3, 2, 1, 0, 0);
+	turnLedOn(3, 3, 1, 0, 0);
+}
+
+/* @brief: Turn all led off
+ * @param: None
+ * @retval: None
+ * */
+void turnAllOff(){
+	for (uint8_t i = 0; i < MATRIX_ROWS; i++){
+		for (uint8_t j = 0; j < MATRIX_COLUMNS; j++){
+			loadLedColor(i, j, 0, 0, 0);
+		}
+	}
+	turnSecuenceOn();
+}
+
 /* @brief: Send data buffer to the pwm output.
  * @param: none
  * @retval: none

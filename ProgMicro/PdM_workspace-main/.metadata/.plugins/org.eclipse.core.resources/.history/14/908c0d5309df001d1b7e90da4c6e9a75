@@ -1,0 +1,25 @@
+//#include "main.h"
+//#include "port.h"
+#include "Console.h"
+#include "DigitalLevel.h"
+
+/**
+  * @brief  The application entry point.
+  * @retval int
+  */
+int main(void)
+{
+	/* MCU peripherals configurations */
+	APISysInit();
+
+	ConsoleInit();
+	uint8_t welcomeMsg [] = "Bienvenidos al Nivel Digital \r\n";
+	ConsolePrintStr(welcomeMsg);
+	digitalLevInit();
+
+	while (1)
+	{
+		digitalLevUpdate();
+
+	}
+}

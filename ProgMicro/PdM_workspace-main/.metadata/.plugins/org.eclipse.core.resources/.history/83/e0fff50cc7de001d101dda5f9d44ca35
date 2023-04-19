@@ -1,0 +1,43 @@
+#include "main.h"
+#include "port.h"
+#include "Console.h"
+#include "DigitalLevel.h"
+
+/**
+  * @brief  The application entry point.
+  * @retval int
+  */
+int main(void)
+{
+	/* MCU peripherals configurations */
+	APISysInit();
+
+	ConsoleInit();
+	ConsoleClear();
+	uint8_t welcomeMsg [] = "Bienvenidos al Nivel Digital \r\n";
+	uint8_t measureMsg [] = "Las medidas  son: \r\n";
+	uint8_t xDataMsg [] = "Plano x: ";
+	uint8_t yDataMsg [] = "Plano y: ";
+	ConsolePrintStr(welcomeMsg);
+	ConsolePrintStr(measureMsg);
+	int16_t xAngle, yAngle;
+//	HAL_Delay(1000);
+//	ConsoleClear();
+//	uint8_t op;
+//	ConsolePrintStr(pData);
+
+	while (1)
+	{
+		xAngle = getXAngle();
+		yAngle = getYAngle();
+		ConsolePrintDeg(xDataMsg);
+		ConsolePrintDeg(xAngle);
+		ConsolePrintDeg(yDataMsg);
+		ConsolePrintDeg(yAngle);
+
+//		if(ConsoleNewData()){
+//			op = ConsoleDataReceive();
+//			ConsolePrintStr(op);
+		}
+	}
+}

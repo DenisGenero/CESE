@@ -1,6 +1,5 @@
-#include "main.h"
-#include "port.h"
 #include "Console.h"
+#include "DigitalLevel.h"
 
 /**
   * @brief  The application entry point.
@@ -11,30 +10,17 @@ int main(void)
 	/* MCU peripherals configurations */
 	APISysInit();
 
+	/* Initialize serial console */
 	ConsoleInit();
-	ConsoleClear();
-	uint8_t pData[] = "La concha de tu madre \n";
-	uint8_t pData2[] = "\r Cariverga ";
-	uint8_t pData3[] = "\r Chupacu489";
-	ConsolePrintStr(pData);
-	ConsolePrintStr(pData2);
-	ConsolePrintStr(pData3);
-	HAL_Delay(1000);
-	ConsoleClear();
-	uint8_t op[1];
-	ConsolePrintStr(pData);
+	uint8_t welcomeMsg [] = "Bienvenidos al Nivel Digital \r\n";
+	/* Send welcome mesageg and start the digital level FSM */
+	ConsolePrintStr(welcomeMsg);
+	digitalLevInit();
 
 	while (1)
 	{
-		ConsolePrintStr(pData2);
-		ConsolePrintFloat(12.254);
-		HAL_Delay(500);
-		ConsolePrintStr(pData3);
-		ConsolePrintFloat(0.25);
-		HAL_Delay(500);
-		if(ConsoleNewData()){
-			op[1] = ConsoleDataReceive();
-			ConsolePrintStr(op);
-		}
+		/* Update digital level FSM */
+		digitalLevUpdate();
+
 	}
 }

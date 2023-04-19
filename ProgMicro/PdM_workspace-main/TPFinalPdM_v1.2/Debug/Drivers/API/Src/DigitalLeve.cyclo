@@ -1,0 +1,7 @@
+DigitalLeve.c:68:13:setLowSensibility	1
+DigitalLeve.c:73:13:setMedSensibility	1
+DigitalLeve.c:78:13:setHighSensibility	1
+DigitalLeve.c:88:16:getXAngle	2
+DigitalLeve.c:109:16:getYAngle	2
+DigitalLeve.c:129:6:digitalLevInit	1
+DigitalLeve.c:147:6:digitalLevUpdate	34

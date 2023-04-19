@@ -7,12 +7,21 @@
 
 #include "Console.h"
 
-uint16_t printedLines = 0;
+/* Variable to keep the count of lines printed */
+static uint16_t printedLines = 0;
 
+/* @brief: Initialize the serial console through uart port
+ * @param: None
+ * @retval: None
+ * */
 void ConsoleInit(){
 	uartInit();
 }
 
+/* @brief: Indicates if there is new data in console
+ * @param: None
+ * @retval: true if data is available
+ * */
 bool ConsoleNewData(){
 	return(uartNewData());
 }
@@ -24,6 +33,45 @@ bool ConsoleNewData(){
 void ConsolePrintStr(uint8_t *pstring){
 	uartSendString(pstring);
 	printedLines ++;
+}
+
+/* @brief: Print an integer number up to 3 digits
+ * @param: data to be printed
+ * @retval: None
+ *  */
+void ConsolePrintDeg(int16_t degree){
+	/* Amount of digit to print (included sign) */
+	uint8_t digitNumber = 4;
+	uint8_t buffer[digitNumber];
+	uint8_t degMark[] = " grad.\r\n";
+	uint16_t num;
+	uint8_t plusMark[] = "+";
+	uint8_t minusMark[] = "-";
+	uint8_t spaceMark[] = "\0";
+	/* If number is negative, add a minus sign */
+	if(degree < 0){
+		buffer[0] = minusMark[0];
+		num = -degree;
+	}
+	else {
+		buffer[0] = plusMark[0];
+		num = degree;
+	}
+	for(uint8_t i = 1; i <= digitNumber - 1; i ++){
+			buffer[digitNumber - i] = num%10 + 48;
+			num = num/10;
+		}
+	if(buffer[1] == 48){
+		buffer[1] = buffer[2];
+		buffer[2] = buffer[3];
+		buffer[3] = spaceMark[0];
+		if(buffer[1] == 48){
+			buffer[1] = buffer[2];
+			buffer[2] = spaceMark[0];
+		}
+	}
+	ConsolePrintStr(buffer);
+	ConsolePrintStr(degMark);
 }
 
 /* @brief: print a float point of up to 3 digits in the integer position and up
@@ -74,13 +122,18 @@ void ConsolePrintFloat(float number){
 	printedLines ++;
 }
 
-//void ConsoleDataReceive(uint8_t *pData){
-//	uartReceiveString(pData);
-//}
+/* @brief: Receive incoming data in non blocking mode
+ * @param: None
+ * @retval: pointer to data received
+ * */
 uint8_t ConsoleDataReceive(){
 	return(uartReceiveString());
 }
 
+/* @brief: Clear printed lines. Warning: Not all console support escape commands
+ * @param: None
+ * @retval: None
+ * */
 void ConsoleClear(){
 //	uint8_t clearCommand [] = "\033[2J";
 	uint8_t clearCommand[] = "\r                                                                           \n";

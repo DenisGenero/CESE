@@ -61,7 +61,7 @@ static void MPUWrite(uint8_t reg, uint8_t command){
  * 			- lsbData: MSB portion of the data
  * @retval: new value in the uint16_t format
  * */
-static uint16_t converData(uint8_t msbData, uint8_t lsbData){
+static uint16_t convertData(uint8_t msbData, uint8_t lsbData){
 	uint16_t result = msbData<<8 | lsbData;
 	return (result);
 }
@@ -107,7 +107,7 @@ uint16_t MPUReadAccelXAxis(){
 	uint8_t byteCount = 2;
 	uint8_t *data = &byteCount;
 	MPURead(ACCEL_XAXIS, data, byteCount);
-	uint16_t result = converData(data[0], data[1]);
+	uint16_t result = convertData(data[0], data[1]);
 	return(result);
 }
 
@@ -119,7 +119,7 @@ uint16_t MPUReadAccelYAxis(){
 	uint8_t byteCount = 2;
 	uint8_t *data = &byteCount;
 	MPURead(ACCEL_YAXIS, data, byteCount);
-	uint16_t result = converData(data[0], data[1]);
+	uint16_t result = convertData(data[0], data[1]);
 	return(result);
 }
 
@@ -131,7 +131,7 @@ uint16_t MPUReadAccelZAxis(){
 	uint8_t byteCount = 2;
 	uint8_t *data = &byteCount;
 	MPURead(ACCEL_YAXIS, data, byteCount);
-	uint16_t result = converData(data[0], data[1]);
+	uint16_t result = convertData(data[0], data[1]);
 	return(result);
 }
 
@@ -186,7 +186,7 @@ uint16_t MPUReadTemperature(){
 	uint8_t byteCount = 2;
 	uint8_t *data = &byteCount;
 	MPURead(TEMPERATURE, data, byteCount);
-	uint16_t result = converData(data[0], data[1]);
+	uint16_t result = convertData(data[0], data[1]);
 	return(result);
 }
 
@@ -212,7 +212,7 @@ uint16_t MPUReadGyroXAxis(){
 	uint8_t byteCount = 2;
 	uint8_t *data = &byteCount;
 	MPURead(GYRO_XAXIS, data, byteCount);
-	uint16_t result = converData(data[0], data[1]);
+	uint16_t result = convertData(data[0], data[1]);
 	return(result);
 }
 
@@ -224,7 +224,7 @@ uint16_t MPUReadGyroYAxis(){
 	uint8_t byteCount = 2;
 	uint8_t *data = &byteCount;
 	MPURead(GYRO_YAXIS, data, byteCount);
-	uint16_t result = converData(data[0], data[1]);
+	uint16_t result = convertData(data[0], data[1]);
 	return(result);
 }
 
@@ -236,7 +236,7 @@ uint16_t MPUReadGyroZAxis(){
 	uint8_t byteCount = 2;
 	uint8_t *data = &byteCount;
 	MPURead(GYRO_ZAXIS, data, byteCount);
-	uint16_t result = converData(data[0], data[1]);
+	uint16_t result = convertData(data[0], data[1]);
 	return(result);
 }
 

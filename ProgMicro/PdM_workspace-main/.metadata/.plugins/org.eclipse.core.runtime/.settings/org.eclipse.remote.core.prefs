@@ -1,0 +1,16 @@
+connections/org.eclipse.remote.serial.core.connectionType/Denis/serial.baudRate=11
+connections/org.eclipse.remote.serial.core.connectionType/Denis/serial.byteSize=3
+connections/org.eclipse.remote.serial.core.connectionType/Denis/serial.parity=0
+connections/org.eclipse.remote.serial.core.connectionType/Denis/serial.portName=COM4
+connections/org.eclipse.remote.serial.core.connectionType/Denis/serial.stopBits=0
+connections/org.eclipse.remote.serial.core.connectionType/Denis2/serial.baudRate=11
+connections/org.eclipse.remote.serial.core.connectionType/Denis2/serial.byteSize=3
+connections/org.eclipse.remote.serial.core.connectionType/Denis2/serial.parity=0
+connections/org.eclipse.remote.serial.core.connectionType/Denis2/serial.portName=COM4
+connections/org.eclipse.remote.serial.core.connectionType/Denis2/serial.stopBits=0
+connections/org.eclipse.remote.serial.core.connectionType/TestConsole/serial.baudRate=11
+connections/org.eclipse.remote.serial.core.connectionType/TestConsole/serial.byteSize=3
+connections/org.eclipse.remote.serial.core.connectionType/TestConsole/serial.parity=0
+connections/org.eclipse.remote.serial.core.connectionType/TestConsole/serial.portName=COM4
+connections/org.eclipse.remote.serial.core.connectionType/TestConsole/serial.stopBits=0
+eclipse.preferences.version=1

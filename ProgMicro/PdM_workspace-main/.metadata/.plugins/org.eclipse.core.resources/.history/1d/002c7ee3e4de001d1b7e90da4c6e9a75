@@ -1,0 +1,14 @@
+/*
+ * DigitalLevel.h
+ *
+ *  Created on: 18 abr. 2023
+ *      Author: denis
+ */
+
+#ifndef API_INC_DIGITALLEVEL_H_
+#define API_INC_DIGITALLEVEL_H_
+
+int16_t getXAngle();
+int16_t getYAngle();
+
+#endif /* API_INC_DIGITALLEVEL_H_ */

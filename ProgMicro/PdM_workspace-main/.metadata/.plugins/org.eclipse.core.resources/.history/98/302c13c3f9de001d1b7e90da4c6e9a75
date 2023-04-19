@@ -1,0 +1,224 @@
+/*
+ * DigitalLeve.c
+ *
+ *  Created on: 18 abr. 2023
+ *      Author: denis
+ */
+
+#include "API_delay.h"
+#include "Console.h"
+#include "API_debounce.h"
+#include "mpu9265_SPI.h"
+#include "Neopixel4x4.h"
+
+/* Accelerometer reference to determine the inclination plane*/
+#define ACCEL_REF	32768 // (2^15) --> half range for each plane
+#define CALIB_POS 50000
+
+typedef enum{
+	IDLE,
+	MEASURE,
+	CONFIG,
+	SENSIBILITY,
+	REFERENCE
+} LevelState_t;
+
+/* FSM state variable */
+static LevelState_t actualState;
+
+/* API messages */
+static uint8_t idleMsg[] = "Dispositivo en REPOSO. Pulse el botón para comenzar a medir\r\n";
+static uint8_t measureMsg[] = "Dispositivo en MEDICIÓN. Ingrese por consola para configuración.\r\n Lecturas obtenidas: \r\n";
+static uint8_t xDataMsg [] = "Plano x: ";
+static uint8_t yDataMsg [] = "Plano y: ";
+static uint8_t configMsg[] = "Dispositivo en modo CONFIGURAiÓN.Ingrese:\r\n1- Sensibilidad\r\n2-Nueva referencia";
+static uint8_t sensMsg[] = "Seleccione sensibilidad:\r\n1- Alta\r\n2- Media(Por defecto)\r\n3- Baja";
+static uint8_t refMsg[] = "Deje el dispositivo en la nueva posisión. Cuando la pantalla se ponga verde estará seteado.";
+
+static uint8_t option1;
+
+/* Variables to set new zero position */
+static uint16_t xZero = 0;
+static int16_t yZero = 0;
+
+/* Variables to work with inclination measure */
+static int16_t xAngle, yAngle;
+static int16_t xOffset = 10;
+static int16_t yOffset = 10;
+
+/* Delay to getting out of configuration mode, if no command sent. 10 seconds*/
+static delay_t configDelay, sensDelay, refDelay;
+static tick_t maxDelay = 10000;
+
+/* @brief: Inform the actual angle of the X axis
+ * @param: None
+ * @retval: The actual angle read from mpu9265 accelerometer.
+ * This could be a value from -90° to 90°
+ * */
+
+int16_t getXAngle(){
+	int16_t retAngle;
+	uint16_t xAccel = MPUReadAccelXAxis();
+	/* See in which plane is inclined to determine how
+	 * to calculate the angle*/
+	/* Positive angles */
+	if(xAccel > ACCEL_REF){
+		retAngle = 90 - (int16_t)((xAccel-CALIB_POS)/173);
+	}
+	/* Negative angles */
+	else{
+		retAngle = (int16_t)-xAccel/178;
+	}
+	return (retAngle);
+}
+
+int16_t getYAngle(){
+	int16_t retAngle;
+	uint16_t yAccel = MPUReadAccelYAxis();
+	/* See in which plane is inclined to determine how
+	 * to calculate the angle*/
+	/* Positive angles */
+	if(yAccel > ACCEL_REF){
+		retAngle = 90 - (int16_t)((yAccel-CALIB_POS)/173);
+	}
+	/* Negative angles */
+	else{
+		retAngle = (int16_t)-yAccel/178;
+	}
+	return (retAngle);
+}
+
+/* @brief: Start digital level FSM in idle state
+ * @param: None
+ * @retval: None
+ * */
+void digitalLevInit(){
+	neopixelInit();
+	debounceFSM_init();
+	delayInit(&configDelay, maxDelay);
+	delayInit(&sensDelay, maxDelay);
+	delayInit(&refDelay, maxDelay);
+	actualState = IDLE;
+	/* Indicate idle mode */
+	ConsolePrintStr(idleMsg);
+}
+
+void digitalLevUpdate(){
+	debounceFSM_update();
+	switch(actualState){
+	case IDLE:
+		/* Reset neopixel matrix*/
+		turnAllOff();
+		/* Indicate idle mode */
+		turnCenterOn(1, 0, 0);
+		if (readKey()){
+			actualState = MEASURE;
+		}
+		break;
+	case MEASURE:
+		/* Indicate measure mode */
+		ConsolePrintStr(measureMsg);
+		/* If key pressed go to idle mode*/
+		if (readKey()){
+			actualState = IDLE;
+			/* Indicate idle mode */
+			ConsolePrintStr(idleMsg);
+		}
+		/* If get data by console, go to configuration mode*/
+		if(ConsoleNewData()){
+			actualState = CONFIG;
+			CosnolePrintStr(configMsg);
+		}
+		xAngle = getXAngle();
+		yAngle = getYAngle();
+		/* Show in console actual degrees read */
+		ConsolePrintStr(xDataMsg);
+		ConsolePrintDeg(xAngle);
+		ConsolePrintStr(yDataMsg);
+		ConsolePrintDeg(yAngle);
+		/* Show if there is inclination */
+		bool moved = false;
+		/* Movement's direction determination */
+		if(xAngle > xOffset){
+			moved = true;
+			turnAllOff();
+			/* Compound movement: */
+			if(yAngle > yOffset){
+				turnCornerOn00();
+			}
+			if (yAngle < -yOffset){
+				turnCornerOn03();
+			}
+			/* X axis only movements */
+			if (-yOffset < yAngle && yAngle < yOffset){
+				turnColumnOn(0, 1, 0, 0);
+			}
+		}
+		if(xAngle < -xOffset){
+			moved = true;
+			turnAllOff();
+			/* Compound movement: */
+			if(yAngle > yOffset){
+				turnCornerOn30();
+			}
+			if (yAngle < -yOffset){
+				turnCornerOn33();
+			}
+			/* X axis only movements */
+			if (-yOffset < yAngle && yAngle < yOffset){
+				turnColumnOn(3, 1, 0, 0);
+			}
+		}
+		/* Y axis only movements */
+		if((!moved) && (yAngle > yOffset)){
+			turnAllOff();
+			turnRowOn(0, 1, 0, 0);
+			moved = true;
+		}
+		if ((!moved) && (yAngle < -yOffset)){
+			turnAllOff();
+			turnRowOn(3, 1, 0, 0);
+			moved = true;
+		}
+		/* Indicate correct leveling */
+		if (!moved){
+			turnAllOff();
+			turnCenterOn(0, 1, 0);
+		}
+		break;
+	case CONFIG:
+		turnAllOff();
+		/* Indicate configuration mode */
+		turnCenterOn(0, 0, 1);
+		/* Start delay count. If 10 seconds pass, the get out of the configuration mode */
+		if(delayRead(&configDelay)){
+			actualState = IDLE;
+		}
+		if(ConsoleNewData()){
+			option1 = ConsoleDataReceive();
+			if (option1 == 49){
+				actualState = SENSIBILITY;
+			}
+			else{
+				actualState = REFERENCE;
+			}
+		}
+		break;
+	case SENSIBILITY:
+		/* Start delay count. If 10 seconds pass, the get out of the configuration mode */
+		if(delayRead(&sensDelay)){
+			actualState = IDLE;
+		}
+		if(ConsoleNewData()){
+			option1 = ConsoleDataReceive();
+		}
+		switch(option1){
+		case 49:
+
+		}
+		break;
+	case REFERENCE:
+
+
+	}
+}

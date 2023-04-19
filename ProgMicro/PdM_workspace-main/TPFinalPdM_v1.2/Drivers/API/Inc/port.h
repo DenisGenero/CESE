@@ -20,7 +20,6 @@ void MX_SPI1_Init(void);
 void MX_USART3_UART_Init(void);
 
 void uartInit();
-//void uartReceiveString(uint8_t *pData);
 uint8_t uartReceiveString();
 void uartSendString(uint8_t *pstring);
 bool uartNewData();

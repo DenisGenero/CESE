@@ -1,0 +1,118 @@
+/*
+ * DigitalLeve.c
+ *
+ *  Created on: 18 abr. 2023
+ *      Author: denis
+ */
+
+#include "API_delay.h"
+#include "API_debounce.h"
+#include "mpu9265_SPI.h"
+#include "Neopixel4x4.h"
+
+/* Accelerometer reference to determine the inclination plane*/
+#define ACCEL_REF	32768 // (2^15) --> half range for each plane
+#define CALIB_POS 50000
+
+typedef enum{
+	IDLE,
+	MEASURE,
+	CONFIG
+} LevelState_t;
+
+static LevelState_t actualState;
+static uint8_t idleMsg[] = "Dispositivo en REPOSO. Pulse el botón para comenzar a medir\r\n";
+static uint8_t measureMsg[] = "Dispositivo en medición. Lecturas obtenidas: \r\n";
+//TODO: Config message
+static uint8_t xDataMsg [] = "Plano x: ";
+static uint8_t yDataMsg [] = "Plano y: ";
+
+static int16_t xAngle, yAngle;
+
+
+/* @brief: Start digital level FSM in idle state
+ * @param: None
+ * @retval: None
+ * */
+void digitalLevInit(){
+	actualState = IDLE;
+}
+
+void digitalLevUpdate(){
+	switch(actualState){
+	case IDLE:
+		/* Reset neopixel matrix*/
+		turnAllOff();
+		/* Indicate idle mode */
+		turnCenterOn(1, 0, 0);
+		/* Clear serial console */
+		ConsoleClear();
+		/* Indicate idle mode */
+		ConsolePrintStr(idleMsg);
+		if (readKey()){
+			actualState = MEASURE;
+		}
+		// TODO: Implement configuration mode
+		/*if(ConsoleNewData){
+		 * actualState = CONFIG;
+		 * */
+		break;
+	case MEASURE:
+		/* Reset neopixel matrix*/
+		turnAllOff();
+		/* Clear serial console */
+		ConsoleClear();
+		/* Indicate measure mode */
+		ConsolePrintStr(measureMsg);
+		if (readKey()){
+			actualState = MEASURE;
+		}
+		xAngle = getXAngle();
+		yAngle = getYAngle();
+		/* Show in console actual degrees read */
+		ConsolePrintStr(xDataMsg);
+		ConsolePrintDeg(xAngle);
+		ConsolePrintStr(yDataMsg);
+		ConsolePrintDeg(yAngle);
+	}
+}
+
+/* @brief: Inform the actual angle of the X axis
+ * @param: None
+ * @retval: The actual angle read from mpu9265 accelerometer.
+ * This could be a value from -90° to 90°
+ * */
+uint8_t shiftBits = 1;
+uint8_t accelRes = 2;
+
+int16_t getXAngle(){
+	int16_t retAngle;
+	uint16_t xAccel = MPUReadAccelXAxis();
+	/* See in which plane is inclined to determine how
+	 * to calculate the angle*/
+	/* Positive angles */
+	if(xAccel > ACCEL_REF){
+		retAngle = 90 - (int16_t)((xAccel-CALIB_POS)/173);
+	}
+	/* Negative angles */
+	else{
+		retAngle = (int16_t)-xAccel/178;
+	}
+	return (retAngle);
+}
+
+int16_t getYAngle(){
+	int16_t retAngle;
+	uint16_t yAccel = MPUReadAccelYAxis();
+	/* See in which plane is inclined to determine how
+	 * to calculate the angle*/
+	/* Positive angles */
+	if(yAccel > ACCEL_REF){
+		retAngle = 90 - (int16_t)((yAccel-CALIB_POS)/173);
+	}
+	/* Negative angles */
+	else{
+		retAngle = (int16_t)-yAccel/178;
+	}
+	return (retAngle);
+}

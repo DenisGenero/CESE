@@ -7,5 +7,11 @@ Neopixel4x4.c:166:6:turnColumnOn	3
 Neopixel4x4.c:181:6:turnColumnOff	2
 Neopixel4x4.c:196:6:turnRowOn	3
 Neopixel4x4.c:211:6:turnRowOff	2
-Neopixel4x4.c:222:6:turnSecuenceOn	1
-Neopixel4x4.c:231:6:fillSendBuffer	6
+Neopixel4x4.c:225:6:turnCenterOn	1
+Neopixel4x4.c:237:6:turnCornerOn00	1
+Neopixel4x4.c:247:6:turnCornerOn03	1
+Neopixel4x4.c:257:6:turnCornerOn30	1
+Neopixel4x4.c:267:6:turnCornerOn33	1
+Neopixel4x4.c:277:6:turnAllOff	3
+Neopixel4x4.c:290:6:turnSecuenceOn	1
+Neopixel4x4.c:299:6:fillSendBuffer	6

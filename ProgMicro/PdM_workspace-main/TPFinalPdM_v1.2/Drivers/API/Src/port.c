@@ -10,6 +10,9 @@
 #include "stm32f4xx_hal.h"
 #include "stm32f4xx_hal_uart.h"
 
+#define SPI_CS_Pin GPIO_PIN_1
+#define SPI_CS_GPIO_Port GPIOB
+
 /* Peripherals typedefs */
 SPI_HandleTypeDef hspi1;
 TIM_HandleTypeDef htim1;
@@ -19,11 +22,13 @@ UART_HandleTypeDef huart3;
 #define DEFAULT_TIMEOUT 1
 
 bool uartFlag = false;
+uint8_t DMAStoped = 0;
 
 uint8_t inBuffer[1];
 
 /* ###################### Wrappers functions ###################### */
 
+/* *************** USART functions *************** */
 void uartInit(){
 	HAL_UART_Receive_IT(&huart3, inBuffer, 1);
 }
@@ -32,7 +37,6 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 	/* Restart interrupt reception mode*/
 	HAL_UART_Receive_IT(&huart3, inBuffer, 1);
 	uartFlag = true;
-
 }
 
 /* @brief: Send a string chain
@@ -63,6 +67,86 @@ bool uartNewData(){
 	return(auxFlag);
 }
 
+/* *************** SPI functions *************** */
+
+/* @brief: Enable SPI device Chip Select to start communication. Pin is PB1
+ * @param: None
+ * @retval: None
+ * */
+static void CSEnable(){
+	HAL_GPIO_WritePin(SPI_CS_GPIO_Port, SPI_CS_Pin, GPIO_PIN_RESET);
+}
+
+/* @brief: Disable SPI device Chip Select to end communication. Pin is PB1
+ * @param: None
+ * @retval: None
+ * */
+static void CSDisable(){
+	HAL_GPIO_WritePin(SPI_CS_GPIO_Port, SPI_CS_Pin, GPIO_PIN_SET);
+}
+
+/* @brief: Read SPI device reg register.
+ * @param:
+ * 			- reg: register to read.
+ * 			- data: pointer to store incoming data
+ * 			- length: amount of data to read
+ * @retval: None
+ * */
+void SPIRead(uint8_t reg, uint8_t *data, uint8_t length){
+	/* Putting a one in the MSB position of the register direction means
+	 in the mpu that it is a read operation */
+	reg = reg + 128;
+	CSEnable();
+	HAL_SPI_Transmit(&hspi1, &reg, 1, DEFAULT_TIMEOUT);
+	HAL_SPI_Receive(&hspi1, data, length, DEFAULT_TIMEOUT);
+	CSDisable();
+}
+
+/* @brief: Write SPI device reg register.
+ * @param:
+ * 			- reg: register to read.
+ * 			- command: data to be written
+ * @retval: None
+ * */
+void SPIWrite(uint8_t reg, uint8_t command){
+	CSEnable();
+	HAL_SPI_Transmit(&hspi1, &reg, 1, DEFAULT_TIMEOUT);
+	HAL_SPI_Transmit(&hspi1, &command, 1, DEFAULT_TIMEOUT);
+	CSDisable();
+}
+
+/* *************** Timer and DMA functions *************** */
+
+/* @brief: Function that the DMA calls when PWM has finished.
+ * Weak definition overwrite.
+ * @param: Pointer to PMW Timer source.
+ * @retval: none.
+ * */
+void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim){
+	// Stop PWM after one pulse
+	HAL_TIM_PWM_Stop_DMA(&htim1, TIM_CHANNEL_1);
+	// Set stop flag
+	DMAStoped = 1;
+}
+
+/* @brief: The DMA load from memory PWM cycle.
+ * Remember always to set to zero the last buffer data.
+ * This will keep the output down until DMA stops PWM generation.
+ * @param:
+ * 			- Pointer to data buffer
+ * 			- Size of the buffer
+ * @retval: none
+ * */
+void setPWMData(uint32_t *Data, uint16_t size){
+	HAL_TIM_PWM_Start_DMA(&htim1, TIM_CHANNEL_1, Data, size);
+	// Wait until PWM generation stops
+	while(!DMAStoped);
+	// Reset DMA flag
+	DMAStoped = 0;
+}
+
+/* *************** System functions *************** */
+
 /* @brief: Configure the Clock system at 80 MHz, initialize the HAL
  * and configure peripherals: GPIOs, TIMER1 with DMA, USART3 and SPI1
  * @params: None
@@ -78,7 +162,7 @@ void APISysInit(){
 	MX_USART3_UART_Init();
 }
 
-/* ###################### Peripherals configuration ###################### */
+/* ###################### Peripheral's configuration ###################### */
 /**
   * @brief System Clock Configuration
   * @retval None

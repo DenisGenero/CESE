@@ -12,18 +12,13 @@
 #include "stm32f4xx_hal.h"
 #include "port.h"
 
-void floatToStr(float number, uint8_t *result);
-
+/* Serial console functions */
 void ConsoleInit();
 void ConsolePrintStr(uint8_t * pstring);
 void ConsolePrintFloat(float number);
+void ConsolePrintDeg(int16_t degree);
 bool ConsoleNewData();
-//void ConsoleDataReceive(uint8_t *pData);
 uint8_t ConsoleDataReceive();
 void ConsoleClear();
-
-/* Wrappers */
-//void uartSendString(uint8_t * pstring);
-//void uartReceiveStringSize(uint8_t * pstring, uint16_t size);
 
 #endif /* API_INC_CONSOLE_H_ */

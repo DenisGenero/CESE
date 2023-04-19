@@ -21,6 +21,12 @@ void turnColumnOn(uint8_t col, uint8_t red, uint8_t green, uint8_t blue);
 void turnColumnOff(uint8_t col);
 void turnRowOn(uint8_t row, uint8_t red, uint8_t green, uint8_t blue);
 void turnRowOff(uint8_t row);
+void turnCenterOn(uint8_t red, uint8_t green, uint8_t blue);
+void turnCornerOn00();
+void turnCornerOn03();
+void turnCornerOn30();
+void turnCornerOn33();
+void turnAllOff();
 
 /* Function to set pwm data to DMA */
 void turnSecuenceOn();

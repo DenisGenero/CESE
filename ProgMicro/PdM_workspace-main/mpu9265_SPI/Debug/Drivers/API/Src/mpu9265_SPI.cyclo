@@ -1,6 +1,6 @@
 mpu9265_SPI.c:44:13:MPURead	1
 mpu9265_SPI.c:54:13:MPUWrite	1
-mpu9265_SPI.c:64:17:converData	1
+mpu9265_SPI.c:64:17:convertData	1
 mpu9265_SPI.c:74:13:MPUAccelCalibration	1
 mpu9265_SPI.c:83:13:MPUGyroCalibration	1
 mpu9265_SPI.c:95:6:MPUReadAccel	1

@@ -1,4 +1,4 @@
-08:17:07 **** Incremental Build of configuration Debug for project TPFinalPCSE_v1.2 ****
+10:38:09 **** Build of configuration Debug for project TPFinalPCSE_v1.2 ****
 make -j8 all 
 arm-none-eabi-size   TPFinalPCSE_v1.2.elf 
    text	   data	    bss	    dec	    hex	filename
@@ -6,5 +6,5 @@ arm-none-eabi-size   TPFinalPCSE_v1.2.elf
 Finished building: default.size.stdout
  
 
-08:17:08 Build Finished. 0 errors, 0 warnings. (took 294ms)
+10:38:09 Build Finished. 0 errors, 0 warnings. (took 238ms)
 
