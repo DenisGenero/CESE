@@ -3316,3 +3316,357 @@ Finished building: default.size.stdout
  
 Finished building: TPFinalPdM_v1.2.list
  
+07:58:16 **** Incremental Build of configuration Debug for project TPFinalPdM_v1.2 ****
+make -j8 all 
+arm-none-eabi-gcc "../Drivers/API/Src/port.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"D:/UBA/CESE/ProgMicro/PdM_workspace-main/TPFinalPdM_v1.2/Drivers/API/Inc" -I"D:/UBA/CESE/ProgMicro/PdM_workspace-main/TPFinalPdM_v1.2/Drivers/BSP" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/API/Src/port.d" -MT"Drivers/API/Src/port.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/API/Src/port.o"
+../Drivers/API/Src/port.c:23: warning: "READ_BIT" redefined
+   23 | #define READ_BIT  128
+      | 
+In file included from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h:29,
+                 from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:27,
+                 from ../Core/Inc/stm32f4xx_hal_conf.h:275,
+                 from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Drivers/API/Src/port.c:9:
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h:215: note: this is the location of the previous definition
+  215 | #define READ_BIT(REG, BIT)    ((REG) & (BIT))
+      | 
+../Drivers/API/Src/port.c: In function 'SystemClock_Config':
+../Drivers/API/Src/port.c:23:19: error: called object is not a function or function pointer
+   23 | #define READ_BIT  128
+      |                   ^~~
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:514:50: note: in expansion of macro 'READ_BIT'
+  514 |                                         tmpreg = READ_BIT(RCC->APB1ENR, RCC_APB1ENR_PWREN);\
+      |                                                  ^~~~~~~~
+../Drivers/API/Src/port.c:178:3: note: in expansion of macro '__HAL_RCC_PWR_CLK_ENABLE'
+  178 |   __HAL_RCC_PWR_CLK_ENABLE();
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~
+../Drivers/API/Src/port.c:23:19: error: called object is not a function or function pointer
+   23 | #define READ_BIT  128
+      |                   ^~~
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h:139:70: note: in expansion of macro 'READ_BIT'
+  139 |                                                             tmpreg = READ_BIT(PWR->CR, PWR_CR_VOS);             \
+      |                                                                      ^~~~~~~~
+../Drivers/API/Src/port.c:179:3: note: in expansion of macro '__HAL_PWR_VOLTAGESCALING_CONFIG'
+  179 |   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE3);
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Drivers/API/Src/port.c: In function 'MX_DMA_Init':
+../Drivers/API/Src/port.c:23:19: error: called object is not a function or function pointer
+   23 | #define READ_BIT  128
+      |                   ^~~
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:423:50: note: in expansion of macro 'READ_BIT'
+  423 |                                         tmpreg = READ_BIT(RCC->AHB1ENR, RCC_AHB1ENR_DMA2EN);\
+      |                                                  ^~~~~~~~
+../Drivers/API/Src/port.c:330:3: note: in expansion of macro '__HAL_RCC_DMA2_CLK_ENABLE'
+  330 |   __HAL_RCC_DMA2_CLK_ENABLE();
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~
+../Drivers/API/Src/port.c: In function 'MX_GPIO_Init':
+../Drivers/API/Src/port.c:23:19: error: called object is not a function or function pointer
+   23 | #define READ_BIT  128
+      |                   ^~~
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:402:50: note: in expansion of macro 'READ_BIT'
+  402 |                                         tmpreg = READ_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIOCEN);\
+      |                                                  ^~~~~~~~
+../Drivers/API/Src/port.c:349:3: note: in expansion of macro '__HAL_RCC_GPIOC_CLK_ENABLE'
+  349 |   __HAL_RCC_GPIOC_CLK_ENABLE();
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../Drivers/API/Src/port.c:23:19: error: called object is not a function or function pointer
+   23 | #define READ_BIT  128
+      |                   ^~~
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:409:50: note: in expansion of macro 'READ_BIT'
+  409 |                                         tmpreg = READ_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIOHEN);\
+      |                                                  ^~~~~~~~
+../Drivers/API/Src/port.c:350:3: note: in expansion of macro '__HAL_RCC_GPIOH_CLK_ENABLE'
+  350 |   __HAL_RCC_GPIOH_CLK_ENABLE();
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../Drivers/API/Src/port.c:23:19: error: called object is not a function or function pointer
+   23 | #define READ_BIT  128
+      |                   ^~~
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:388:50: note: in expansion of macro 'READ_BIT'
+  388 |                                         tmpreg = READ_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIOAEN);\
+      |                                                  ^~~~~~~~
+../Drivers/API/Src/port.c:351:3: note: in expansion of macro '__HAL_RCC_GPIOA_CLK_ENABLE'
+  351 |   __HAL_RCC_GPIOA_CLK_ENABLE();
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../Drivers/API/Src/port.c:23:19: error: called object is not a function or function pointer
+   23 | #define READ_BIT  128
+      |                   ^~~
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:395:50: note: in expansion of macro 'READ_BIT'
+  395 |                                         tmpreg = READ_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIOBEN);\
+      |                                                  ^~~~~~~~
+../Drivers/API/Src/port.c:352:3: note: in expansion of macro '__HAL_RCC_GPIOB_CLK_ENABLE'
+  352 |   __HAL_RCC_GPIOB_CLK_ENABLE();
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../Drivers/API/Src/port.c:23:19: error: called object is not a function or function pointer
+   23 | #define READ_BIT  128
+      |                   ^~~
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h:1002:50: note: in expansion of macro 'READ_BIT'
+ 1002 |                                         tmpreg = READ_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIOEEN);\
+      |                                                  ^~~~~~~~
+../Drivers/API/Src/port.c:353:3: note: in expansion of macro '__HAL_RCC_GPIOE_CLK_ENABLE'
+  353 |   __HAL_RCC_GPIOE_CLK_ENABLE();
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../Drivers/API/Src/port.c:23:19: error: called object is not a function or function pointer
+   23 | #define READ_BIT  128
+      |                   ^~~
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h:995:50: note: in expansion of macro 'READ_BIT'
+  995 |                                         tmpreg = READ_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIODEN);\
+      |                                                  ^~~~~~~~
+../Drivers/API/Src/port.c:354:3: note: in expansion of macro '__HAL_RCC_GPIOD_CLK_ENABLE'
+  354 |   __HAL_RCC_GPIOD_CLK_ENABLE();
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../Drivers/API/Src/port.c:23:19: error: called object is not a function or function pointer
+   23 | #define READ_BIT  128
+      |                   ^~~
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h:1023:50: note: in expansion of macro 'READ_BIT'
+ 1023 |                                         tmpreg = READ_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIOGEN);\
+      |                                                  ^~~~~~~~
+../Drivers/API/Src/port.c:355:3: note: in expansion of macro '__HAL_RCC_GPIOG_CLK_ENABLE'
+  355 |   __HAL_RCC_GPIOG_CLK_ENABLE();
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~
+make: *** [Drivers/API/Src/subdir.mk:37: Drivers/API/Src/port.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+07:58:44 **** Incremental Build of configuration Debug for project TPFinalPdM_v1.2 ****
+make -j8 all 
+arm-none-eabi-gcc "../Drivers/API/Src/port.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"D:/UBA/CESE/ProgMicro/PdM_workspace-main/TPFinalPdM_v1.2/Drivers/API/Inc" -I"D:/UBA/CESE/ProgMicro/PdM_workspace-main/TPFinalPdM_v1.2/Drivers/BSP" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/API/Src/port.d" -MT"Drivers/API/Src/port.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/API/Src/port.o"
+../Drivers/API/Src/port.c:23: warning: "READ_BIT" redefined
+   23 | #define READ_BIT  128
+      | 
+In file included from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h:29,
+                 from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:27,
+                 from ../Core/Inc/stm32f4xx_hal_conf.h:275,
+                 from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Drivers/API/Src/port.c:9:
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h:215: note: this is the location of the previous definition
+  215 | #define READ_BIT(REG, BIT)    ((REG) & (BIT))
+      | 
+../Drivers/API/Src/port.c: In function 'SystemClock_Config':
+../Drivers/API/Src/port.c:23:19: error: called object is not a function or function pointer
+   23 | #define READ_BIT  128
+      |                   ^~~
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:514:50: note: in expansion of macro 'READ_BIT'
+  514 |                                         tmpreg = READ_BIT(RCC->APB1ENR, RCC_APB1ENR_PWREN);\
+      |                                                  ^~~~~~~~
+../Drivers/API/Src/port.c:178:3: note: in expansion of macro '__HAL_RCC_PWR_CLK_ENABLE'
+  178 |   __HAL_RCC_PWR_CLK_ENABLE();
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~
+../Drivers/API/Src/port.c:23:19: error: called object is not a function or function pointer
+   23 | #define READ_BIT  128
+      |                   ^~~
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h:139:70: note: in expansion of macro 'READ_BIT'
+  139 |                                                             tmpreg = READ_BIT(PWR->CR, PWR_CR_VOS);             \
+      |                                                                      ^~~~~~~~
+../Drivers/API/Src/port.c:179:3: note: in expansion of macro '__HAL_PWR_VOLTAGESCALING_CONFIG'
+  179 |   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE3);
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Drivers/API/Src/port.c: In function 'MX_DMA_Init':
+../Drivers/API/Src/port.c:23:19: error: called object is not a function or function pointer
+   23 | #define READ_BIT  128
+      |                   ^~~
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:423:50: note: in expansion of macro 'READ_BIT'
+  423 |                                         tmpreg = READ_BIT(RCC->AHB1ENR, RCC_AHB1ENR_DMA2EN);\
+      |                                                  ^~~~~~~~
+../Drivers/API/Src/port.c:330:3: note: in expansion of macro '__HAL_RCC_DMA2_CLK_ENABLE'
+  330 |   __HAL_RCC_DMA2_CLK_ENABLE();
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~
+../Drivers/API/Src/port.c: In function 'MX_GPIO_Init':
+../Drivers/API/Src/port.c:23:19: error: called object is not a function or function pointer
+   23 | #define READ_BIT  128
+      |                   ^~~
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:402:50: note: in expansion of macro 'READ_BIT'
+  402 |                                         tmpreg = READ_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIOCEN);\
+      |                                                  ^~~~~~~~
+../Drivers/API/Src/port.c:349:3: note: in expansion of macro '__HAL_RCC_GPIOC_CLK_ENABLE'
+  349 |   __HAL_RCC_GPIOC_CLK_ENABLE();
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../Drivers/API/Src/port.c:23:19: error: called object is not a function or function pointer
+   23 | #define READ_BIT  128
+      |                   ^~~
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:409:50: note: in expansion of macro 'READ_BIT'
+  409 |                                         tmpreg = READ_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIOHEN);\
+      |                                                  ^~~~~~~~
+../Drivers/API/Src/port.c:350:3: note: in expansion of macro '__HAL_RCC_GPIOH_CLK_ENABLE'
+  350 |   __HAL_RCC_GPIOH_CLK_ENABLE();
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../Drivers/API/Src/port.c:23:19: error: called object is not a function or function pointer
+   23 | #define READ_BIT  128
+      |                   ^~~
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:388:50: note: in expansion of macro 'READ_BIT'
+  388 |                                         tmpreg = READ_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIOAEN);\
+      |                                                  ^~~~~~~~
+../Drivers/API/Src/port.c:351:3: note: in expansion of macro '__HAL_RCC_GPIOA_CLK_ENABLE'
+  351 |   __HAL_RCC_GPIOA_CLK_ENABLE();
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../Drivers/API/Src/port.c:23:19: error: called object is not a function or function pointer
+   23 | #define READ_BIT  128
+      |                   ^~~
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:395:50: note: in expansion of macro 'READ_BIT'
+  395 |                                         tmpreg = READ_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIOBEN);\
+      |                                                  ^~~~~~~~
+../Drivers/API/Src/port.c:352:3: note: in expansion of macro '__HAL_RCC_GPIOB_CLK_ENABLE'
+  352 |   __HAL_RCC_GPIOB_CLK_ENABLE();
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../Drivers/API/Src/port.c:23:19: error: called object is not a function or function pointer
+   23 | #define READ_BIT  128
+      |                   ^~~
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h:1002:50: note: in expansion of macro 'READ_BIT'
+ 1002 |                                         tmpreg = READ_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIOEEN);\
+      |                                                  ^~~~~~~~
+../Drivers/API/Src/port.c:353:3: note: in expansion of macro '__HAL_RCC_GPIOE_CLK_ENABLE'
+  353 |   __HAL_RCC_GPIOE_CLK_ENABLE();
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../Drivers/API/Src/port.c:23:19: error: called object is not a function or function pointer
+   23 | #define READ_BIT  128
+      |                   ^~~
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h:995:50: note: in expansion of macro 'READ_BIT'
+  995 |                                         tmpreg = READ_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIODEN);\
+      |                                                  ^~~~~~~~
+../Drivers/API/Src/port.c:354:3: note: in expansion of macro '__HAL_RCC_GPIOD_CLK_ENABLE'
+  354 |   __HAL_RCC_GPIOD_CLK_ENABLE();
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../Drivers/API/Src/port.c:23:19: error: called object is not a function or function pointer
+   23 | #define READ_BIT  128
+      |                   ^~~
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h:1023:50: note: in expansion of macro 'READ_BIT'
+ 1023 |                                         tmpreg = READ_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIOGEN);\
+      |                                                  ^~~~~~~~
+../Drivers/API/Src/port.c:355:3: note: in expansion of macro '__HAL_RCC_GPIOG_CLK_ENABLE'
+  355 |   __HAL_RCC_GPIOG_CLK_ENABLE();
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~
+make: *** [Drivers/API/Src/subdir.mk:37: Drivers/API/Src/port.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+07:59:21 **** Incremental Build of configuration Debug for project TPFinalPdM_v1.2 ****
+make -j8 all 
+arm-none-eabi-gcc "../Drivers/API/Src/port.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"D:/UBA/CESE/ProgMicro/PdM_workspace-main/TPFinalPdM_v1.2/Drivers/API/Inc" -I"D:/UBA/CESE/ProgMicro/PdM_workspace-main/TPFinalPdM_v1.2/Drivers/BSP" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/API/Src/port.d" -MT"Drivers/API/Src/port.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/API/Src/port.o"
+../Drivers/API/Src/port.c:16: warning: "READ_BIT" redefined
+   16 | #define READ_BIT   128
+      | 
+In file included from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h:29,
+                 from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:27,
+                 from ../Core/Inc/stm32f4xx_hal_conf.h:275,
+                 from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:29,
+                 from ../Core/Inc/main.h:30,
+                 from ../Drivers/API/Src/port.c:9:
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h:215: note: this is the location of the previous definition
+  215 | #define READ_BIT(REG, BIT)    ((REG) & (BIT))
+      | 
+../Drivers/API/Src/port.c: In function 'SystemClock_Config':
+../Drivers/API/Src/port.c:16:20: error: called object is not a function or function pointer
+   16 | #define READ_BIT   128
+      |                    ^~~
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:514:50: note: in expansion of macro 'READ_BIT'
+  514 |                                         tmpreg = READ_BIT(RCC->APB1ENR, RCC_APB1ENR_PWREN);\
+      |                                                  ^~~~~~~~
+../Drivers/API/Src/port.c:177:3: note: in expansion of macro '__HAL_RCC_PWR_CLK_ENABLE'
+  177 |   __HAL_RCC_PWR_CLK_ENABLE();
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~
+../Drivers/API/Src/port.c:16:20: error: called object is not a function or function pointer
+   16 | #define READ_BIT   128
+      |                    ^~~
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h:139:70: note: in expansion of macro 'READ_BIT'
+  139 |                                                             tmpreg = READ_BIT(PWR->CR, PWR_CR_VOS);             \
+      |                                                                      ^~~~~~~~
+../Drivers/API/Src/port.c:178:3: note: in expansion of macro '__HAL_PWR_VOLTAGESCALING_CONFIG'
+  178 |   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE3);
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Drivers/API/Src/port.c: In function 'MX_DMA_Init':
+../Drivers/API/Src/port.c:16:20: error: called object is not a function or function pointer
+   16 | #define READ_BIT   128
+      |                    ^~~
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:423:50: note: in expansion of macro 'READ_BIT'
+  423 |                                         tmpreg = READ_BIT(RCC->AHB1ENR, RCC_AHB1ENR_DMA2EN);\
+      |                                                  ^~~~~~~~
+../Drivers/API/Src/port.c:329:3: note: in expansion of macro '__HAL_RCC_DMA2_CLK_ENABLE'
+  329 |   __HAL_RCC_DMA2_CLK_ENABLE();
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~
+../Drivers/API/Src/port.c: In function 'MX_GPIO_Init':
+../Drivers/API/Src/port.c:16:20: error: called object is not a function or function pointer
+   16 | #define READ_BIT   128
+      |                    ^~~
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:402:50: note: in expansion of macro 'READ_BIT'
+  402 |                                         tmpreg = READ_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIOCEN);\
+      |                                                  ^~~~~~~~
+../Drivers/API/Src/port.c:348:3: note: in expansion of macro '__HAL_RCC_GPIOC_CLK_ENABLE'
+  348 |   __HAL_RCC_GPIOC_CLK_ENABLE();
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../Drivers/API/Src/port.c:16:20: error: called object is not a function or function pointer
+   16 | #define READ_BIT   128
+      |                    ^~~
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:409:50: note: in expansion of macro 'READ_BIT'
+  409 |                                         tmpreg = READ_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIOHEN);\
+      |                                                  ^~~~~~~~
+../Drivers/API/Src/port.c:349:3: note: in expansion of macro '__HAL_RCC_GPIOH_CLK_ENABLE'
+  349 |   __HAL_RCC_GPIOH_CLK_ENABLE();
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../Drivers/API/Src/port.c:16:20: error: called object is not a function or function pointer
+   16 | #define READ_BIT   128
+      |                    ^~~
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:388:50: note: in expansion of macro 'READ_BIT'
+  388 |                                         tmpreg = READ_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIOAEN);\
+      |                                                  ^~~~~~~~
+../Drivers/API/Src/port.c:350:3: note: in expansion of macro '__HAL_RCC_GPIOA_CLK_ENABLE'
+  350 |   __HAL_RCC_GPIOA_CLK_ENABLE();
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../Drivers/API/Src/port.c:16:20: error: called object is not a function or function pointer
+   16 | #define READ_BIT   128
+      |                    ^~~
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:395:50: note: in expansion of macro 'READ_BIT'
+  395 |                                         tmpreg = READ_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIOBEN);\
+      |                                                  ^~~~~~~~
+../Drivers/API/Src/port.c:351:3: note: in expansion of macro '__HAL_RCC_GPIOB_CLK_ENABLE'
+  351 |   __HAL_RCC_GPIOB_CLK_ENABLE();
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../Drivers/API/Src/port.c:16:20: error: called object is not a function or function pointer
+   16 | #define READ_BIT   128
+      |                    ^~~
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h:1002:50: note: in expansion of macro 'READ_BIT'
+ 1002 |                                         tmpreg = READ_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIOEEN);\
+      |                                                  ^~~~~~~~
+../Drivers/API/Src/port.c:352:3: note: in expansion of macro '__HAL_RCC_GPIOE_CLK_ENABLE'
+  352 |   __HAL_RCC_GPIOE_CLK_ENABLE();
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../Drivers/API/Src/port.c:16:20: error: called object is not a function or function pointer
+   16 | #define READ_BIT   128
+      |                    ^~~
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h:995:50: note: in expansion of macro 'READ_BIT'
+  995 |                                         tmpreg = READ_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIODEN);\
+      |                                                  ^~~~~~~~
+../Drivers/API/Src/port.c:353:3: note: in expansion of macro '__HAL_RCC_GPIOD_CLK_ENABLE'
+  353 |   __HAL_RCC_GPIOD_CLK_ENABLE();
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../Drivers/API/Src/port.c:16:20: error: called object is not a function or function pointer
+   16 | #define READ_BIT   128
+      |                    ^~~
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h:1023:50: note: in expansion of macro 'READ_BIT'
+ 1023 |                                         tmpreg = READ_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIOGEN);\
+      |                                                  ^~~~~~~~
+../Drivers/API/Src/port.c:354:3: note: in expansion of macro '__HAL_RCC_GPIOG_CLK_ENABLE'
+  354 |   __HAL_RCC_GPIOG_CLK_ENABLE();
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~
+make: *** [Drivers/API/Src/subdir.mk:37: Drivers/API/Src/port.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+07:59:31 **** Incremental Build of configuration Debug for project TPFinalPdM_v1.2 ****
+make -j8 all 
+arm-none-eabi-gcc "../Drivers/API/Src/port.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"D:/UBA/CESE/ProgMicro/PdM_workspace-main/TPFinalPdM_v1.2/Drivers/API/Inc" -I"D:/UBA/CESE/ProgMicro/PdM_workspace-main/TPFinalPdM_v1.2/Drivers/BSP" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/API/Src/port.d" -MT"Drivers/API/Src/port.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/API/Src/port.o"
+../Drivers/API/Src/port.c: In function 'SPIRead':
+../Drivers/API/Src/port.c:98:14: error: 'READ_BIT' undeclared (first use in this function)
+   98 |  reg = reg + READ_BIT;
+      |              ^~~~~~~~
+../Drivers/API/Src/port.c:98:14: note: each undeclared identifier is reported only once for each function it appears in
+make: *** [Drivers/API/Src/subdir.mk:37: Drivers/API/Src/port.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+07:59:45 **** Incremental Build of configuration Debug for project TPFinalPdM_v1.2 ****
+make -j8 all 
+arm-none-eabi-gcc "../Drivers/API/Src/port.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F429xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"D:/UBA/CESE/ProgMicro/PdM_workspace-main/TPFinalPdM_v1.2/Drivers/API/Inc" -I"D:/UBA/CESE/ProgMicro/PdM_workspace-main/TPFinalPdM_v1.2/Drivers/BSP" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/API/Src/port.d" -MT"Drivers/API/Src/port.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/API/Src/port.o"
+arm-none-eabi-gcc -o "TPFinalPdM_v1.2.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\UBA\CESE\ProgMicro\PdM_workspace-main\TPFinalPdM_v1.2\STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TPFinalPdM_v1.2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TPFinalPdM_v1.2.elf
+ 
+arm-none-eabi-size   TPFinalPdM_v1.2.elf 
+arm-none-eabi-objdump -h -S  TPFinalPdM_v1.2.elf  > "TPFinalPdM_v1.2.list"
+   text	   data	    bss	    dec	    hex	filename
+  26628	    472	   2888	  29988	   7524	TPFinalPdM_v1.2.elf
+Finished building: default.size.stdout
+ 
+Finished building: TPFinalPdM_v1.2.list
+ 
