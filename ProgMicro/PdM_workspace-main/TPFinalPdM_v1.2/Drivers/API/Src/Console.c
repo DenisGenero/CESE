@@ -48,6 +48,8 @@ void ConsolePrintDeg(int16_t degree){
 	uint8_t plusMark[] = "+";
 	uint8_t minusMark[] = "-";
 	uint8_t spaceMark[] = "\0";
+	/* Offset to map char and integer types */
+	uint8_t uintZero = 48;
 	/* If number is negative, add a minus sign */
 	if(degree < 0){
 		buffer[0] = minusMark[0];
@@ -58,14 +60,14 @@ void ConsolePrintDeg(int16_t degree){
 		num = degree;
 	}
 	for(uint8_t i = 1; i <= digitNumber - 1; i ++){
-			buffer[digitNumber - i] = num%10 + 48;
+			buffer[digitNumber - i] = num%10 + uintZero;
 			num = num/10;
 		}
-	if(buffer[1] == 48){
+	if(buffer[1] == uintZero){
 		buffer[1] = buffer[2];
 		buffer[2] = buffer[3];
 		buffer[3] = spaceMark[0];
-		if(buffer[1] == 48){
+		if(buffer[1] == uintZero){
 			buffer[1] = buffer[2];
 			buffer[2] = spaceMark[0];
 		}
@@ -90,6 +92,8 @@ void ConsolePrintFloat(float number){
 	 * is commaPlace = digitNumber - commaOffset*/
 	uint8_t commaOffset = 5;
 	uint8_t comma [1] = ",";
+	/* Offset to map char and integer types */
+	uint8_t uintZero = 48;
 	/* Invisible space character is set to respect data padding */
 	uint8_t whiteSpace[1] = " ";
 	uint8_t buffer[digitNumber];
@@ -99,22 +103,22 @@ void ConsolePrintFloat(float number){
 			buffer[digitNumber-i] = *comma;
 		}
 		else{
-			buffer[digitNumber - i] = num%10 + 48;
+			buffer[digitNumber - i] = num%10 + uintZero;
 			num = (uint16_t)num/10;
 		}
 	}
 	/* check for zeros in left positions (in hundred and ten position) */
-	if(buffer[0] == 48){
+	if(buffer[0] == uintZero){
 		buffer[0] = *whiteSpace;
-		if(buffer[1] == 48){
+		if(buffer[1] == uintZero){
 			buffer[1] = *whiteSpace;
 		}
 	}
 	/* check for zeros in the last position (only the last one)*/
-	if(buffer[digitNumber-2] == 48){
+	if(buffer[digitNumber-2] == uintZero){
 		buffer[digitNumber-2] = *whiteSpace;
 	}
-	/* Add end of trasmition mark at the end of the buffer */
+	/* Add end of transmission mark at the end of the buffer */
 	buffer[digitNumber-1] = 0;
 
 	/* Send the result */
@@ -130,7 +134,7 @@ uint8_t ConsoleDataReceive(){
 	return(uartReceiveString());
 }
 
-/* @brief: Clear printed lines. Warning: Not all console support escape commands
+/* @brief: Clear printed lines. WARNING: Not all console support escape commands.
  * @param: None
  * @retval: None
  * */

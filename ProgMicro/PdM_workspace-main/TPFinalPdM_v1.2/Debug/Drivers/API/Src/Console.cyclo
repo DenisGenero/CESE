@@ -2,6 +2,6 @@ Console.c:17:6:ConsoleInit	1
 Console.c:25:6:ConsoleNewData	1
 Console.c:33:6:ConsolePrintStr	1
 Console.c:42:6:ConsolePrintDeg	5
-Console.c:83:6:ConsolePrintFloat	6
-Console.c:129:9:ConsoleDataReceive	1
-Console.c:137:6:ConsoleClear	2
+Console.c:85:6:ConsolePrintFloat	6
+Console.c:133:9:ConsoleDataReceive	1
+Console.c:141:6:ConsoleClear	2

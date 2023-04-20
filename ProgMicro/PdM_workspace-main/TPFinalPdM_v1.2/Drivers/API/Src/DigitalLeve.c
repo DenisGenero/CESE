@@ -50,31 +50,45 @@ static uint8_t refMsg[] = "Deje el dispositivo en la nueva posisión. Cuando la 
 /* User desired option handler*/
 static uint8_t userOption;
 
-/* Variables to set new zero position */
-static uint16_t xZero = 0;
-static int16_t yZero = 0;
+/* Variables to set new zero position: determined by hardware disposition */
+static uint16_t xZero = 6;
+static int16_t yZero = -3;
 
 /* Variables to work with inclination measure */
 static int16_t xAngle, yAngle;
 static int16_t xOffset = 10;
 static int16_t yOffset = 10;
+/* Scale factors */
+static uint16_t posAngleSteps = 173;
+static uint16_t negAngleSteps = 178;
 
 /* Delay to getting out of configuration mode, if no command sent. 10 seconds*/
 static delay_t configDelay, sensDelay, measureDelay;
 static tick_t maxDelay = 10000;
 static tick_t measureUpdate = 500;
 
-
+/* @brief:Set low comparison sensibility
+ * @param: None
+ * @retval: None
+ * */
 static void setLowSensibility(){
 	xOffset = LO_SENS;
 	yOffset = LO_SENS;
 }
 
+/* @brief:Set medium comparison sensibility
+ * @param: None
+ * @retval: None
+ * */
 static void setMedSensibility(){
 	xOffset = MED_SENS;
 	yOffset = MED_SENS;
 }
 
+/* @brief:Set medium comparison sensibility
+ * @param: None
+ * @retval: None
+ * */
 static void setHighSensibility(){
 	xOffset = HI_SENS;
 	yOffset = HI_SENS;
@@ -92,11 +106,11 @@ static int16_t getXAngle(){
 	 * to calculate the angle*/
 	/* Positive angles */
 	if(xAccel > ACCEL_REF){
-		retAngle = 90 - (int16_t)((xAccel-CALIB_POS)/173);
+		retAngle = 90 - (int16_t)((xAccel-CALIB_POS)/posAngleSteps);
 	}
 	/* Negative angles */
 	else{
-		retAngle = (int16_t)-xAccel/178;
+		retAngle = (int16_t)-xAccel/negAngleSteps;
 	}
 	return (retAngle);
 }
@@ -113,11 +127,11 @@ static int16_t getYAngle(){
 	 * to calculate the angle*/
 	/* Positive angles */
 	if(yAccel > ACCEL_REF){
-		retAngle = 90 - (int16_t)((yAccel-CALIB_POS)/173);
+		retAngle = 90 - (int16_t)((yAccel-CALIB_POS)/posAngleSteps);
 	}
 	/* Negative angles */
 	else{
-		retAngle = (int16_t)-yAccel/178;
+		retAngle = (int16_t)-yAccel/negAngleSteps;
 	}
 	return (retAngle);
 }
@@ -273,11 +287,11 @@ void digitalLevUpdate(){
 			case HIGH_SENS_OP:
 				setHighSensibility();
 				break;
-				/* Medium sensibility */
+			/* Medium sensibility */
 			case MED_SENS_OP:
 				setMedSensibility();
 				break;
-				/* Low sensibility */
+			/* Low sensibility */
 			case LOW_SENS_OP:
 				setLowSensibility();
 				break;
@@ -293,6 +307,7 @@ void digitalLevUpdate(){
 		break;
 	/**************** REFERENCE Mode ****************/
 	case REFERENCE:
+		/* Set new references, based on actuals reads */
 		xZero = getXAngle();
 		yZero = getYAngle();
 		/* Return to MEASURE Mode*/

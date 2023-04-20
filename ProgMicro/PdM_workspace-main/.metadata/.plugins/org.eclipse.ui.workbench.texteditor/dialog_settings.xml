@@ -6,25 +6,28 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="convertData"/>
+		<item key="selection" value="userOption"/>
 		<list key="findhistory">
+			<item value="option1"/>
+			<item value="refDelay"/>
+			<item value="sensMsg"/>
+			<item value="sens"/>
+			<item value="delayInit"/>
+			<item value="cornner"/>
+			<item value="ConsoleClear"/>
+			<item value="clearConso"/>
+			<item value="accelRes"/>
+			<item value="shiftBits"/>
+			<item value="get"/>
 			<item value="converData"/>
 			<item value="float"/>
 			<item value="timeOut"/>
 			<item value="LD1"/>
-			<item value="CS_"/>
-			<item value="nvic"/>
-			<item value="RX"/>
-			<item value="NVIC"/>
-			<item value="usart"/>
-			<item value="polling"/>
-			<item value="non blocking"/>
-			<item value="static"/>
-			<item value="MPUWrite"/>
-			<item value="CSDisable"/>
-			<item value="Timeout"/>
 		</list>
 		<list key="replacehistory">
+			<item value="userOption"/>
+			<item value="Corner"/>
+			<item value="corner"/>
 			<item value="convertData"/>
 			<item value="DEFAULT_TIMEOUT"/>
 			<item value="turnLedOn"/>
@@ -32,8 +35,8 @@
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="1085"/>
-		<item key="DIALOG_Y_ORIGIN" value="348"/>
+		<item key="DIALOG_X_ORIGIN" value="947"/>
+		<item key="DIALOG_Y_ORIGIN" value="191"/>
 		<item key="DIALOG_WIDTH" value="414"/>
 		<item key="DIALOG_HEIGHT" value="454"/>
 		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
