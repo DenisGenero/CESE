@@ -6,8 +6,9 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="userOption"/>
+		<item key="selection" value="128"/>
 		<list key="findhistory">
+			<item value="128"/>
 			<item value="option1"/>
 			<item value="refDelay"/>
 			<item value="sensMsg"/>
@@ -22,7 +23,6 @@
 			<item value="converData"/>
 			<item value="float"/>
 			<item value="timeOut"/>
-			<item value="LD1"/>
 		</list>
 		<list key="replacehistory">
 			<item value="userOption"/>
