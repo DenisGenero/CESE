@@ -1,9 +1,0 @@
-../Drivers/API/Src/port.c:18:13:CSEnable	8	static
-../Drivers/API/Src/port.c:22:13:CSDisable	8	static
-../Drivers/API/Src/port.c:26:6:SPIRead	16	static
-../Drivers/API/Src/port.c:36:6:SPIWrite	16	static
-../Drivers/API/Src/port.c:50:6:APISysInit	8	static
-../Drivers/API/Src/port.c:61:6:Error_Handler	4	static,ignoring_inline_asm
-../Drivers/API/Src/port.c:93:6:SystemClock_Config	88	static
-../Drivers/API/Src/port.c:139:6:MX_SPI1_Init	8	static
-../Drivers/API/Src/port.c:173:6:MX_GPIO_Init	56	static

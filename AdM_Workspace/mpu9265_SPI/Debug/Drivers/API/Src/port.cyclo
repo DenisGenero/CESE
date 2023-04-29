@@ -1,9 +1,0 @@
-port.c:18:13:CSEnable	1
-port.c:22:13:CSDisable	1
-port.c:26:6:SPIRead	1
-port.c:36:6:SPIWrite	1
-port.c:50:6:APISysInit	1
-port.c:61:6:Error_Handler	1
-port.c:93:6:SystemClock_Config	3
-port.c:139:6:MX_SPI1_Init	2
-port.c:173:6:MX_GPIO_Init	1
