@@ -18,6 +18,7 @@ Preguntas orientadoras:
 Cortex M:
 
 1- Diferencias entre Cortex M0, M3 y M4:
+
 	- Cortex M0:
 	Representa la puerta de entrada a la familia Cortex-M de microcontroladores, y es la que tiene el set de instrucciones más reducido. Así mismo, por lo general es el más 
 	económico de la familia y de menor consumo energético. A diferencia de los demás tiene un bus de memoria con arquitectura Von Neumann y la arquitectura del core es ARMv6.
@@ -37,3 +38,9 @@ Cortex M:
 	la verdad es que son muy escasos y no están muy difundidos). Además incorpora instrucciones que los hacen más eficientes para procesamiento de señales, como por ejemplo en la 
 	implementación de filtros (MAC: multiply accumulate, SIMD: single instruction multiple data, etc.). Todo esto viene acompañado además de un reloj con posibilidades de trabajar 
 	a frecuencias más altas que en los casos anteriores.
+
+2- Thumb permite mayor dencidad de código
+
+	El ISA (set de instrucciones de arquitectura) Thumb permite generar una mayor densidad de código ya que para ejecutar una tarea con este set se puede hacer de manera más compacta,
+	es decir, queda un programa menos extenso. Esto además conlleva, por lo general, a un mejor entendimiento y legibilidad del código.
+	

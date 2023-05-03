@@ -1,0 +1,39 @@
+!SESSION 2023-05-03 16:30:38.198 -----------------------------------------------
+eclipse.buildId=Version 1.12.0
+java.version=11.0.17
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=es_AR
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2023-05-03 16:31:06.904
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2023-05-03 16:31:06.921
+!MESSAGE Log4j2 initialized with config file D:\UBA\CESE\RTOS1\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2023-05-03 16:31:12.079
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.core 1 0 2023-05-03 16:36:19.260
+!MESSAGE Indexed 'freertos_app_Example2_6' (41 sources, 146 headers) in 6,09 sec: 14.627 declarations; 77.376 references; 2 unresolved inclusions; 152 syntax errors; 153 unresolved names (0,17 %)
+
+!ENTRY org.eclipse.cdt.core 1 0 2023-05-03 16:36:22.628
+!MESSAGE Indexed 'freertos_book_Example001' (39 sources, 142 headers) in 3,37 sec: 14.604 declarations; 77.218 references; 2 unresolved inclusions; 152 syntax errors; 148 unresolved names (0,16 %)
+
+!ENTRY org.eclipse.cdt.core 1 0 2023-05-03 16:36:25.651
+!MESSAGE Indexed 'freertos_book_Example002' (39 sources, 142 headers) in 2,99 sec: 14.600 declarations; 77.213 references; 2 unresolved inclusions; 152 syntax errors; 148 unresolved names (0,16 %)
+!SESSION 2023-05-03 18:08:52.709 -----------------------------------------------
+eclipse.buildId=Version 1.12.0
+java.version=11.0.17
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=es_AR
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2023-05-03 18:09:18.173
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2023-05-03 18:09:18.183
+!MESSAGE Log4j2 initialized with config file D:\UBA\CESE\RTOS1\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2023-05-03 18:09:31.702
+!MESSAGE Started RMI Server, listening on port 41337
