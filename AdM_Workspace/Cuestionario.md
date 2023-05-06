@@ -44,3 +44,21 @@ Cortex M:
 	El ISA (set de instrucciones de arquitectura) Thumb permite generar una mayor densidad de código ya que para ejecutar una tarea con este set se puede hacer de manera más compacta,
 	es decir, queda un programa menos extenso. Esto además conlleva, por lo general, a un mejor entendimiento y legibilidad del código.
 	
+3- Arquitectura load-store
+	Significa que por cada vez que se quiera procesar información que esta en la memoria, el procesador tiene que cargarla, procesarla y luego volver a almacenarla en memoria (si
+	es necesario).
+	######################### Preguntar que tipo de instrucciones no tiene esta arquitectura #################################
+
+4- Mapa de memoria de la familia
+	El mapa de memoria es "plano", es decir, se tiene un ancho de bus de memoria de 32 bits, lo que da lugar a direccionar hasta 4GB. En este sentido, absolutamente todo se dispone en 
+	este rango de direcciones, como la SRAM, la Flash, periféricos, etc. Cada uno de ellos se puede acceder desde diferentes buses, como por ejemplo AHB (Advance High-performance Bus)
+	o el APB (Advance Peripheral Bus).
+
+5- Ventajas de los "shadowed pointers": PSP y MSP
+	El MSP es el "Main Stack Pointer" y el PSP es el "Procces Stack Pointer". La ventaja de tener 2 Stack pointer se puede apreciar mejor con un ejemplo. En el caso de que se tenga un RTOS
+	corriendo en el microcontrolador, el MSP será el encargado de guardar la información y recursos del OS, en los "cambios de contexto". Por otro lado, el PSP tiene la misma función que
+	el MSP pero para almacenar información y recursos de las tareas y/o funciones que defina el usuario o programador. De esta manera, al tener 2 SP, el cambio de contexto del OS se realiza
+	de forma más "trasparente" y segura, sin correr el riesgo de que se pierda información que pueda alterar el correcto funcionamiento del RTOS. Cabe mencionar que en ejecución "bare metal"
+	solo se utiliza el MSP, y este solo se puede utilizar en el modo "privilegiado" (activado por defecto en bare metal).
+
+6- 
