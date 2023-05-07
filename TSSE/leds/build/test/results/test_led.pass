@@ -1,0 +1,66 @@
+---
+:source:
+  :path: test
+  :file: test_led.c
+:successes:
+- :test: test_todos_los_leds_inician_apagados
+  :line: 25
+  :message: ''
+  :unity_test_time: 0
+- :test: test_prender_un_led
+  :line: 34
+  :message: ''
+  :unity_test_time: 0
+- :test: test_prender_y_apagar_un_led
+  :line: 40
+  :message: ''
+  :unity_test_time: 0
+- :test: test_prender_y_apagar_varios_leds
+  :line: 47
+  :message: ''
+  :unity_test_time: 0
+- :test: test_prendo_led_y_consulto_estado
+  :line: 57
+  :message: ''
+  :unity_test_time: 0
+- :test: test_apago_led_y_consulto_estado
+  :line: 65
+  :message: ''
+  :unity_test_time: 0
+- :test: test_prendo_todos_y_verifico_todos_prendidos
+  :line: 71
+  :message: ''
+  :unity_test_time: 0
+- :test: test_prendo_todo_apago_uno_verifico_estado
+  :line: 78
+  :message: ''
+  :unity_test_time: 0
+- :test: test_prendo_todo_apago_todo_verifico_estado
+  :line: 85
+  :message: ''
+  :unity_test_time: 0
+- :test: test_prendido_limite_inferior
+  :line: 93
+  :message: ''
+  :unity_test_time: 0
+- :test: test_apagado_limite_inferior
+  :line: 98
+  :message: ''
+  :unity_test_time: 0
+- :test: test_prendido_limite_superior
+  :line: 103
+  :message: ''
+  :unity_test_time: 0
+- :test: test_apagado_limite_superior
+  :line: 108
+  :message: ''
+  :unity_test_time: 0
+:failures: []
+:ignores: []
+:counts:
+  :total: 13
+  :passed: 13
+  :failed: 0
+  :ignored: 0
+:stdout: []
+:time: 0.004568244999973103
