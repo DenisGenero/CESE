@@ -14,6 +14,15 @@ extern void test_todos_los_leds_inician_apagados(void);
 extern void test_prender_un_led(void);
 extern void test_prender_y_apagar_un_led(void);
 extern void test_prender_y_apagar_varios_leds(void);
+extern void test_prendo_led_y_consulto_estado(void);
+extern void test_apago_led_y_consulto_estado(void);
+extern void test_prendo_todos_y_verifico_todos_prendidos(void);
+extern void test_prendo_todo_apago_uno_verifico_estado(void);
+extern void test_prendo_todo_apago_todo_verifico_estado(void);
+extern void test_prendido_limite_inferior(void);
+extern void test_apagado_limite_inferior(void);
+extern void test_prendido_limite_superior(void);
+extern void test_apagado_limite_superior(void);
 
 
 /*=======Mock Management=====*/
@@ -85,6 +94,15 @@ int main(void)
   run_test(test_prender_un_led, "test_prender_un_led", 34);
   run_test(test_prender_y_apagar_un_led, "test_prender_y_apagar_un_led", 40);
   run_test(test_prender_y_apagar_varios_leds, "test_prender_y_apagar_varios_leds", 47);
+  run_test(test_prendo_led_y_consulto_estado, "test_prendo_led_y_consulto_estado", 57);
+  run_test(test_apago_led_y_consulto_estado, "test_apago_led_y_consulto_estado", 65);
+  run_test(test_prendo_todos_y_verifico_todos_prendidos, "test_prendo_todos_y_verifico_todos_prendidos", 71);
+  run_test(test_prendo_todo_apago_uno_verifico_estado, "test_prendo_todo_apago_uno_verifico_estado", 78);
+  run_test(test_prendo_todo_apago_todo_verifico_estado, "test_prendo_todo_apago_todo_verifico_estado", 85);
+  run_test(test_prendido_limite_inferior, "test_prendido_limite_inferior", 93);
+  run_test(test_apagado_limite_inferior, "test_apagado_limite_inferior", 98);
+  run_test(test_prendido_limite_superior, "test_prendido_limite_superior", 103);
+  run_test(test_apagado_limite_superior, "test_apagado_limite_superior", 108);
 
   return UnityEnd();
 }
