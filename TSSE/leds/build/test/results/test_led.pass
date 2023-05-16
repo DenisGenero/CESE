@@ -24,43 +24,51 @@
   :message: ''
   :unity_test_time: 0
 - :test: test_apago_led_y_consulto_estado
-  :line: 65
+  :line: 63
   :message: ''
   :unity_test_time: 0
 - :test: test_prendo_todos_y_verifico_todos_prendidos
-  :line: 71
+  :line: 69
   :message: ''
   :unity_test_time: 0
 - :test: test_prendo_todo_apago_uno_verifico_estado
-  :line: 78
+  :line: 76
   :message: ''
   :unity_test_time: 0
 - :test: test_prendo_todo_apago_todo_verifico_estado
-  :line: 85
+  :line: 83
   :message: ''
   :unity_test_time: 0
 - :test: test_prendido_limite_inferior
-  :line: 93
+  :line: 91
   :message: ''
   :unity_test_time: 0
 - :test: test_apagado_limite_inferior
-  :line: 98
+  :line: 96
   :message: ''
   :unity_test_time: 0
 - :test: test_prendido_limite_superior
-  :line: 103
+  :line: 101
   :message: ''
   :unity_test_time: 0
 - :test: test_apagado_limite_superior
-  :line: 108
+  :line: 106
+  :message: ''
+  :unity_test_time: 0
+- :test: test_revisar_argumentos_erroneos_prender
+  :line: 114
+  :message: ''
+  :unity_test_time: 0
+- :test: test_revisar_argumentos_erroneos_apagar
+  :line: 124
   :message: ''
   :unity_test_time: 0
 :failures: []
 :ignores: []
 :counts:
-  :total: 13
-  :passed: 13
+  :total: 15
+  :passed: 15
   :failed: 0
   :ignored: 0
 :stdout: []
-:time: 0.004568244999973103
+:time: 0.003800742999828799

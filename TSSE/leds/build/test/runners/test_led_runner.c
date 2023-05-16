@@ -23,6 +23,8 @@ extern void test_prendido_limite_inferior(void);
 extern void test_apagado_limite_inferior(void);
 extern void test_prendido_limite_superior(void);
 extern void test_apagado_limite_superior(void);
+extern void test_revisar_argumentos_erroneos_prender(void);
+extern void test_revisar_argumentos_erroneos_apagar(void);
 
 
 /*=======Mock Management=====*/
@@ -95,14 +97,16 @@ int main(void)
   run_test(test_prender_y_apagar_un_led, "test_prender_y_apagar_un_led", 40);
   run_test(test_prender_y_apagar_varios_leds, "test_prender_y_apagar_varios_leds", 47);
   run_test(test_prendo_led_y_consulto_estado, "test_prendo_led_y_consulto_estado", 57);
-  run_test(test_apago_led_y_consulto_estado, "test_apago_led_y_consulto_estado", 65);
-  run_test(test_prendo_todos_y_verifico_todos_prendidos, "test_prendo_todos_y_verifico_todos_prendidos", 71);
-  run_test(test_prendo_todo_apago_uno_verifico_estado, "test_prendo_todo_apago_uno_verifico_estado", 78);
-  run_test(test_prendo_todo_apago_todo_verifico_estado, "test_prendo_todo_apago_todo_verifico_estado", 85);
-  run_test(test_prendido_limite_inferior, "test_prendido_limite_inferior", 93);
-  run_test(test_apagado_limite_inferior, "test_apagado_limite_inferior", 98);
-  run_test(test_prendido_limite_superior, "test_prendido_limite_superior", 103);
-  run_test(test_apagado_limite_superior, "test_apagado_limite_superior", 108);
+  run_test(test_apago_led_y_consulto_estado, "test_apago_led_y_consulto_estado", 63);
+  run_test(test_prendo_todos_y_verifico_todos_prendidos, "test_prendo_todos_y_verifico_todos_prendidos", 69);
+  run_test(test_prendo_todo_apago_uno_verifico_estado, "test_prendo_todo_apago_uno_verifico_estado", 76);
+  run_test(test_prendo_todo_apago_todo_verifico_estado, "test_prendo_todo_apago_todo_verifico_estado", 83);
+  run_test(test_prendido_limite_inferior, "test_prendido_limite_inferior", 91);
+  run_test(test_apagado_limite_inferior, "test_apagado_limite_inferior", 96);
+  run_test(test_prendido_limite_superior, "test_prendido_limite_superior", 101);
+  run_test(test_apagado_limite_superior, "test_apagado_limite_superior", 106);
+  run_test(test_revisar_argumentos_erroneos_prender, "test_revisar_argumentos_erroneos_prender", 114);
+  run_test(test_revisar_argumentos_erroneos_apagar, "test_revisar_argumentos_erroneos_apagar", 124);
 
   return UnityEnd();
 }

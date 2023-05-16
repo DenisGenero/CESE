@@ -4,6 +4,8 @@ static uint16_t * puerto_virtual;
 
 #define INDEX_OFFSET    1
 #define FIRST_BIT       1
+#define FIRST_LED       1
+#define LAST_LED        16
 #define ALL_LEDS_OFF    0x0000
 #define ALL_LEDS_ON     0xFFFF
 
@@ -17,11 +19,15 @@ void ledsInit(uint16_t *direccion){
 };
 
 void ledsTurnOnOne(uint8_t led){
-    *puerto_virtual |= indexToMask(led);
+    if(led>=FIRST_LED && led<=LAST_LED){
+        *puerto_virtual |= indexToMask(led);
+    }
 };
 
 void ledsTurnOffOne(uint8_t led){
-    *puerto_virtual &= ~indexToMask(led);
+    if(led>=FIRST_LED && led<=LAST_LED){
+        *puerto_virtual &= ~indexToMask(led);
+    }
 }
 
 void ledsTurnOnAll(){
