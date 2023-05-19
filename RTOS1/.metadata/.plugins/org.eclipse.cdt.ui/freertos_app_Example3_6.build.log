@@ -1,0 +1,18 @@
+08:47:02 **** Incremental Build of configuration Debug for project freertos_app_Example3_6 ****
+make -j8 all 
+arm-none-eabi-gcc "../App/Src/app.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F429xx -c -I"D:/UBA/CESE/RTOS1/freertos_app_Example3_6/Supporting_Functions/Inc" -I"D:/UBA/CESE/RTOS1/freertos_app_Example3_6/App/Inc" -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"App/Src/app.d" -MT"App/Src/app.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Src/app.o"
+arm-none-eabi-gcc "../App/Src/task_Function.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F429xx -c -I"D:/UBA/CESE/RTOS1/freertos_app_Example3_6/Supporting_Functions/Inc" -I"D:/UBA/CESE/RTOS1/freertos_app_Example3_6/App/Inc" -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"App/Src/task_Function.d" -MT"App/Src/task_Function.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Src/task_Function.o"
+arm-none-eabi-gcc -o "freertos_app_Example3_6.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\UBA\CESE\RTOS1\freertos_app_Example3_6\STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="freertos_app_Example3_6.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: freertos_app_Example3_6.elf
+ 
+arm-none-eabi-size   freertos_app_Example3_6.elf 
+arm-none-eabi-objdump -h -S  freertos_app_Example3_6.elf  > "freertos_app_Example3_6.list"
+   text	   data	    bss	    dec	    hex	filename
+  25992	    184	  19312	  45488	   b1b0	freertos_app_Example3_6.elf
+Finished building: default.size.stdout
+ 
+Finished building: freertos_app_Example3_6.list
+ 
+
+08:47:04 Build Finished. 0 errors, 0 warnings. (took 1s.712ms)
+
