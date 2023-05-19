@@ -59,9 +59,7 @@ void test_prendo_led_y_consulto_estado(void){
     TEST_ASSERT_EQUAL_HEX16(0x100, puerto_virtual); // 0x100 = 0000 0000 1000 0000 (bit 8 --> led 9)
 }
 
-// TODO: Resolver duda
 // 6- Apago un led, consulto el estado y tiene que estar apagado.
-/*********** DUDA: No se si es del todo correcto hacer un ASSERT contra cero ***********/
 void test_apago_led_y_consulto_estado(void){
     ledsTurnOffOne(13);
     TEST_ASSERT_EQUAL_HEX16(0x000, puerto_virtual);
@@ -110,8 +108,24 @@ void test_apagado_limite_superior(void){
     TEST_ASSERT_EQUAL_HEX16(0x0000, puerto_virtual);
 }
 
-/**** DUDA: Cómo implementar el último test ****/
-// TODO: Resolver que pasa con argumentos erróneos
 // 10- Revisar que pasa con valores erroneos en los argumento.
-// void test_revisar_argumentos_erroneos(void){}
+// 10a- Función para prender un led: Si se pasa un valor erroneo
+// se debe dejar al puerto como estaba
+void test_revisar_argumentos_erroneos_prender(void){
+    // Prender un led conocido
+    ledsTurnOnOne(12);
+    // Colocar argumento erroneo
+    ledsTurnOnOne(20);
+    TEST_ASSERT_EQUAL_HEX16(0x0800, puerto_virtual); // 0x0800 = 0000 1000 0000 0000 (bit 11 --> led 12)
+}
+
+// 10b- Función para apagar un led: Si se pasa un valor erroneo
+// se debe dejar al puerto como estaba
+void test_revisar_argumentos_erroneos_apagar(void){
+    // Prender un led conocido
+    ledsTurnOnOne(6);
+    // Colocar argumento erroneo
+    ledsTurnOffOne(-6);
+    TEST_ASSERT_EQUAL_HEX16(0x0020, puerto_virtual); // 0x0020 = 0000 0000 0010 0000 (bit 5 --> led 6)
+}
 
