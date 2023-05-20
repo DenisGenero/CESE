@@ -1,8 +1,11 @@
 # Cuestionario
 
+***
+
 ## Preguntas orientadoras:
 
 *1- Describa brevemente los diferentes perfiles de familias de microprocesadores/microcontroladores de ARM. Explique alguna de sus diferencias características.*
+
 Existen tres familias de procesadores de ARM:  
  - Cortex A (Application):  
 	Son procesadores potentes que están más pensados para sistemas operativos de propósito general, como android por ejemplo. El punto fuerte de estos es su velocidad y
@@ -15,6 +18,8 @@ Existen tres familias de procesadores de ARM:
 	Son los más económicos y están pensados para dispositivos de uso cotidiano. Existen diferentes variantes, algunas con menores prestaciones, como los M0 y M0+, pero ptimizados
 	en cosnumo energético y de bajo costo; y otros con myores prestaciones y hardware dedicado a funciones específicas como los M4F con la FPU (unidad de punto flotante), 
 	aritmética de saturación, CRC, DSP, etc.
+
+***
 	
 ## Cortex M:
 
@@ -43,10 +48,10 @@ Diferencias entre Cortex M0, M3 y M4:
 
 *2- ¿Por qué se dice que el set de instrucciones Thumb permite mayor densidad de código? Explique*
 
-	El ISA (set de instrucciones de arquitectura) Thumb permite generar una mayor densidad de código ya que para ejecutar una tarea con este set se puede hacer de manera más compacta,
-	es decir, queda un programa menos extenso. Esto además conlleva, por lo general, a un mejor entendimiento y legibilidad del código. En Cortex-M se pueden encontrar instrucciones
-	de 16 bits y de 32 bits. Algunas de las primeras son versiones más compactas de las segundas (a expensas de una funcionalidad más limitada), permitiendo ahorrar espacio en memoria
-	de programa.
+El ISA (set de instrucciones de arquitectura) Thumb permite generar una mayor densidad de código ya que para ejecutar una tarea con este set se puede hacer de manera más compacta,
+es decir, queda un programa menos extenso. Esto además conlleva, por lo general, a un mejor entendimiento y legibilidad del código. En Cortex-M se pueden encontrar instrucciones
+de 16 bits y de 32 bits. Algunas de las primeras son versiones más compactas de las segundas (a expensas de una funcionalidad más limitada), permitiendo ahorrar espacio en memoria
+de programa.
 	
 *3- ¿Qué entiende por arquitectura load-store? ¿Qué tipo de instrucciones no posee este tipo de arquitectura?*
 
@@ -125,6 +130,8 @@ Diferencias entre Cortex M0, M3 y M4:
 
 *22- ¿Para qué se suele utilizar la excepción SVC? Expliquelo dentro de un marco de un sistema operativo embebido.*
 
+***
+
 ## ISA
 
 *1- ¿Qué son los sufijos y para qué se los utiliza? Dé un ejemplo*
@@ -152,3 +159,5 @@ Diferencias entre Cortex M0, M3 y M4:
 	*modificados?*
 	
 *5- ¿Qué es una instrucción SIMD? ¿En qué se aplican y que ventajas reporta su uso? Dé un ejemplo.*
+
+***
