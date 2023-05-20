@@ -18,23 +18,23 @@ Existen tres familias de procesadores de ARM:
 	
 ## Cortex M:
 
-*1- Describa brevemente las diferencias entre las familias de procesadores Cortex M0, M3 y M4.
+*1- Describa brevemente las diferencias entre las familias de procesadores Cortex M0, M3 y M4.*
 
 Diferencias entre Cortex M0, M3 y M4:  
-	- Cortex M0:  
+- Cortex M0:  
 	Representa la puerta de entrada a la familia Cortex-M de microcontroladores, y es la que tiene el set de instrucciones más reducido. Así mismo, por lo general es el más 
 	económico de la familia y de menor consumo energético. A diferencia de los demás tiene un bus de memoria con arquitectura Von Neumann y la arquitectura del core es ARMv6.
-	No posee MPU (unidad de protección de memoria), aunque su variante M0+ si la incorpora.
+	No posee MPU (unidad de protección de memoria), aunque su variante M0+ si la incorpora.  
 	Es el procesador ideal si lo que se busca es bajo consumo en una aplicación que no requiera de calculos complejos, ya que posee multiplicación por hardware algo limitada y
-	no posee división por hardware, lo que puede llegar a resultar muy ineficiente al realizarlo por software.
-	*Arquitectura Von Neumann: Se utiliza un solo bus de memoria para los datos y las instrucciones.*
-	- Cortex M3:  
+	no posee división por hardware, lo que puede llegar a resultar muy ineficiente al realizarlo por software.  
+	*Arquitectura Von Neumann: Se utiliza un solo bus de memoria para los datos y las instrucciones.*  
+- Cortex M3:  
 	Estos procesadores a mi entender representan un punto medio en la familia de los Cortex-M. En lo personal es el que más me llama la atención, ya que a diferencia del M0, ahora
 	estamos en presencia de un bus con arquitectura Hardvard y la arquitectura del core es ahora ARMv7. Además se agregan más herramientas de hardware ya que permite multiplicación
-	y división por hardware, lo que da como resultado mejor eficiencia en camputo que involucren estas operaciones respecto del M0.
-	Son procesadores que permiten resolver aplicaciones que involucren cálculos un poco más complejos, y vienen acompañados con más consumo y un mayor precio con respecto a los M0.
-	*Arquitectura Hardvard: se utilizan distintos buses para los datos y las instrucciones.*
-	- Cortex M4:
+	y división por hardware, lo que da como resultado mejor eficiencia en camputo que involucren estas operaciones respecto del M0.  
+	Son procesadores que permiten resolver aplicaciones que involucren cálculos un poco más complejos, y vienen acompañados con más consumo y un mayor precio con respecto a los M0.  
+	*Arquitectura Hardvard: se utilizan distintos buses para los datos y las instrucciones.*  
+- Cortex M4:  
 	Son una evolución de los M3 y resuelven a nivel de hardware cuestiones que pueden escapar a estos. Un ejemplo claro de esto es la FPU o unidad de punto flotante, que permite
 	trabajar con estos tipos de datos de manera mucho más eficiente que en M3, ya que hay un espcaio en el silicio dedicado a atender estas operaciones (si bien existen M4 sin FPU
 	la verdad es que son muy escasos y no están muy difundidos). Además incorpora instrucciones que los hacen más eficientes para procesamiento de señales, como por ejemplo en la 
@@ -88,6 +88,10 @@ Diferencias entre Cortex M0, M3 y M4:
 
 *10- Describa las funciones principales de la pila. ¿Cómo resuelve la arquitectura el llamado a funciones y su retorno?*
 
+	La función de la pila consiste en guardar el entorno actual de ejecución del programa ante un llamado a función. De esta manera, se guardan los valores de los registros y se los deja
+	disponibles para que puedan ser usados en el entotno de la función. Si dentro de esa función se invoca otra función, nuevamente se guarda el entorno y así sucesivamente. Se debe tener
+	cuidado en este aspecto, ya que se puede desbordar la pila si no se tiene cuida, pudiendo verse afectado la normal ejecución del programa.
+
 *11- Describa la secuencia de reset del microprocesador.*
 
 *12- ¿Qué entiende por “core peripherals”? ¿Qué diferencia existe entre estos y el resto de los periféricos?*
@@ -95,6 +99,9 @@ Diferencias entre Cortex M0, M3 y M4:
 *13- ¿Cómo se implementan las prioridades de las interrupciones? Dé un ejemplo*
 
 *14- ¿Qué es el CMSIS? ¿Qué función cumple? ¿Quién lo provee? ¿Qué ventajas aporta?*
+
+	La CMSIS en un conjunto de librerias escritas en C que las provee ARM y permiten hacer uso de toda la funcionalidad de los procesadores Cortex. Esto representa una gran ventaja en la 
+	portabilidad del código, ya que se puede cambiar de un fabricante a otro y reutilizar el código ya desarrollado.
 
 *15- Cuando ocurre una interrupción, asumiendo que está habilitada ¿Cómo opera el microprocesador para atender a la subrutina correspondiente? Explique con un ejemplo*
 
@@ -108,6 +115,8 @@ Diferencias entre Cortex M0, M3 y M4:
 	como base de tiempo	para los RTOS, por lo que si se implementa un RTOS en un Cortex M3, es muy fácil portarlo a un M4, ya que ambos poseen la misma base de timepo.
 
 *19- ¿Qué funciones cumple la unidad de protección de memoria (MPU)?*
+	
+	
 
 *20- ¿Cuántas regiones pueden configurarse como máximo? ¿Qué ocurre en caso de haber solapamientos de las regiones? ¿Qué ocurre con las zonas de memoria no cubiertas *
 	*por las regiones definidas?*
