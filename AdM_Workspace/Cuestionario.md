@@ -32,13 +32,13 @@ Diferencias entre Cortex M0, M3 y M4:
 	No posee MPU (unidad de protección de memoria), aunque su variante M0+ si la incorpora.  
 	Es el procesador ideal si lo que se busca es bajo consumo en una aplicación que no requiera de calculos complejos, ya que posee multiplicación por hardware algo limitada y
 	no posee división por hardware, lo que puede llegar a resultar muy ineficiente al realizarlo por software.  
-	** *Arquitectura Von Neumann:* ** *Se utiliza un solo bus de memoria para los datos y las instrucciones.*  
+	*Arquitectura Von Neumann:* Se utiliza un solo bus de memoria para los datos y las instrucciones.  
 - *Cortex M3:*  
 	Estos procesadores a mi entender representan un punto medio en la familia de los Cortex-M. En lo personal es el que más me llama la atención, ya que a diferencia del M0, ahora
 	estamos en presencia de un bus con arquitectura Hardvard y la arquitectura del core es ahora ARMv7. Además se agregan más herramientas de hardware ya que permite multiplicación
 	y división por hardware, lo que da como resultado mejor eficiencia en camputo que involucren estas operaciones respecto del M0.  
 	Son procesadores que permiten resolver aplicaciones que involucren cálculos un poco más complejos, y vienen acompañados con más consumo y un mayor precio con respecto a los M0.  
-	** *Arquitectura Hardvard:* ** *Se utilizan distintos buses para los datos y las instrucciones.*  
+	*Arquitectura Hardvard:* Se utilizan distintos buses para los datos y las instrucciones.  
 - *Cortex M4:*  
 	Son una evolución de los M3 y resuelven a nivel de hardware cuestiones que pueden escapar a estos. Un ejemplo claro de esto es la FPU o unidad de punto flotante, que permite
 	trabajar con estos tipos de datos de manera mucho más eficiente que en M3, ya que hay un espcaio en el silicio dedicado a atender estas operaciones (si bien existen M4 sin FPU
@@ -67,7 +67,7 @@ o el APB (Advance Peripheral Bus).
 
 **5- ¿Qué ventajas presenta el uso de los “shadowed pointers” del PSP y el MSP?**
 
-El MSP es el ** *"Main Stack Pointer"* ** y el PSP es el ** *"Procces Stack Pointer"* **. La ventaja de tener 2 Stack pointer se puede apreciar mejor con un ejemplo. En el caso de que se tenga un RTOS
+El MSP es el *"Main Stack Pointer"* y el PSP es el *"Procces Stack Pointer"*. La ventaja de tener 2 Stack pointer se puede apreciar mejor con un ejemplo. En el caso de que se tenga un RTOS
 corriendo en el microcontrolador, el MSP será el encargado de guardar la información y recursos del OS, en los "cambios de contexto". Por otro lado, el PSP tiene la misma función que
 el MSP pero para almacenar información y recursos de las tareas y/o funciones que defina el usuario o programador. De esta manera, al tener 2 SP, el cambio de contexto del OS se realiza
 de forma más *"trasparente"* y segura, sin correr el riesgo de que se pierda información que pueda alterar el correcto funcionamiento del RTOS. Cabe mencionar que en ejecución "bare metal"
