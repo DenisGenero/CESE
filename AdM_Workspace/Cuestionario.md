@@ -1,16 +1,17 @@
-Cuestionario:
+# Cuestionario
 
-Preguntas orientadoras:
+## Preguntas orientadoras:
 
-1- Existen tres familias de procesadores de ARM:
- - Cortex A (Application):
+1- *Describa brevemente los diferentes perfiles de familias de microprocesadores/microcontroladores de ARM. Explique alguna de sus diferencias características.*
+Existen tres familias de procesadores de ARM:  
+ - Cortex A (Application):  
 	Son procesadores potentes que están más pensados para sistemas operativos de propósito general, como android por ejemplo. El punto fuerte de estos es su velocidad y
 	poder correr muchos procesos en paralelo.
-- Cortex R (Real time):
+- Cortex R (Real time):  
 	Están pensados, como su nombre lo indica, para aplicaciones de tiempo real y críticas. Se caracterizan por ser sistemas de baja latencia, lo cual es muy importante al
 	estar en un sistema operativo de tiempo real. Esta baja latencia permite hacer conmutaciones de contexto de manera rápida y poder determinar con mayor certeza el tiempo
 	de respuesta del sistema.
-- Cortex M (Microcontroller):
+- Cortex M (Microcontroller):  
 	Son los más económicos y están pensados para dispositivos de uso cotidiano. Existen diferentes variantes, algunas con menores prestaciones, como los M0 y M0+, pero ptimizados
 	en cosnumo energético y de bajo costo; y otros con myores prestaciones y hardware dedicado a funciones específicas como los M4F con la FPU (unidad de punto flotante), 
 	aritmética de saturación, CRC, DSP, etc.
