@@ -62,8 +62,8 @@ all: main-build
 main-build: TPFinalPdM_v1.2.elf secondary-outputs
 
 # Tool invocations
-TPFinalPdM_v1.2.elf TPFinalPdM_v1.2.map: $(OBJS) $(USER_OBJS) D:\UBA\CESE\ProgMicro\PdM_workspace-main\TPFinalPdM_v1.2\STM32F429ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "TPFinalPdM_v1.2.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\UBA\CESE\ProgMicro\PdM_workspace-main\TPFinalPdM_v1.2\STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TPFinalPdM_v1.2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+TPFinalPdM_v1.2.elf TPFinalPdM_v1.2.map: $(OBJS) $(USER_OBJS) /home/denis/Documentos/CESE/PdM_workspace-main/TPFinalPdM_v1.2/STM32F429ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "TPFinalPdM_v1.2.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/denis/Documentos/CESE/PdM_workspace-main/TPFinalPdM_v1.2/STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TPFinalPdM_v1.2.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
