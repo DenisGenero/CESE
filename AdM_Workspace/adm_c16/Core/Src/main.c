@@ -61,6 +61,17 @@ static void MX_GPIO_Init(void);
 static void MX_ETH_Init(void);
 static void MX_USART3_UART_Init(void);
 static void MX_USB_OTG_FS_PCD_Init(void);
+
+/* Funciones de la guía de ejercicios */
+/* Ej 1: Hacer una función que inicialice un vector con todos ceros */
+void zeros(uint32_t *vector, uint32_t longitud);
+/*Ej 2: función que realice producto escalar entre un vector y un escalar*/
+void productoEscalar32(uint32_t *vectorIn, uint32_t *vectorOut, uint32_t longitud, uint32_t escalar);
+/*Ej 3: adaptar la función del ej 2 para vectores con elementos de 16 bits*/
+void productoEscalar16(uint16_t *vectorIn, uint16_t *vectorOut, uint32_t longitud, uint16_t escalar);
+/*Ej 4: adaptar la función del ej 3 para vectores con elementos de 12 bits*/
+void productoEscalar12(uint16_t *vectorIn, uint16_t *vectorOut, uint32_t longitud, uint16_t escalar);
+
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -389,6 +400,46 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+/* Funciones de la guía de ejercicios */
+/* Ej 1: Hacer una función que inicialice un vector con todos ceros */
+void zeros(uint32_t *vector, uint32_t longitud){
+	memset(vector, 0, longitud);
+	/*Implementación clásica*/
+	/*
+	 for (uint32_t i = longitud - 1; i>=0; i --){
+		vector[i] = 0;
+	}
+	*/
+}
+
+/*Ej 2: función que realice producto escalar entre un vector y un escalar*/
+void productoEscalar32(uint32_t *vectorIn, uint32_t *vectorOut, uint32_t longitud, uint32_t escalar){
+	for (uint32_t i = longitud - 1; i>=0; i --){
+		vectorOut[i] = vectorIn[i]*escalar;
+	}
+}
+
+/*Ej 3: adaptar la función del ej 2 para vectores con elementos de 16 bits*/
+void productoEscalar16(uint16_t *vectorIn, uint16_t *vectorOut, uint32_t longitud, uint16_t escalar){
+	for (uint32_t i = longitud - 1; i>=0; i --){
+		vectorOut[i] = vectorIn[i]*escalar;
+	}
+}
+
+/*Ej 4: adaptar la función del ej 3 para vectores con elementos de 12 bits*/
+void productoEscalar12(uint16_t *vectorIn, uint16_t *vectorOut, uint32_t longitud, uint16_t escalar){
+	uint32_t parcial;
+	// Límite de 12 bits --> 2^12 = 4096
+	uint16_t limiteSat = 4096;
+	for (uint32_t i = longitud - 1; i>=0; i --){
+		parcial = vectorIn[i]*escalar;
+		if(parcial >= limiteSat){
+			parcial = 4095;
+		}
+		vectorOut[i] = parcial;
+	}
+}
 
 /* USER CODE END 4 */
 
