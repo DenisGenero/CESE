@@ -94,7 +94,11 @@ LDX_Config_t	LDX_Config[] 	= { { LD1_GPIO_Port, LD1_Pin, GPIO_PIN_RESET, NotBlin
 void vTaskLed( void *pvParameters )
 {
 	/*  Declare & Initialize Task Function variables for argument, led, button and task */
-	LDX_Config_t * ptr = (LDX_Config_t *)pvParameters;
+//	LDX_Config_t * ptr = (LDX_Config_t *)pvParameters;
+	LDX_Config_t *ptr;
+	ptr = &LDX_Config[0];
+	QueueHandle_t LedQueueHandle = (QueueHandle_t) pvParameters;
+	BaseType_t xStatus;
 
 	TickType_t xLastWakeTime;
 
@@ -110,6 +114,25 @@ void vTaskLed( void *pvParameters )
 	/* As per most tasks, this task is implemented in an infinite loop. */
 	for( ;; )
 	{
+		if(uxQueueMessagesWaiting(LedQueueHandle) != 0){
+			vPrintString("Queue should have been empty\r\n");
+		}
+		xStatus = xQueueReceive(LedQueueHandle, &ptr, 0);
+
+		if( xStatus == pdPASS )
+		{
+			/* Data was successfully received from the queue, print out the received
+					   value. */
+			vPrintStringAndNumber( "Received = ", ptr->ledFlag );
+		}
+		else
+		{
+			/* We did not receive anything from the queue even after waiting for 100ms.
+					   This must be an error as the sending tasks are free running and will be
+					   continuously writing to the queue. */
+			vPrintString( "Could not receive from the queue.\r\n" );
+		}
+
 		/* Check Led Flag */
 		if( ptr->ledFlag == Blinking )
 		{

@@ -91,7 +91,11 @@ const char *pcTextForTask_BlinkingOff	= " - Blinking turn Off\r\n";
 void vTaskButton( void *pvParameters )
 {
 	/*  Declare & Initialize Task Function variables for argument, led, button and task */
-	LDX_Config_t * ptr = (LDX_Config_t *)pvParameters;
+//	LDX_Config_t * ptr = (LDX_Config_t *)pvParameters;
+	LDX_Config_t *ptr;
+	ptr = &LDX_Config[0];
+	QueueHandle_t BtnQueueHandle = (QueueHandle_t) pvParameters;
+	BaseType_t xStatus;
 
 	char *pcTaskName = (char *) pcTaskGetName( NULL );
 
@@ -115,6 +119,15 @@ void vTaskButton( void *pvParameters )
 				ptr->ledFlag = NotBlinking;
             	vPrintTwoStrings( pcTaskName, pcTextForTask_BlinkingOff );
 			}
+		}
+		/* Send the led state, whether or not the button has been pressed */
+		xStatus = xQueueSendToBack( BtnQueueHandle, &ptr, 0 );
+
+		if( xStatus != pdPASS )
+		{
+			/* We could not write to the queue because it was full – this must
+								be an error as the queue should never contain more than one item! */
+			vPrintString( "Could not send to the queue.\r\n" );
 		}
 
 		/* We want this task to execute every 250 milliseconds. */
