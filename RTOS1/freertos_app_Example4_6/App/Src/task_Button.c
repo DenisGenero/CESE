@@ -121,7 +121,7 @@ void vTaskButton( void *pvParameters )
 			}
 		}
 		/* Send the led state, whether or not the button has been pressed */
-		xStatus = xQueueSendToBack( BtnQueueHandle, &ptr, 0 );
+		xStatus = xQueueSendToBack( BtnQueueHandle, &ptr->ledState, 0 );
 
 		if( xStatus != pdPASS )
 		{

@@ -117,7 +117,7 @@ void vTaskLed( void *pvParameters )
 		if(uxQueueMessagesWaiting(LedQueueHandle) != 0){
 			vPrintString("Queue should have been empty\r\n");
 		}
-		xStatus = xQueueReceive(LedQueueHandle, &ptr, 0);
+		xStatus = xQueueReceive(LedQueueHandle, &ptr->ledState, 0);
 
 		if( xStatus == pdPASS )
 		{

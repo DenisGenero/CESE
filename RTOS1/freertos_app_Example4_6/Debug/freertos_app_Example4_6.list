@@ -39,13 +39,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  17 .debug_macro  00028a3f  00000000  00000000  000430b0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_line   0001d1e2  00000000  00000000  0006baef  2**0
+ 18 .debug_line   0001d1ca  00000000  00000000  0006baef  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    000ece65  00000000  00000000  00088cd1  2**0
+ 19 .debug_str    000ece65  00000000  00000000  00088cb9  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .comment      00000050  00000000  00000000  00175b36  2**0
+ 20 .comment      00000050  00000000  00000000  00175b1e  2**0
                   CONTENTS, READONLY
- 21 .debug_frame  00006a98  00000000  00000000  00175b88  2**2
+ 21 .debug_frame  00006a98  00000000  00000000  00175b70  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -433,9 +433,9 @@ void appInit( void )
  80005a0:	f005 fbce 	bl	8005d40 <vPrintString>
 
   	/* Add a Queue */
-  	QueueHandle = xQueueCreate(1, sizeof(int32_t));
+  	QueueHandle = xQueueCreate(1, sizeof(GPIO_PinState));
  80005a4:	2200      	movs	r2, #0
- 80005a6:	2104      	movs	r1, #4
+ 80005a6:	2101      	movs	r1, #1
  80005a8:	2001      	movs	r0, #1
  80005aa:	f003 fd4b 	bl	8004044 <xQueueGenericCreate>
  80005ae:	4603      	mov	r3, r0
@@ -564,21 +564,21 @@ void vTaskButton( void *pvParameters )
 	LDX_Config_t *ptr;
 	ptr = &LDX_Config[0];
  8000670:	4b1e      	ldr	r3, [pc, #120]	; (80006ec <vTaskButton+0x84>)
- 8000672:	60bb      	str	r3, [r7, #8]
+ 8000672:	617b      	str	r3, [r7, #20]
 	QueueHandle_t BtnQueueHandle = (QueueHandle_t) pvParameters;
  8000674:	687b      	ldr	r3, [r7, #4]
- 8000676:	617b      	str	r3, [r7, #20]
+ 8000676:	613b      	str	r3, [r7, #16]
 	BaseType_t xStatus;
 
 	char *pcTaskName = (char *) pcTaskGetName( NULL );
  8000678:	2000      	movs	r0, #0
  800067a:	f004 fb4b 	bl	8004d14 <pcTaskGetName>
- 800067e:	6138      	str	r0, [r7, #16]
+ 800067e:	60f8      	str	r0, [r7, #12]
 
 	/* Print out the name of this task. */
 	vPrintTwoStrings( pcTaskName, "- is running\r\n" );
  8000680:	491b      	ldr	r1, [pc, #108]	; (80006f0 <vTaskButton+0x88>)
- 8000682:	6938      	ldr	r0, [r7, #16]
+ 8000682:	68f8      	ldr	r0, [r7, #12]
  8000684:	f005 fb92 	bl	8005dac <vPrintTwoStrings>
 
 	/* As per most tasks, this task is implemented in an infinite loop. */
@@ -595,48 +595,49 @@ void vTaskButton( void *pvParameters )
 		{
         	/* Check, Update and Print Led Flag */
 			if( ptr->ledFlag == NotBlinking )
- 8000698:	68bb      	ldr	r3, [r7, #8]
+ 8000698:	697b      	ldr	r3, [r7, #20]
  800069a:	79db      	ldrb	r3, [r3, #7]
  800069c:	2b01      	cmp	r3, #1
  800069e:	d109      	bne.n	80006b4 <vTaskButton+0x4c>
 			{
 				ptr->ledFlag = Blinking;
- 80006a0:	68bb      	ldr	r3, [r7, #8]
+ 80006a0:	697b      	ldr	r3, [r7, #20]
  80006a2:	2200      	movs	r2, #0
  80006a4:	71da      	strb	r2, [r3, #7]
 				vPrintTwoStrings( pcTaskName, pcTextForTask_BlinkingOn );
  80006a6:	4b14      	ldr	r3, [pc, #80]	; (80006f8 <vTaskButton+0x90>)
  80006a8:	681b      	ldr	r3, [r3, #0]
  80006aa:	4619      	mov	r1, r3
- 80006ac:	6938      	ldr	r0, [r7, #16]
+ 80006ac:	68f8      	ldr	r0, [r7, #12]
  80006ae:	f005 fb7d 	bl	8005dac <vPrintTwoStrings>
  80006b2:	e008      	b.n	80006c6 <vTaskButton+0x5e>
 			}
 			else
 			{
 				ptr->ledFlag = NotBlinking;
- 80006b4:	68bb      	ldr	r3, [r7, #8]
+ 80006b4:	697b      	ldr	r3, [r7, #20]
  80006b6:	2201      	movs	r2, #1
  80006b8:	71da      	strb	r2, [r3, #7]
             	vPrintTwoStrings( pcTaskName, pcTextForTask_BlinkingOff );
  80006ba:	4b10      	ldr	r3, [pc, #64]	; (80006fc <vTaskButton+0x94>)
  80006bc:	681b      	ldr	r3, [r3, #0]
  80006be:	4619      	mov	r1, r3
- 80006c0:	6938      	ldr	r0, [r7, #16]
+ 80006c0:	68f8      	ldr	r0, [r7, #12]
  80006c2:	f005 fb73 	bl	8005dac <vPrintTwoStrings>
 			}
 		}
 		/* Send the led state, whether or not the button has been pressed */
-		xStatus = xQueueSendToBack( BtnQueueHandle, &ptr, 0 );
- 80006c6:	f107 0108 	add.w	r1, r7, #8
+		xStatus = xQueueSendToBack( BtnQueueHandle, &ptr->ledState, 0 );
+ 80006c6:	697b      	ldr	r3, [r7, #20]
+ 80006c8:	1d99      	adds	r1, r3, #6
  80006ca:	2300      	movs	r3, #0
  80006cc:	2200      	movs	r2, #0
- 80006ce:	6978      	ldr	r0, [r7, #20]
+ 80006ce:	6938      	ldr	r0, [r7, #16]
  80006d0:	f003 fd0e 	bl	80040f0 <xQueueGenericSend>
- 80006d4:	60f8      	str	r0, [r7, #12]
+ 80006d4:	60b8      	str	r0, [r7, #8]
 
 		if( xStatus != pdPASS )
- 80006d6:	68fb      	ldr	r3, [r7, #12]
+ 80006d6:	68bb      	ldr	r3, [r7, #8]
  80006d8:	2b01      	cmp	r3, #1
  80006da:	d002      	beq.n	80006e2 <vTaskButton+0x7a>
 		{
@@ -677,10 +678,10 @@ void vTaskLed( void *pvParameters )
 	LDX_Config_t *ptr;
 	ptr = &LDX_Config[0];
  800070c:	4b2c      	ldr	r3, [pc, #176]	; (80007c0 <vTaskLed+0xbc>)
- 800070e:	613b      	str	r3, [r7, #16]
+ 800070e:	61fb      	str	r3, [r7, #28]
 	QueueHandle_t LedQueueHandle = (QueueHandle_t) pvParameters;
  8000710:	687b      	ldr	r3, [r7, #4]
- 8000712:	61fb      	str	r3, [r7, #28]
+ 8000712:	61bb      	str	r3, [r7, #24]
 
 	TickType_t xLastWakeTime;
 
@@ -694,19 +695,19 @@ void vTaskLed( void *pvParameters )
 	char *pcTaskName = (char *) pcTaskGetName( NULL );
  800071c:	2000      	movs	r0, #0
  800071e:	f004 faf9 	bl	8004d14 <pcTaskGetName>
- 8000722:	61b8      	str	r0, [r7, #24]
+ 8000722:	6178      	str	r0, [r7, #20]
 
 	/* Print out the name of this task. */
 	vPrintTwoStrings( pcTaskName, "   - is running\r\n" );
  8000724:	4927      	ldr	r1, [pc, #156]	; (80007c4 <vTaskLed+0xc0>)
- 8000726:	69b8      	ldr	r0, [r7, #24]
+ 8000726:	6978      	ldr	r0, [r7, #20]
  8000728:	f005 fb40 	bl	8005dac <vPrintTwoStrings>
 
 	/* As per most tasks, this task is implemented in an infinite loop. */
 	for( ;; )
 	{
 		if(uxQueueMessagesWaiting(LedQueueHandle) != 0){
- 800072c:	69f8      	ldr	r0, [r7, #28]
+ 800072c:	69b8      	ldr	r0, [r7, #24]
  800072e:	f003 febd 	bl	80044ac <uxQueueMessagesWaiting>
  8000732:	4603      	mov	r3, r0
  8000734:	2b00      	cmp	r3, #0
@@ -715,23 +716,24 @@ void vTaskLed( void *pvParameters )
  8000738:	4823      	ldr	r0, [pc, #140]	; (80007c8 <vTaskLed+0xc4>)
  800073a:	f005 fb01 	bl	8005d40 <vPrintString>
 		}
-		xStatus = xQueueReceive(LedQueueHandle, &ptr, 0);
- 800073e:	f107 0310 	add.w	r3, r7, #16
+		xStatus = xQueueReceive(LedQueueHandle, &ptr->ledState, 0);
+ 800073e:	69fb      	ldr	r3, [r7, #28]
+ 8000740:	3306      	adds	r3, #6
  8000742:	2200      	movs	r2, #0
  8000744:	4619      	mov	r1, r3
- 8000746:	69f8      	ldr	r0, [r7, #28]
+ 8000746:	69b8      	ldr	r0, [r7, #24]
  8000748:	f003 fdd0 	bl	80042ec <xQueueReceive>
- 800074c:	6178      	str	r0, [r7, #20]
+ 800074c:	6138      	str	r0, [r7, #16]
 
 		if( xStatus == pdPASS )
- 800074e:	697b      	ldr	r3, [r7, #20]
+ 800074e:	693b      	ldr	r3, [r7, #16]
  8000750:	2b01      	cmp	r3, #1
  8000752:	d106      	bne.n	8000762 <vTaskLed+0x5e>
 		{
 			/* Data was successfully received from the queue, print out the received
 					   value. */
 			vPrintStringAndNumber( "Received = ", ptr->ledFlag );
- 8000754:	693b      	ldr	r3, [r7, #16]
+ 8000754:	69fb      	ldr	r3, [r7, #28]
  8000756:	79db      	ldrb	r3, [r3, #7]
  8000758:	4619      	mov	r1, r3
  800075a:	481c      	ldr	r0, [pc, #112]	; (80007cc <vTaskLed+0xc8>)
@@ -749,50 +751,50 @@ void vTaskLed( void *pvParameters )
 
 		/* Check Led Flag */
 		if( ptr->ledFlag == Blinking )
- 8000768:	693b      	ldr	r3, [r7, #16]
+ 8000768:	69fb      	ldr	r3, [r7, #28]
  800076a:	79db      	ldrb	r3, [r3, #7]
  800076c:	2b00      	cmp	r3, #0
  800076e:	d11f      	bne.n	80007b0 <vTaskLed+0xac>
 		{
 			/* Check, Update and Print Led State */
 		   	if( ptr->ledState == GPIO_PIN_RESET )
- 8000770:	693b      	ldr	r3, [r7, #16]
+ 8000770:	69fb      	ldr	r3, [r7, #28]
  8000772:	799b      	ldrb	r3, [r3, #6]
  8000774:	2b00      	cmp	r3, #0
  8000776:	d109      	bne.n	800078c <vTaskLed+0x88>
 		   	{
 		   		ptr->ledState = GPIO_PIN_SET;
- 8000778:	693b      	ldr	r3, [r7, #16]
+ 8000778:	69fb      	ldr	r3, [r7, #28]
  800077a:	2201      	movs	r2, #1
  800077c:	719a      	strb	r2, [r3, #6]
             	vPrintTwoStrings( pcTaskName, pcTextForTask_LDXTOn );
  800077e:	4b15      	ldr	r3, [pc, #84]	; (80007d4 <vTaskLed+0xd0>)
  8000780:	681b      	ldr	r3, [r3, #0]
  8000782:	4619      	mov	r1, r3
- 8000784:	69b8      	ldr	r0, [r7, #24]
+ 8000784:	6978      	ldr	r0, [r7, #20]
  8000786:	f005 fb11 	bl	8005dac <vPrintTwoStrings>
  800078a:	e008      	b.n	800079e <vTaskLed+0x9a>
 		   	}
 	    	else
 	    	{
 	    		ptr->ledState = GPIO_PIN_RESET;
- 800078c:	693b      	ldr	r3, [r7, #16]
+ 800078c:	69fb      	ldr	r3, [r7, #28]
  800078e:	2200      	movs	r2, #0
  8000790:	719a      	strb	r2, [r3, #6]
             	vPrintTwoStrings( pcTaskName, pcTextForTask_LDXTOff );
  8000792:	4b11      	ldr	r3, [pc, #68]	; (80007d8 <vTaskLed+0xd4>)
  8000794:	681b      	ldr	r3, [r3, #0]
  8000796:	4619      	mov	r1, r3
- 8000798:	69b8      	ldr	r0, [r7, #24]
+ 8000798:	6978      	ldr	r0, [r7, #20]
  800079a:	f005 fb07 	bl	8005dac <vPrintTwoStrings>
 		   	}
 			/* Update HW Led State */
 		   	HAL_GPIO_WritePin( ptr->LDX_GPIO_Port, ptr->LDX_Pin, ptr->ledState );
- 800079e:	693b      	ldr	r3, [r7, #16]
+ 800079e:	69fb      	ldr	r3, [r7, #28]
  80007a0:	6818      	ldr	r0, [r3, #0]
- 80007a2:	693b      	ldr	r3, [r7, #16]
+ 80007a2:	69fb      	ldr	r3, [r7, #28]
  80007a4:	8899      	ldrh	r1, [r3, #4]
- 80007a6:	693b      	ldr	r3, [r7, #16]
+ 80007a6:	69fb      	ldr	r3, [r7, #28]
  80007a8:	799b      	ldrb	r3, [r3, #6]
  80007aa:	461a      	mov	r2, r3
  80007ac:	f001 fb62 	bl	8001e74 <HAL_GPIO_WritePin>

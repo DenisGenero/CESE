@@ -96,7 +96,7 @@ void appInit( void )
   	vPrintString( pcTextForMain );
 
   	/* Add a Queue */
-  	QueueHandle = xQueueCreate(1, sizeof(int32_t));
+  	QueueHandle = xQueueCreate(1, sizeof(GPIO_PinState));
 
   	/* Check if the queue was successfully created */
   	configASSERT( QueueHandle != NULL);
