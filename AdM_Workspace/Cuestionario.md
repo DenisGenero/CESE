@@ -72,6 +72,7 @@ corriendo en el microcontrolador, el MSP será el encargado de guardar la inform
 el MSP pero para almacenar información y recursos de las tareas y/o funciones que defina el usuario o programador. De esta manera, al tener 2 SP, el cambio de contexto del OS se realiza
 de forma más *"trasparente"* y segura, sin correr el riesgo de que se pierda información que pueda alterar el correcto funcionamiento del RTOS. Cabe mencionar que en ejecución "bare metal"
 solo se utiliza el MSP, y este solo se puede utilizar en el modo *"privilegiado"* (activado por defecto en bare metal).
+El termino *"shadowed pointers"* hace referencia a que el procesador lee siempre el registro SP (R13), y con un bit, el SPSEL, se elije si se accede al MSP o al PSP
 
 **6- Describa los diferentes modos de privilegio y operación del Cortex M, sus relaciones y como se conmuta de uno al otro. Describa un ejemplo en el que se pasa del modo privilegiado a no priviligiado y nuevamente a privilegiado.**
 
@@ -85,20 +86,32 @@ Para conmutar del estado privilegiado al no privilegiado se debe modificar el re
 y pasado al modo no privilegiado, no se puede volver al modo privilegiado. Esto es así para proteger el modo privilegiado.
 
 **7- ¿Qué se entiende por modelo de registros ortogonal? Dé un ejemplo**
+Los registros ortogonales son aquellos en los cuales al modificar el valor en uno, el otro no se ve afectado.
 
 **8- ¿Qué ventajas presenta el uso de intrucciones de ejecución condicional (IT)? Dé un ejemplo**
 
 **9- Describa brevemente las excepciones más prioritarias (reset, NMI, Hardfault).**
+- *reset:* Es la excepción que se produce cuando el procesador es energizado y tiene la mayor prioridad de todas. Dentro de esta se debe contener la seccuencia de reset, es decir los comandos 
+para inicializar el microcontrolador.  
+- *NMI:* Las siglas provienen de Non Maskeable Interrupts, que como su nombre lo indica será invocada por interrupciones no enmascarables. Tiene un nivel de prioridad menor que reset.  
+- *HardFault:* Se invoca cuando se producen excepciones del sistema en las cuales no se ha definido como responder a dicho evento.
 
 **10- Describa las funciones principales de la pila. ¿Cómo resuelve la arquitectura el llamado a funciones y su retorno?**
 
 La función de la pila consiste en guardar el entorno actual de ejecución del programa ante un llamado a función. De esta manera, se guardan los valores de los registros y se los deja
 disponibles para que puedan ser usados en el entotno de la función. Si dentro de esa función se invoca otra función, nuevamente se guarda el entorno y así sucesivamente. Se debe tener
-cuidado en este aspecto, ya que se puede desbordar la pila si no se tiene cuida, pudiendo verse afectado la normal ejecución del programa.
+cuidado en este aspecto, ya que se puede desbordar la pila si no se tiene cuida, pudiendo verse afectado la normal ejecución del programa.  
 
 **11- Describa la secuencia de reset del microprocesador.**
+Luego de un reset, el procesador se dirige a la posición 0x0000 de la memoria en donde se encuentra el Stack Pointer. Luego se dirige a la posición de memoria contigua, región donde comienza 
+el NVIC, en la excepción reset, ejecutando la rutina de reset, para luego si ejecutar código de programa creado por el desarrollador. Por lo general esta última porción de memoria se aloja 
+luego de la porción de memoria donde está alojado el NVIC.
 
 **12- ¿Qué entiende por “core peripherals”? ¿Qué diferencia existe entre estos y el resto de los periféricos?**
+Los  *"core-peripherals"* son aquellos que se encuentran "integrados" en el procesador, es decir son aquellos que encontraremos en todos los procesadores de Cortex (dependiendo el modelo en 
+algunos casos) como pueden ser el NVIC, SysTick Timer y la MPU, donde estos últimos estpan ausentes en el M0/M0+.  
+El resto de los periféricos dependerá del fabricante que desarrolle el procesador, y pueden ser módulos de comunicación (USART, SPI, I2C), Timers, ADCs, DACs, etc. En este caso será la empresa 
+quién decida cuales, cuantos y en en que direcciones de memoria estarán estos periféricos.
 
 **13- ¿Cómo se implementan las prioridades de las interrupciones? Dé un ejemplo**
 
@@ -129,6 +142,10 @@ tiene un RTOS, en donde el Kernel es quién gestiona la memoria y asigna los rec
 **21- ¿Para qué se suele utilizar la excepción PendSV? ¿Cómo se relaciona su uso con el resto de las excepciones? Dé un ejemplo**
 
 **22- ¿Para qué se suele utilizar la excepción SVC? Expliquelo dentro de un marco de un sistema operativo embebido.**
+La excepción del SVC es aquella que se puede inducir o invocar por software, y por lo general es utilizada para pasar de modo "no privilegiado" a "privilegiado". Esto se logra ya que el procesador 
+al ingresar en una excepción, sale del modo *Thread* y entra en modo *Handler*, donde por defecto tiene el modo privilegiado, permitiendo así modificar el registro de CONTROL (cambiando el estado de
+ ejecución de no privilegiado a privilegiado). Esta es la manera que tiene un RTOS de cambiar de estados cuando le da el control del procesador a una tarea (modo no privilegiado) y esta le devuelve 
+ luego el control al kernel (modo privilegiado).
 
 ***
 
