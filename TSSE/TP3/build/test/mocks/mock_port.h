@@ -124,6 +124,12 @@ typedef void (* CMOCK_uartSendString_CALLBACK)(uint8_t* pstring, int cmock_num_c
 void uartSendString_AddCallback(CMOCK_uartSendString_CALLBACK Callback);
 void uartSendString_Stub(CMOCK_uartSendString_CALLBACK Callback);
 #define uartSendString_StubWithCallback uartSendString_Stub
+#define uartSendString_ReturnThruPtr_pstring(pstring) uartSendString_CMockReturnMemThruPtr_pstring(__LINE__, pstring, sizeof(uint8_t))
+#define uartSendString_ReturnArrayThruPtr_pstring(pstring, cmock_len) uartSendString_CMockReturnMemThruPtr_pstring(__LINE__, pstring, cmock_len * sizeof(*pstring))
+#define uartSendString_ReturnMemThruPtr_pstring(pstring, cmock_size) uartSendString_CMockReturnMemThruPtr_pstring(__LINE__, pstring, cmock_size)
+void uartSendString_CMockReturnMemThruPtr_pstring(UNITY_LINE_TYPE cmock_line, uint8_t* pstring, size_t cmock_size);
+#define uartSendString_IgnoreArg_pstring() uartSendString_CMockIgnoreArg_pstring(__LINE__)
+void uartSendString_CMockIgnoreArg_pstring(UNITY_LINE_TYPE cmock_line);
 #define uartNewData_IgnoreAndReturn(cmock_retval) uartNewData_CMockIgnoreAndReturn(__LINE__, cmock_retval)
 void uartNewData_CMockIgnoreAndReturn(UNITY_LINE_TYPE cmock_line, _Bool cmock_to_return);
 #define uartNewData_StopIgnore() uartNewData_CMockStopIgnore()
@@ -144,6 +150,16 @@ typedef _Bool (* CMOCK_SPIRead_CALLBACK)(uint8_t reg, uint8_t* data, uint8_t len
 void SPIRead_AddCallback(CMOCK_SPIRead_CALLBACK Callback);
 void SPIRead_Stub(CMOCK_SPIRead_CALLBACK Callback);
 #define SPIRead_StubWithCallback SPIRead_Stub
+#define SPIRead_ReturnThruPtr_data(data) SPIRead_CMockReturnMemThruPtr_data(__LINE__, data, sizeof(uint8_t))
+#define SPIRead_ReturnArrayThruPtr_data(data, cmock_len) SPIRead_CMockReturnMemThruPtr_data(__LINE__, data, cmock_len * sizeof(*data))
+#define SPIRead_ReturnMemThruPtr_data(data, cmock_size) SPIRead_CMockReturnMemThruPtr_data(__LINE__, data, cmock_size)
+void SPIRead_CMockReturnMemThruPtr_data(UNITY_LINE_TYPE cmock_line, uint8_t* data, size_t cmock_size);
+#define SPIRead_IgnoreArg_reg() SPIRead_CMockIgnoreArg_reg(__LINE__)
+void SPIRead_CMockIgnoreArg_reg(UNITY_LINE_TYPE cmock_line);
+#define SPIRead_IgnoreArg_data() SPIRead_CMockIgnoreArg_data(__LINE__)
+void SPIRead_CMockIgnoreArg_data(UNITY_LINE_TYPE cmock_line);
+#define SPIRead_IgnoreArg_length() SPIRead_CMockIgnoreArg_length(__LINE__)
+void SPIRead_CMockIgnoreArg_length(UNITY_LINE_TYPE cmock_line);
 #define SPIWrite_IgnoreAndReturn(cmock_retval) SPIWrite_CMockIgnoreAndReturn(__LINE__, cmock_retval)
 void SPIWrite_CMockIgnoreAndReturn(UNITY_LINE_TYPE cmock_line, _Bool cmock_to_return);
 #define SPIWrite_StopIgnore() SPIWrite_CMockStopIgnore()
@@ -154,6 +170,10 @@ typedef _Bool (* CMOCK_SPIWrite_CALLBACK)(uint8_t reg, uint8_t command, int cmoc
 void SPIWrite_AddCallback(CMOCK_SPIWrite_CALLBACK Callback);
 void SPIWrite_Stub(CMOCK_SPIWrite_CALLBACK Callback);
 #define SPIWrite_StubWithCallback SPIWrite_Stub
+#define SPIWrite_IgnoreArg_reg() SPIWrite_CMockIgnoreArg_reg(__LINE__)
+void SPIWrite_CMockIgnoreArg_reg(UNITY_LINE_TYPE cmock_line);
+#define SPIWrite_IgnoreArg_command() SPIWrite_CMockIgnoreArg_command(__LINE__)
+void SPIWrite_CMockIgnoreArg_command(UNITY_LINE_TYPE cmock_line);
 
 #if defined(__GNUC__) && !defined(__ICC) && !defined(__TMS470__)
 #if __GNUC__ > 4 || (__GNUC__ == 4 && (__GNUC_MINOR__ > 6 || (__GNUC_MINOR__ == 6 && __GNUC_PATCHLEVEL__ > 0)))

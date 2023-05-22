@@ -91,8 +91,8 @@ int main(void)
   UnityBegin("test_MPU9255.c");
   run_test(test_verifica_correcta_conversion_datos, "test_verifica_correcta_conversion_datos", 18);
   run_test(test_verifica_lectura_aceleracion_todos_ejes, "test_verifica_lectura_aceleracion_todos_ejes", 27);
-  run_test(test_verifica_lectura_aceleracion_eje_x, "test_verifica_lectura_aceleracion_eje_x", 39);
-  run_test(test_verifica_lectura_resolucion_actual, "test_verifica_lectura_resolucion_actual", 51);
+  run_test(test_verifica_lectura_aceleracion_eje_x, "test_verifica_lectura_aceleracion_eje_x", 41);
+  run_test(test_verifica_lectura_resolucion_actual, "test_verifica_lectura_resolucion_actual", 53);
 
   CMock_Guts_MemFreeFinal();
   return UnityEnd();

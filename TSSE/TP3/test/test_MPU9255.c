@@ -29,7 +29,9 @@ void test_verifica_lectura_aceleracion_todos_ejes(void){
      uint8_t bytes = 6;
      uint8_t *pData = &bytes;
      // Función Mock que será llamada
-     SPIRead_ExpectAndReturn(ACCEL_DIR, pData, bytes, 0);
+     // SPIRead_ExpectAndReturn(ACCEL_DIR, pData, bytes, 0);
+     // SPIRead_IgnoreArg_pdata();
+     PSIRead_ReturnThruPtr_data();
      // Lectura del puntero pasado por parámetro
      MPUReadAccel(pData);
      TEST_ASSERT_EQUAL_HEX16(0x06, *pData);

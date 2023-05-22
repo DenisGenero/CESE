@@ -93,6 +93,10 @@ typedef struct _CMOCK_uartSendString_CALL_INSTANCE
   UNITY_LINE_TYPE LineNumber;
   int CallOrder;
   uint8_t* Expected_pstring;
+  char ReturnThruPtr_pstring_Used;
+  uint8_t* ReturnThruPtr_pstring_Val;
+  size_t ReturnThruPtr_pstring_Size;
+  char IgnoreArg_pstring;
 
 } CMOCK_uartSendString_CALL_INSTANCE;
 
@@ -112,6 +116,12 @@ typedef struct _CMOCK_SPIRead_CALL_INSTANCE
   uint8_t Expected_reg;
   uint8_t* Expected_data;
   uint8_t Expected_length;
+  char ReturnThruPtr_data_Used;
+  uint8_t* ReturnThruPtr_data_Val;
+  size_t ReturnThruPtr_data_Size;
+  char IgnoreArg_reg;
+  char IgnoreArg_data;
+  char IgnoreArg_length;
 
 } CMOCK_SPIRead_CALL_INSTANCE;
 
@@ -122,6 +132,8 @@ typedef struct _CMOCK_SPIWrite_CALL_INSTANCE
   int CallOrder;
   uint8_t Expected_reg;
   uint8_t Expected_command;
+  char IgnoreArg_reg;
+  char IgnoreArg_command;
 
 } CMOCK_SPIWrite_CALL_INSTANCE;
 
@@ -1042,6 +1054,7 @@ void uartSendString(uint8_t* pstring)
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledEarly);
   if (cmock_call_instance->CallOrder < GlobalVerifyOrder)
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledLate);
+  if (!cmock_call_instance->IgnoreArg_pstring)
   {
     UNITY_SET_DETAILS(CMockString_uartSendString,CMockString_pstring);
     if (cmock_call_instance->Expected_pstring == NULL)
@@ -1053,6 +1066,12 @@ void uartSendString(uint8_t* pstring)
   {
     Mock.uartSendString_CallbackFunctionPointer(pstring, Mock.uartSendString_CallbackCalls++);
   }
+  if (cmock_call_instance->ReturnThruPtr_pstring_Used)
+  {
+    UNITY_TEST_ASSERT_NOT_NULL(pstring, cmock_line, CMockStringPtrIsNULL);
+    memcpy((void*)pstring, (void*)cmock_call_instance->ReturnThruPtr_pstring_Val,
+      cmock_call_instance->ReturnThruPtr_pstring_Size);
+  }
   UNITY_CLR_DETAILS();
 }
 
@@ -1060,6 +1079,8 @@ void CMockExpectParameters_uartSendString(CMOCK_uartSendString_CALL_INSTANCE* cm
 void CMockExpectParameters_uartSendString(CMOCK_uartSendString_CALL_INSTANCE* cmock_call_instance, uint8_t* pstring)
 {
   cmock_call_instance->Expected_pstring = pstring;
+  cmock_call_instance->IgnoreArg_pstring = 0;
+  cmock_call_instance->ReturnThruPtr_pstring_Used = 0;
 }
 
 void uartSendString_CMockIgnore(void)
@@ -1097,6 +1118,22 @@ void uartSendString_Stub(CMOCK_uartSendString_CALLBACK Callback)
   Mock.uartSendString_IgnoreBool = (char)0;
   Mock.uartSendString_CallbackBool = (char)0;
   Mock.uartSendString_CallbackFunctionPointer = Callback;
+}
+
+void uartSendString_CMockReturnMemThruPtr_pstring(UNITY_LINE_TYPE cmock_line, uint8_t* pstring, size_t cmock_size)
+{
+  CMOCK_uartSendString_CALL_INSTANCE* cmock_call_instance = (CMOCK_uartSendString_CALL_INSTANCE*)CMock_Guts_GetAddressFor(CMock_Guts_MemEndOfChain(Mock.uartSendString_CallInstance));
+  UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringPtrPreExp);
+  cmock_call_instance->ReturnThruPtr_pstring_Used = 1;
+  cmock_call_instance->ReturnThruPtr_pstring_Val = pstring;
+  cmock_call_instance->ReturnThruPtr_pstring_Size = cmock_size;
+}
+
+void uartSendString_CMockIgnoreArg_pstring(UNITY_LINE_TYPE cmock_line)
+{
+  CMOCK_uartSendString_CALL_INSTANCE* cmock_call_instance = (CMOCK_uartSendString_CALL_INSTANCE*)CMock_Guts_GetAddressFor(CMock_Guts_MemEndOfChain(Mock.uartSendString_CallInstance));
+  UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringIgnPreExp);
+  cmock_call_instance->IgnoreArg_pstring = 1;
 }
 
 _Bool uartNewData(void)
@@ -1213,10 +1250,12 @@ _Bool SPIRead(uint8_t reg, uint8_t* data, uint8_t length)
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledEarly);
   if (cmock_call_instance->CallOrder < GlobalVerifyOrder)
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledLate);
+  if (!cmock_call_instance->IgnoreArg_reg)
   {
     UNITY_SET_DETAILS(CMockString_SPIRead,CMockString_reg);
     UNITY_TEST_ASSERT_EQUAL_HEX8(cmock_call_instance->Expected_reg, reg, cmock_line, CMockStringMismatch);
   }
+  if (!cmock_call_instance->IgnoreArg_data)
   {
     UNITY_SET_DETAILS(CMockString_SPIRead,CMockString_data);
     if (cmock_call_instance->Expected_data == NULL)
@@ -1224,6 +1263,7 @@ _Bool SPIRead(uint8_t reg, uint8_t* data, uint8_t length)
     else
       { UNITY_TEST_ASSERT_EQUAL_HEX8_ARRAY(cmock_call_instance->Expected_data, data, 1, cmock_line, CMockStringMismatch); }
   }
+  if (!cmock_call_instance->IgnoreArg_length)
   {
     UNITY_SET_DETAILS(CMockString_SPIRead,CMockString_length);
     UNITY_TEST_ASSERT_EQUAL_HEX8(cmock_call_instance->Expected_length, length, cmock_line, CMockStringMismatch);
@@ -1231,6 +1271,12 @@ _Bool SPIRead(uint8_t reg, uint8_t* data, uint8_t length)
   if (Mock.SPIRead_CallbackFunctionPointer != NULL)
   {
     cmock_call_instance->ReturnVal = Mock.SPIRead_CallbackFunctionPointer(reg, data, length, Mock.SPIRead_CallbackCalls++);
+  }
+  if (cmock_call_instance->ReturnThruPtr_data_Used)
+  {
+    UNITY_TEST_ASSERT_NOT_NULL(data, cmock_line, CMockStringPtrIsNULL);
+    memcpy((void*)data, (void*)cmock_call_instance->ReturnThruPtr_data_Val,
+      cmock_call_instance->ReturnThruPtr_data_Size);
   }
   UNITY_CLR_DETAILS();
   return cmock_call_instance->ReturnVal;
@@ -1240,8 +1286,12 @@ void CMockExpectParameters_SPIRead(CMOCK_SPIRead_CALL_INSTANCE* cmock_call_insta
 void CMockExpectParameters_SPIRead(CMOCK_SPIRead_CALL_INSTANCE* cmock_call_instance, uint8_t reg, uint8_t* data, uint8_t length)
 {
   cmock_call_instance->Expected_reg = reg;
+  cmock_call_instance->IgnoreArg_reg = 0;
   cmock_call_instance->Expected_data = data;
+  cmock_call_instance->IgnoreArg_data = 0;
+  cmock_call_instance->ReturnThruPtr_data_Used = 0;
   cmock_call_instance->Expected_length = length;
+  cmock_call_instance->IgnoreArg_length = 0;
 }
 
 void SPIRead_CMockIgnoreAndReturn(UNITY_LINE_TYPE cmock_line, _Bool cmock_to_return)
@@ -1293,6 +1343,36 @@ void SPIRead_Stub(CMOCK_SPIRead_CALLBACK Callback)
   Mock.SPIRead_CallbackFunctionPointer = Callback;
 }
 
+void SPIRead_CMockReturnMemThruPtr_data(UNITY_LINE_TYPE cmock_line, uint8_t* data, size_t cmock_size)
+{
+  CMOCK_SPIRead_CALL_INSTANCE* cmock_call_instance = (CMOCK_SPIRead_CALL_INSTANCE*)CMock_Guts_GetAddressFor(CMock_Guts_MemEndOfChain(Mock.SPIRead_CallInstance));
+  UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringPtrPreExp);
+  cmock_call_instance->ReturnThruPtr_data_Used = 1;
+  cmock_call_instance->ReturnThruPtr_data_Val = data;
+  cmock_call_instance->ReturnThruPtr_data_Size = cmock_size;
+}
+
+void SPIRead_CMockIgnoreArg_reg(UNITY_LINE_TYPE cmock_line)
+{
+  CMOCK_SPIRead_CALL_INSTANCE* cmock_call_instance = (CMOCK_SPIRead_CALL_INSTANCE*)CMock_Guts_GetAddressFor(CMock_Guts_MemEndOfChain(Mock.SPIRead_CallInstance));
+  UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringIgnPreExp);
+  cmock_call_instance->IgnoreArg_reg = 1;
+}
+
+void SPIRead_CMockIgnoreArg_data(UNITY_LINE_TYPE cmock_line)
+{
+  CMOCK_SPIRead_CALL_INSTANCE* cmock_call_instance = (CMOCK_SPIRead_CALL_INSTANCE*)CMock_Guts_GetAddressFor(CMock_Guts_MemEndOfChain(Mock.SPIRead_CallInstance));
+  UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringIgnPreExp);
+  cmock_call_instance->IgnoreArg_data = 1;
+}
+
+void SPIRead_CMockIgnoreArg_length(UNITY_LINE_TYPE cmock_line)
+{
+  CMOCK_SPIRead_CALL_INSTANCE* cmock_call_instance = (CMOCK_SPIRead_CALL_INSTANCE*)CMock_Guts_GetAddressFor(CMock_Guts_MemEndOfChain(Mock.SPIRead_CallInstance));
+  UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringIgnPreExp);
+  cmock_call_instance->IgnoreArg_length = 1;
+}
+
 _Bool SPIWrite(uint8_t reg, uint8_t command)
 {
   UNITY_LINE_TYPE cmock_line = TEST_LINE_NUM;
@@ -1322,10 +1402,12 @@ _Bool SPIWrite(uint8_t reg, uint8_t command)
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledEarly);
   if (cmock_call_instance->CallOrder < GlobalVerifyOrder)
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledLate);
+  if (!cmock_call_instance->IgnoreArg_reg)
   {
     UNITY_SET_DETAILS(CMockString_SPIWrite,CMockString_reg);
     UNITY_TEST_ASSERT_EQUAL_HEX8(cmock_call_instance->Expected_reg, reg, cmock_line, CMockStringMismatch);
   }
+  if (!cmock_call_instance->IgnoreArg_command)
   {
     UNITY_SET_DETAILS(CMockString_SPIWrite,CMockString_command);
     UNITY_TEST_ASSERT_EQUAL_HEX8(cmock_call_instance->Expected_command, command, cmock_line, CMockStringMismatch);
@@ -1342,7 +1424,9 @@ void CMockExpectParameters_SPIWrite(CMOCK_SPIWrite_CALL_INSTANCE* cmock_call_ins
 void CMockExpectParameters_SPIWrite(CMOCK_SPIWrite_CALL_INSTANCE* cmock_call_instance, uint8_t reg, uint8_t command)
 {
   cmock_call_instance->Expected_reg = reg;
+  cmock_call_instance->IgnoreArg_reg = 0;
   cmock_call_instance->Expected_command = command;
+  cmock_call_instance->IgnoreArg_command = 0;
 }
 
 void SPIWrite_CMockIgnoreAndReturn(UNITY_LINE_TYPE cmock_line, _Bool cmock_to_return)
@@ -1392,5 +1476,19 @@ void SPIWrite_Stub(CMOCK_SPIWrite_CALLBACK Callback)
   Mock.SPIWrite_IgnoreBool = (char)0;
   Mock.SPIWrite_CallbackBool = (char)0;
   Mock.SPIWrite_CallbackFunctionPointer = Callback;
+}
+
+void SPIWrite_CMockIgnoreArg_reg(UNITY_LINE_TYPE cmock_line)
+{
+  CMOCK_SPIWrite_CALL_INSTANCE* cmock_call_instance = (CMOCK_SPIWrite_CALL_INSTANCE*)CMock_Guts_GetAddressFor(CMock_Guts_MemEndOfChain(Mock.SPIWrite_CallInstance));
+  UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringIgnPreExp);
+  cmock_call_instance->IgnoreArg_reg = 1;
+}
+
+void SPIWrite_CMockIgnoreArg_command(UNITY_LINE_TYPE cmock_line)
+{
+  CMOCK_SPIWrite_CALL_INSTANCE* cmock_call_instance = (CMOCK_SPIWrite_CALL_INSTANCE*)CMock_Guts_GetAddressFor(CMock_Guts_MemEndOfChain(Mock.SPIWrite_CallInstance));
+  UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringIgnPreExp);
+  cmock_call_instance->IgnoreArg_command = 1;
 }
 

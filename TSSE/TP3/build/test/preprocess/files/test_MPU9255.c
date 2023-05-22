@@ -45,7 +45,11 @@ void test_verifica_lectura_aceleracion_todos_ejes(void){
 
 
 
-     SPIRead_CMockExpectAndReturn(32, 59, pData, bytes, 0);
+
+
+
+
+     PSIRead_ReturnThruPtr_data();
 
 
 
@@ -55,7 +59,7 @@ void test_verifica_lectura_aceleracion_todos_ejes(void){
 
     ((void *)0)
 
-    ), (UNITY_UINT)(35), UNITY_DISPLAY_STYLE_HEX16);
+    ), (UNITY_UINT)(37), UNITY_DISPLAY_STYLE_HEX16);
 
 }
 
@@ -73,7 +77,7 @@ void test_verifica_lectura_aceleracion_eje_x(void){
 
 
 
-     SPIRead_CMockExpectAndReturn(44, 59, pData, bytes, 0);
+     SPIRead_CMockExpectAndReturn(46, 59, pData, bytes, 0);
 
 
 
@@ -83,7 +87,7 @@ void test_verifica_lectura_aceleracion_eje_x(void){
 
     ((void *)0)
 
-    ), (UNITY_UINT)(47), UNITY_DISPLAY_STYLE_HEX16);
+    ), (UNITY_UINT)(49), UNITY_DISPLAY_STYLE_HEX16);
 
 }
 
@@ -99,9 +103,9 @@ void test_verifica_lectura_resolucion_actual(void){
 
      uint8_t data = 50;
 
-     SPIRead_CMockExpectAndReturn(55, 28, &data, bytes, 0);
+     SPIRead_CMockExpectAndReturn(57, 28, &data, bytes, 0);
 
-     SPIRead_ReturnThruPtr_data();
+     SPIRead_CMockReturnMemThruPtr_data(58, , sizeof(uint8_t));
 
      resolucion = MPUGetAccelResolution();
 
@@ -109,6 +113,6 @@ void test_verifica_lectura_resolucion_actual(void){
 
     ((void *)0)
 
-    ), (UNITY_UINT)(58), UNITY_DISPLAY_STYLE_HEX16);
+    ), (UNITY_UINT)(60), UNITY_DISPLAY_STYLE_HEX16);
 
 }
