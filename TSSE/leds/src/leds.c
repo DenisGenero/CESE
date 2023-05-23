@@ -15,7 +15,7 @@ uint16_t indexToMask(uint8_t led){
 
 void ledsInit(uint16_t *direccion){
     puerto_virtual = direccion;
-    *puerto_virtual = 0;
+    ledsTurnOffAll();
 };
 
 void ledsTurnOnOne(uint8_t led){
