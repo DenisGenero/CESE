@@ -27,7 +27,7 @@ void test_verifica_correcta_conversion_datos(void){
 
     ((void *)0)
 
-    ), (UNITY_UINT)(23), UNITY_DISPLAY_STYLE_HEX16);
+    ), (UNITY_UINT)(24), UNITY_DISPLAY_STYLE_HEX16);
 
 }
 
@@ -45,21 +45,23 @@ void test_verifica_lectura_aceleracion_todos_ejes(void){
 
 
 
+     SPIRead_CMockExpectAndReturn(33, 59, pData, bytes, 0);
+
+     SPIRead_CMockIgnoreArg_data(34);
+
+     SPIRead_CMockReturnMemThruPtr_data(35, &bytes, sizeof(uint8_t));
 
 
-
-
-     PSIRead_ReturnThruPtr_data();
 
 
 
      MPUReadAccel(pData);
 
-     UnityAssertEqualNumber((UNITY_INT)(UNITY_INT16)((0x06)), (UNITY_INT)(UNITY_INT16)((*pData)), (
+     UnityAssertEqualNumber((UNITY_INT)(UNITY_INT16)((0x0006)), (UNITY_INT)(UNITY_INT16)((*pData)), (
 
     ((void *)0)
 
-    ), (UNITY_UINT)(37), UNITY_DISPLAY_STYLE_HEX16);
+    ), (UNITY_UINT)(39), UNITY_DISPLAY_STYLE_HEX16);
 
 }
 
@@ -77,7 +79,11 @@ void test_verifica_lectura_aceleracion_eje_x(void){
 
 
 
-     SPIRead_CMockExpectAndReturn(46, 59, pData, bytes, 0);
+     SPIRead_CMockExpectAndReturn(48, 59, pData, bytes, 0);
+
+     SPIRead_CMockIgnoreArg_data(49);
+
+     SPIRead_CMockReturnMemThruPtr_data(50, &bytes, sizeof(uint8_t));
 
 
 
@@ -87,7 +93,7 @@ void test_verifica_lectura_aceleracion_eje_x(void){
 
     ((void *)0)
 
-    ), (UNITY_UINT)(49), UNITY_DISPLAY_STYLE_HEX16);
+    ), (UNITY_UINT)(53), UNITY_DISPLAY_STYLE_HEX16);
 
 }
 
@@ -101,18 +107,54 @@ void test_verifica_lectura_resolucion_actual(void){
 
      uint8_t bytes = 1;
 
-     uint8_t data = 50;
+     uint8_t *pData;
 
-     SPIRead_CMockExpectAndReturn(57, 28, &data, bytes, 0);
 
-     SPIRead_CMockReturnMemThruPtr_data(58, , sizeof(uint8_t));
+
+     SPIRead_CMockExpectAndReturn(62, 28, pData, bytes, 0);
+
+     SPIRead_CMockIgnoreArg_data(63);
+
+     SPIRead_CMockReturnMemThruPtr_data(64, &bytes, sizeof(uint8_t));
 
      resolucion = MPUGetAccelResolution();
 
-     UnityAssertEqualNumber((UNITY_INT)(UNITY_INT16)((0x50)), (UNITY_INT)(UNITY_INT16)((resolucion)), (
+     UnityAssertEqualNumber((UNITY_INT)(UNITY_INT16)((0x001)), (UNITY_INT)(UNITY_INT16)((resolucion)), (
 
     ((void *)0)
 
-    ), (UNITY_UINT)(60), UNITY_DISPLAY_STYLE_HEX16);
+    ), (UNITY_UINT)(66), UNITY_DISPLAY_STYLE_HEX16);
+
+}
+
+
+
+
+
+void test_verifica_lectura_temperatura(void){
+
+     uint16_t temp;
+
+     uint8_t bytes = 2;
+
+     uint8_t *pData = &bytes;
+
+
+
+     SPIRead_CMockExpectAndReturn(75, 65, pData, bytes, 0);
+
+     SPIRead_CMockIgnoreArg_data(76);
+
+     SPIRead_CMockReturnMemThruPtr_data(77, &bytes, sizeof(uint8_t));
+
+
+
+     temp = MPUReadTemperature();
+
+     UnityAssertEqualNumber((UNITY_INT)(UNITY_INT16)((0x0200)), (UNITY_INT)(UNITY_INT16)((temp)), (
+
+    ((void *)0)
+
+    ), (UNITY_UINT)(80), UNITY_DISPLAY_STYLE_HEX16);
 
 }

@@ -140,73 +140,34 @@ typedef struct _CMOCK_SPIWrite_CALL_INSTANCE
 static struct mock_portInstance
 {
   char APISysInit_IgnoreBool;
-  char APISysInit_CallbackBool;
-  CMOCK_APISysInit_CALLBACK APISysInit_CallbackFunctionPointer;
-  int APISysInit_CallbackCalls;
   CMOCK_MEM_INDEX_TYPE APISysInit_CallInstance;
   char SystemClock_Config_IgnoreBool;
-  char SystemClock_Config_CallbackBool;
-  CMOCK_SystemClock_Config_CALLBACK SystemClock_Config_CallbackFunctionPointer;
-  int SystemClock_Config_CallbackCalls;
   CMOCK_MEM_INDEX_TYPE SystemClock_Config_CallInstance;
   char MX_GPIO_Init_IgnoreBool;
-  char MX_GPIO_Init_CallbackBool;
-  CMOCK_MX_GPIO_Init_CALLBACK MX_GPIO_Init_CallbackFunctionPointer;
-  int MX_GPIO_Init_CallbackCalls;
   CMOCK_MEM_INDEX_TYPE MX_GPIO_Init_CallInstance;
   char MX_DMA_Init_IgnoreBool;
-  char MX_DMA_Init_CallbackBool;
-  CMOCK_MX_DMA_Init_CALLBACK MX_DMA_Init_CallbackFunctionPointer;
-  int MX_DMA_Init_CallbackCalls;
   CMOCK_MEM_INDEX_TYPE MX_DMA_Init_CallInstance;
   char MX_TIM1_Init_IgnoreBool;
-  char MX_TIM1_Init_CallbackBool;
-  CMOCK_MX_TIM1_Init_CALLBACK MX_TIM1_Init_CallbackFunctionPointer;
-  int MX_TIM1_Init_CallbackCalls;
   CMOCK_MEM_INDEX_TYPE MX_TIM1_Init_CallInstance;
   char MX_SPI1_Init_IgnoreBool;
-  char MX_SPI1_Init_CallbackBool;
-  CMOCK_MX_SPI1_Init_CALLBACK MX_SPI1_Init_CallbackFunctionPointer;
-  int MX_SPI1_Init_CallbackCalls;
   CMOCK_MEM_INDEX_TYPE MX_SPI1_Init_CallInstance;
   char MX_USART3_UART_Init_IgnoreBool;
-  char MX_USART3_UART_Init_CallbackBool;
-  CMOCK_MX_USART3_UART_Init_CALLBACK MX_USART3_UART_Init_CallbackFunctionPointer;
-  int MX_USART3_UART_Init_CallbackCalls;
   CMOCK_MEM_INDEX_TYPE MX_USART3_UART_Init_CallInstance;
   char uartInit_IgnoreBool;
-  char uartInit_CallbackBool;
-  CMOCK_uartInit_CALLBACK uartInit_CallbackFunctionPointer;
-  int uartInit_CallbackCalls;
   CMOCK_MEM_INDEX_TYPE uartInit_CallInstance;
   char uartReceiveString_IgnoreBool;
   uint8_t uartReceiveString_FinalReturn;
-  char uartReceiveString_CallbackBool;
-  CMOCK_uartReceiveString_CALLBACK uartReceiveString_CallbackFunctionPointer;
-  int uartReceiveString_CallbackCalls;
   CMOCK_MEM_INDEX_TYPE uartReceiveString_CallInstance;
   char uartSendString_IgnoreBool;
-  char uartSendString_CallbackBool;
-  CMOCK_uartSendString_CALLBACK uartSendString_CallbackFunctionPointer;
-  int uartSendString_CallbackCalls;
   CMOCK_MEM_INDEX_TYPE uartSendString_CallInstance;
   char uartNewData_IgnoreBool;
   _Bool uartNewData_FinalReturn;
-  char uartNewData_CallbackBool;
-  CMOCK_uartNewData_CALLBACK uartNewData_CallbackFunctionPointer;
-  int uartNewData_CallbackCalls;
   CMOCK_MEM_INDEX_TYPE uartNewData_CallInstance;
   char SPIRead_IgnoreBool;
   _Bool SPIRead_FinalReturn;
-  char SPIRead_CallbackBool;
-  CMOCK_SPIRead_CALLBACK SPIRead_CallbackFunctionPointer;
-  int SPIRead_CallbackCalls;
   CMOCK_MEM_INDEX_TYPE SPIRead_CallInstance;
   char SPIWrite_IgnoreBool;
   _Bool SPIWrite_FinalReturn;
-  char SPIWrite_CallbackBool;
-  CMOCK_SPIWrite_CALLBACK SPIWrite_CallbackFunctionPointer;
-  int SPIWrite_CallbackCalls;
   CMOCK_MEM_INDEX_TYPE SPIWrite_CallInstance;
 } Mock;
 
@@ -226,11 +187,6 @@ void mock_port_Verify(void)
     UNITY_SET_DETAIL(CMockString_APISysInit);
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledLess);
   }
-  if (Mock.APISysInit_CallbackFunctionPointer != NULL)
-  {
-    call_instance = CMOCK_GUTS_NONE;
-    (void)call_instance;
-  }
   call_instance = Mock.SystemClock_Config_CallInstance;
   if (Mock.SystemClock_Config_IgnoreBool)
     call_instance = CMOCK_GUTS_NONE;
@@ -238,11 +194,6 @@ void mock_port_Verify(void)
   {
     UNITY_SET_DETAIL(CMockString_SystemClock_Config);
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledLess);
-  }
-  if (Mock.SystemClock_Config_CallbackFunctionPointer != NULL)
-  {
-    call_instance = CMOCK_GUTS_NONE;
-    (void)call_instance;
   }
   call_instance = Mock.MX_GPIO_Init_CallInstance;
   if (Mock.MX_GPIO_Init_IgnoreBool)
@@ -252,11 +203,6 @@ void mock_port_Verify(void)
     UNITY_SET_DETAIL(CMockString_MX_GPIO_Init);
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledLess);
   }
-  if (Mock.MX_GPIO_Init_CallbackFunctionPointer != NULL)
-  {
-    call_instance = CMOCK_GUTS_NONE;
-    (void)call_instance;
-  }
   call_instance = Mock.MX_DMA_Init_CallInstance;
   if (Mock.MX_DMA_Init_IgnoreBool)
     call_instance = CMOCK_GUTS_NONE;
@@ -264,11 +210,6 @@ void mock_port_Verify(void)
   {
     UNITY_SET_DETAIL(CMockString_MX_DMA_Init);
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledLess);
-  }
-  if (Mock.MX_DMA_Init_CallbackFunctionPointer != NULL)
-  {
-    call_instance = CMOCK_GUTS_NONE;
-    (void)call_instance;
   }
   call_instance = Mock.MX_TIM1_Init_CallInstance;
   if (Mock.MX_TIM1_Init_IgnoreBool)
@@ -278,11 +219,6 @@ void mock_port_Verify(void)
     UNITY_SET_DETAIL(CMockString_MX_TIM1_Init);
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledLess);
   }
-  if (Mock.MX_TIM1_Init_CallbackFunctionPointer != NULL)
-  {
-    call_instance = CMOCK_GUTS_NONE;
-    (void)call_instance;
-  }
   call_instance = Mock.MX_SPI1_Init_CallInstance;
   if (Mock.MX_SPI1_Init_IgnoreBool)
     call_instance = CMOCK_GUTS_NONE;
@@ -290,11 +226,6 @@ void mock_port_Verify(void)
   {
     UNITY_SET_DETAIL(CMockString_MX_SPI1_Init);
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledLess);
-  }
-  if (Mock.MX_SPI1_Init_CallbackFunctionPointer != NULL)
-  {
-    call_instance = CMOCK_GUTS_NONE;
-    (void)call_instance;
   }
   call_instance = Mock.MX_USART3_UART_Init_CallInstance;
   if (Mock.MX_USART3_UART_Init_IgnoreBool)
@@ -304,11 +235,6 @@ void mock_port_Verify(void)
     UNITY_SET_DETAIL(CMockString_MX_USART3_UART_Init);
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledLess);
   }
-  if (Mock.MX_USART3_UART_Init_CallbackFunctionPointer != NULL)
-  {
-    call_instance = CMOCK_GUTS_NONE;
-    (void)call_instance;
-  }
   call_instance = Mock.uartInit_CallInstance;
   if (Mock.uartInit_IgnoreBool)
     call_instance = CMOCK_GUTS_NONE;
@@ -316,11 +242,6 @@ void mock_port_Verify(void)
   {
     UNITY_SET_DETAIL(CMockString_uartInit);
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledLess);
-  }
-  if (Mock.uartInit_CallbackFunctionPointer != NULL)
-  {
-    call_instance = CMOCK_GUTS_NONE;
-    (void)call_instance;
   }
   call_instance = Mock.uartReceiveString_CallInstance;
   if (Mock.uartReceiveString_IgnoreBool)
@@ -330,11 +251,6 @@ void mock_port_Verify(void)
     UNITY_SET_DETAIL(CMockString_uartReceiveString);
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledLess);
   }
-  if (Mock.uartReceiveString_CallbackFunctionPointer != NULL)
-  {
-    call_instance = CMOCK_GUTS_NONE;
-    (void)call_instance;
-  }
   call_instance = Mock.uartSendString_CallInstance;
   if (Mock.uartSendString_IgnoreBool)
     call_instance = CMOCK_GUTS_NONE;
@@ -342,11 +258,6 @@ void mock_port_Verify(void)
   {
     UNITY_SET_DETAIL(CMockString_uartSendString);
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledLess);
-  }
-  if (Mock.uartSendString_CallbackFunctionPointer != NULL)
-  {
-    call_instance = CMOCK_GUTS_NONE;
-    (void)call_instance;
   }
   call_instance = Mock.uartNewData_CallInstance;
   if (Mock.uartNewData_IgnoreBool)
@@ -356,11 +267,6 @@ void mock_port_Verify(void)
     UNITY_SET_DETAIL(CMockString_uartNewData);
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledLess);
   }
-  if (Mock.uartNewData_CallbackFunctionPointer != NULL)
-  {
-    call_instance = CMOCK_GUTS_NONE;
-    (void)call_instance;
-  }
   call_instance = Mock.SPIRead_CallInstance;
   if (Mock.SPIRead_IgnoreBool)
     call_instance = CMOCK_GUTS_NONE;
@@ -369,11 +275,6 @@ void mock_port_Verify(void)
     UNITY_SET_DETAIL(CMockString_SPIRead);
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledLess);
   }
-  if (Mock.SPIRead_CallbackFunctionPointer != NULL)
-  {
-    call_instance = CMOCK_GUTS_NONE;
-    (void)call_instance;
-  }
   call_instance = Mock.SPIWrite_CallInstance;
   if (Mock.SPIWrite_IgnoreBool)
     call_instance = CMOCK_GUTS_NONE;
@@ -381,11 +282,6 @@ void mock_port_Verify(void)
   {
     UNITY_SET_DETAIL(CMockString_SPIWrite);
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledLess);
-  }
-  if (Mock.SPIWrite_CallbackFunctionPointer != NULL)
-  {
-    call_instance = CMOCK_GUTS_NONE;
-    (void)call_instance;
   }
 }
 
@@ -414,23 +310,12 @@ void APISysInit(void)
     UNITY_CLR_DETAILS();
     return;
   }
-  if (!Mock.APISysInit_CallbackBool &&
-      Mock.APISysInit_CallbackFunctionPointer != NULL)
-  {
-    Mock.APISysInit_CallbackFunctionPointer(Mock.APISysInit_CallbackCalls++);
-    UNITY_CLR_DETAILS();
-    return;
-  }
   UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringCalledMore);
   cmock_line = cmock_call_instance->LineNumber;
   if (cmock_call_instance->CallOrder > ++GlobalVerifyOrder)
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledEarly);
   if (cmock_call_instance->CallOrder < GlobalVerifyOrder)
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledLate);
-  if (Mock.APISysInit_CallbackFunctionPointer != NULL)
-  {
-    Mock.APISysInit_CallbackFunctionPointer(Mock.APISysInit_CallbackCalls++);
-  }
   UNITY_CLR_DETAILS();
 }
 
@@ -456,20 +341,6 @@ void APISysInit_CMockExpect(UNITY_LINE_TYPE cmock_line)
   cmock_call_instance->CallOrder = ++GlobalExpectCount;
 }
 
-void APISysInit_AddCallback(CMOCK_APISysInit_CALLBACK Callback)
-{
-  Mock.APISysInit_IgnoreBool = (char)0;
-  Mock.APISysInit_CallbackBool = (char)1;
-  Mock.APISysInit_CallbackFunctionPointer = Callback;
-}
-
-void APISysInit_Stub(CMOCK_APISysInit_CALLBACK Callback)
-{
-  Mock.APISysInit_IgnoreBool = (char)0;
-  Mock.APISysInit_CallbackBool = (char)0;
-  Mock.APISysInit_CallbackFunctionPointer = Callback;
-}
-
 void SystemClock_Config(void)
 {
   UNITY_LINE_TYPE cmock_line = TEST_LINE_NUM;
@@ -482,23 +353,12 @@ void SystemClock_Config(void)
     UNITY_CLR_DETAILS();
     return;
   }
-  if (!Mock.SystemClock_Config_CallbackBool &&
-      Mock.SystemClock_Config_CallbackFunctionPointer != NULL)
-  {
-    Mock.SystemClock_Config_CallbackFunctionPointer(Mock.SystemClock_Config_CallbackCalls++);
-    UNITY_CLR_DETAILS();
-    return;
-  }
   UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringCalledMore);
   cmock_line = cmock_call_instance->LineNumber;
   if (cmock_call_instance->CallOrder > ++GlobalVerifyOrder)
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledEarly);
   if (cmock_call_instance->CallOrder < GlobalVerifyOrder)
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledLate);
-  if (Mock.SystemClock_Config_CallbackFunctionPointer != NULL)
-  {
-    Mock.SystemClock_Config_CallbackFunctionPointer(Mock.SystemClock_Config_CallbackCalls++);
-  }
   UNITY_CLR_DETAILS();
 }
 
@@ -524,20 +384,6 @@ void SystemClock_Config_CMockExpect(UNITY_LINE_TYPE cmock_line)
   cmock_call_instance->CallOrder = ++GlobalExpectCount;
 }
 
-void SystemClock_Config_AddCallback(CMOCK_SystemClock_Config_CALLBACK Callback)
-{
-  Mock.SystemClock_Config_IgnoreBool = (char)0;
-  Mock.SystemClock_Config_CallbackBool = (char)1;
-  Mock.SystemClock_Config_CallbackFunctionPointer = Callback;
-}
-
-void SystemClock_Config_Stub(CMOCK_SystemClock_Config_CALLBACK Callback)
-{
-  Mock.SystemClock_Config_IgnoreBool = (char)0;
-  Mock.SystemClock_Config_CallbackBool = (char)0;
-  Mock.SystemClock_Config_CallbackFunctionPointer = Callback;
-}
-
 void MX_GPIO_Init(void)
 {
   UNITY_LINE_TYPE cmock_line = TEST_LINE_NUM;
@@ -550,23 +396,12 @@ void MX_GPIO_Init(void)
     UNITY_CLR_DETAILS();
     return;
   }
-  if (!Mock.MX_GPIO_Init_CallbackBool &&
-      Mock.MX_GPIO_Init_CallbackFunctionPointer != NULL)
-  {
-    Mock.MX_GPIO_Init_CallbackFunctionPointer(Mock.MX_GPIO_Init_CallbackCalls++);
-    UNITY_CLR_DETAILS();
-    return;
-  }
   UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringCalledMore);
   cmock_line = cmock_call_instance->LineNumber;
   if (cmock_call_instance->CallOrder > ++GlobalVerifyOrder)
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledEarly);
   if (cmock_call_instance->CallOrder < GlobalVerifyOrder)
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledLate);
-  if (Mock.MX_GPIO_Init_CallbackFunctionPointer != NULL)
-  {
-    Mock.MX_GPIO_Init_CallbackFunctionPointer(Mock.MX_GPIO_Init_CallbackCalls++);
-  }
   UNITY_CLR_DETAILS();
 }
 
@@ -592,20 +427,6 @@ void MX_GPIO_Init_CMockExpect(UNITY_LINE_TYPE cmock_line)
   cmock_call_instance->CallOrder = ++GlobalExpectCount;
 }
 
-void MX_GPIO_Init_AddCallback(CMOCK_MX_GPIO_Init_CALLBACK Callback)
-{
-  Mock.MX_GPIO_Init_IgnoreBool = (char)0;
-  Mock.MX_GPIO_Init_CallbackBool = (char)1;
-  Mock.MX_GPIO_Init_CallbackFunctionPointer = Callback;
-}
-
-void MX_GPIO_Init_Stub(CMOCK_MX_GPIO_Init_CALLBACK Callback)
-{
-  Mock.MX_GPIO_Init_IgnoreBool = (char)0;
-  Mock.MX_GPIO_Init_CallbackBool = (char)0;
-  Mock.MX_GPIO_Init_CallbackFunctionPointer = Callback;
-}
-
 void MX_DMA_Init(void)
 {
   UNITY_LINE_TYPE cmock_line = TEST_LINE_NUM;
@@ -618,23 +439,12 @@ void MX_DMA_Init(void)
     UNITY_CLR_DETAILS();
     return;
   }
-  if (!Mock.MX_DMA_Init_CallbackBool &&
-      Mock.MX_DMA_Init_CallbackFunctionPointer != NULL)
-  {
-    Mock.MX_DMA_Init_CallbackFunctionPointer(Mock.MX_DMA_Init_CallbackCalls++);
-    UNITY_CLR_DETAILS();
-    return;
-  }
   UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringCalledMore);
   cmock_line = cmock_call_instance->LineNumber;
   if (cmock_call_instance->CallOrder > ++GlobalVerifyOrder)
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledEarly);
   if (cmock_call_instance->CallOrder < GlobalVerifyOrder)
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledLate);
-  if (Mock.MX_DMA_Init_CallbackFunctionPointer != NULL)
-  {
-    Mock.MX_DMA_Init_CallbackFunctionPointer(Mock.MX_DMA_Init_CallbackCalls++);
-  }
   UNITY_CLR_DETAILS();
 }
 
@@ -660,20 +470,6 @@ void MX_DMA_Init_CMockExpect(UNITY_LINE_TYPE cmock_line)
   cmock_call_instance->CallOrder = ++GlobalExpectCount;
 }
 
-void MX_DMA_Init_AddCallback(CMOCK_MX_DMA_Init_CALLBACK Callback)
-{
-  Mock.MX_DMA_Init_IgnoreBool = (char)0;
-  Mock.MX_DMA_Init_CallbackBool = (char)1;
-  Mock.MX_DMA_Init_CallbackFunctionPointer = Callback;
-}
-
-void MX_DMA_Init_Stub(CMOCK_MX_DMA_Init_CALLBACK Callback)
-{
-  Mock.MX_DMA_Init_IgnoreBool = (char)0;
-  Mock.MX_DMA_Init_CallbackBool = (char)0;
-  Mock.MX_DMA_Init_CallbackFunctionPointer = Callback;
-}
-
 void MX_TIM1_Init(void)
 {
   UNITY_LINE_TYPE cmock_line = TEST_LINE_NUM;
@@ -686,23 +482,12 @@ void MX_TIM1_Init(void)
     UNITY_CLR_DETAILS();
     return;
   }
-  if (!Mock.MX_TIM1_Init_CallbackBool &&
-      Mock.MX_TIM1_Init_CallbackFunctionPointer != NULL)
-  {
-    Mock.MX_TIM1_Init_CallbackFunctionPointer(Mock.MX_TIM1_Init_CallbackCalls++);
-    UNITY_CLR_DETAILS();
-    return;
-  }
   UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringCalledMore);
   cmock_line = cmock_call_instance->LineNumber;
   if (cmock_call_instance->CallOrder > ++GlobalVerifyOrder)
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledEarly);
   if (cmock_call_instance->CallOrder < GlobalVerifyOrder)
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledLate);
-  if (Mock.MX_TIM1_Init_CallbackFunctionPointer != NULL)
-  {
-    Mock.MX_TIM1_Init_CallbackFunctionPointer(Mock.MX_TIM1_Init_CallbackCalls++);
-  }
   UNITY_CLR_DETAILS();
 }
 
@@ -728,20 +513,6 @@ void MX_TIM1_Init_CMockExpect(UNITY_LINE_TYPE cmock_line)
   cmock_call_instance->CallOrder = ++GlobalExpectCount;
 }
 
-void MX_TIM1_Init_AddCallback(CMOCK_MX_TIM1_Init_CALLBACK Callback)
-{
-  Mock.MX_TIM1_Init_IgnoreBool = (char)0;
-  Mock.MX_TIM1_Init_CallbackBool = (char)1;
-  Mock.MX_TIM1_Init_CallbackFunctionPointer = Callback;
-}
-
-void MX_TIM1_Init_Stub(CMOCK_MX_TIM1_Init_CALLBACK Callback)
-{
-  Mock.MX_TIM1_Init_IgnoreBool = (char)0;
-  Mock.MX_TIM1_Init_CallbackBool = (char)0;
-  Mock.MX_TIM1_Init_CallbackFunctionPointer = Callback;
-}
-
 void MX_SPI1_Init(void)
 {
   UNITY_LINE_TYPE cmock_line = TEST_LINE_NUM;
@@ -754,23 +525,12 @@ void MX_SPI1_Init(void)
     UNITY_CLR_DETAILS();
     return;
   }
-  if (!Mock.MX_SPI1_Init_CallbackBool &&
-      Mock.MX_SPI1_Init_CallbackFunctionPointer != NULL)
-  {
-    Mock.MX_SPI1_Init_CallbackFunctionPointer(Mock.MX_SPI1_Init_CallbackCalls++);
-    UNITY_CLR_DETAILS();
-    return;
-  }
   UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringCalledMore);
   cmock_line = cmock_call_instance->LineNumber;
   if (cmock_call_instance->CallOrder > ++GlobalVerifyOrder)
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledEarly);
   if (cmock_call_instance->CallOrder < GlobalVerifyOrder)
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledLate);
-  if (Mock.MX_SPI1_Init_CallbackFunctionPointer != NULL)
-  {
-    Mock.MX_SPI1_Init_CallbackFunctionPointer(Mock.MX_SPI1_Init_CallbackCalls++);
-  }
   UNITY_CLR_DETAILS();
 }
 
@@ -796,20 +556,6 @@ void MX_SPI1_Init_CMockExpect(UNITY_LINE_TYPE cmock_line)
   cmock_call_instance->CallOrder = ++GlobalExpectCount;
 }
 
-void MX_SPI1_Init_AddCallback(CMOCK_MX_SPI1_Init_CALLBACK Callback)
-{
-  Mock.MX_SPI1_Init_IgnoreBool = (char)0;
-  Mock.MX_SPI1_Init_CallbackBool = (char)1;
-  Mock.MX_SPI1_Init_CallbackFunctionPointer = Callback;
-}
-
-void MX_SPI1_Init_Stub(CMOCK_MX_SPI1_Init_CALLBACK Callback)
-{
-  Mock.MX_SPI1_Init_IgnoreBool = (char)0;
-  Mock.MX_SPI1_Init_CallbackBool = (char)0;
-  Mock.MX_SPI1_Init_CallbackFunctionPointer = Callback;
-}
-
 void MX_USART3_UART_Init(void)
 {
   UNITY_LINE_TYPE cmock_line = TEST_LINE_NUM;
@@ -822,23 +568,12 @@ void MX_USART3_UART_Init(void)
     UNITY_CLR_DETAILS();
     return;
   }
-  if (!Mock.MX_USART3_UART_Init_CallbackBool &&
-      Mock.MX_USART3_UART_Init_CallbackFunctionPointer != NULL)
-  {
-    Mock.MX_USART3_UART_Init_CallbackFunctionPointer(Mock.MX_USART3_UART_Init_CallbackCalls++);
-    UNITY_CLR_DETAILS();
-    return;
-  }
   UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringCalledMore);
   cmock_line = cmock_call_instance->LineNumber;
   if (cmock_call_instance->CallOrder > ++GlobalVerifyOrder)
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledEarly);
   if (cmock_call_instance->CallOrder < GlobalVerifyOrder)
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledLate);
-  if (Mock.MX_USART3_UART_Init_CallbackFunctionPointer != NULL)
-  {
-    Mock.MX_USART3_UART_Init_CallbackFunctionPointer(Mock.MX_USART3_UART_Init_CallbackCalls++);
-  }
   UNITY_CLR_DETAILS();
 }
 
@@ -864,20 +599,6 @@ void MX_USART3_UART_Init_CMockExpect(UNITY_LINE_TYPE cmock_line)
   cmock_call_instance->CallOrder = ++GlobalExpectCount;
 }
 
-void MX_USART3_UART_Init_AddCallback(CMOCK_MX_USART3_UART_Init_CALLBACK Callback)
-{
-  Mock.MX_USART3_UART_Init_IgnoreBool = (char)0;
-  Mock.MX_USART3_UART_Init_CallbackBool = (char)1;
-  Mock.MX_USART3_UART_Init_CallbackFunctionPointer = Callback;
-}
-
-void MX_USART3_UART_Init_Stub(CMOCK_MX_USART3_UART_Init_CALLBACK Callback)
-{
-  Mock.MX_USART3_UART_Init_IgnoreBool = (char)0;
-  Mock.MX_USART3_UART_Init_CallbackBool = (char)0;
-  Mock.MX_USART3_UART_Init_CallbackFunctionPointer = Callback;
-}
-
 void uartInit(void)
 {
   UNITY_LINE_TYPE cmock_line = TEST_LINE_NUM;
@@ -890,23 +611,12 @@ void uartInit(void)
     UNITY_CLR_DETAILS();
     return;
   }
-  if (!Mock.uartInit_CallbackBool &&
-      Mock.uartInit_CallbackFunctionPointer != NULL)
-  {
-    Mock.uartInit_CallbackFunctionPointer(Mock.uartInit_CallbackCalls++);
-    UNITY_CLR_DETAILS();
-    return;
-  }
   UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringCalledMore);
   cmock_line = cmock_call_instance->LineNumber;
   if (cmock_call_instance->CallOrder > ++GlobalVerifyOrder)
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledEarly);
   if (cmock_call_instance->CallOrder < GlobalVerifyOrder)
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledLate);
-  if (Mock.uartInit_CallbackFunctionPointer != NULL)
-  {
-    Mock.uartInit_CallbackFunctionPointer(Mock.uartInit_CallbackCalls++);
-  }
   UNITY_CLR_DETAILS();
 }
 
@@ -932,20 +642,6 @@ void uartInit_CMockExpect(UNITY_LINE_TYPE cmock_line)
   cmock_call_instance->CallOrder = ++GlobalExpectCount;
 }
 
-void uartInit_AddCallback(CMOCK_uartInit_CALLBACK Callback)
-{
-  Mock.uartInit_IgnoreBool = (char)0;
-  Mock.uartInit_CallbackBool = (char)1;
-  Mock.uartInit_CallbackFunctionPointer = Callback;
-}
-
-void uartInit_Stub(CMOCK_uartInit_CALLBACK Callback)
-{
-  Mock.uartInit_IgnoreBool = (char)0;
-  Mock.uartInit_CallbackBool = (char)0;
-  Mock.uartInit_CallbackFunctionPointer = Callback;
-}
-
 uint8_t uartReceiveString(void)
 {
   UNITY_LINE_TYPE cmock_line = TEST_LINE_NUM;
@@ -961,23 +657,12 @@ uint8_t uartReceiveString(void)
     Mock.uartReceiveString_FinalReturn = cmock_call_instance->ReturnVal;
     return cmock_call_instance->ReturnVal;
   }
-  if (!Mock.uartReceiveString_CallbackBool &&
-      Mock.uartReceiveString_CallbackFunctionPointer != NULL)
-  {
-    uint8_t cmock_cb_ret = Mock.uartReceiveString_CallbackFunctionPointer(Mock.uartReceiveString_CallbackCalls++);
-    UNITY_CLR_DETAILS();
-    return cmock_cb_ret;
-  }
   UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringCalledMore);
   cmock_line = cmock_call_instance->LineNumber;
   if (cmock_call_instance->CallOrder > ++GlobalVerifyOrder)
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledEarly);
   if (cmock_call_instance->CallOrder < GlobalVerifyOrder)
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledLate);
-  if (Mock.uartReceiveString_CallbackFunctionPointer != NULL)
-  {
-    cmock_call_instance->ReturnVal = Mock.uartReceiveString_CallbackFunctionPointer(Mock.uartReceiveString_CallbackCalls++);
-  }
   UNITY_CLR_DETAILS();
   return cmock_call_instance->ReturnVal;
 }
@@ -1015,20 +700,6 @@ void uartReceiveString_CMockExpectAndReturn(UNITY_LINE_TYPE cmock_line, uint8_t 
   cmock_call_instance->ReturnVal = cmock_to_return;
 }
 
-void uartReceiveString_AddCallback(CMOCK_uartReceiveString_CALLBACK Callback)
-{
-  Mock.uartReceiveString_IgnoreBool = (char)0;
-  Mock.uartReceiveString_CallbackBool = (char)1;
-  Mock.uartReceiveString_CallbackFunctionPointer = Callback;
-}
-
-void uartReceiveString_Stub(CMOCK_uartReceiveString_CALLBACK Callback)
-{
-  Mock.uartReceiveString_IgnoreBool = (char)0;
-  Mock.uartReceiveString_CallbackBool = (char)0;
-  Mock.uartReceiveString_CallbackFunctionPointer = Callback;
-}
-
 void uartSendString(uint8_t* pstring)
 {
   UNITY_LINE_TYPE cmock_line = TEST_LINE_NUM;
@@ -1038,13 +709,6 @@ void uartSendString(uint8_t* pstring)
   Mock.uartSendString_CallInstance = CMock_Guts_MemNext(Mock.uartSendString_CallInstance);
   if (Mock.uartSendString_IgnoreBool)
   {
-    UNITY_CLR_DETAILS();
-    return;
-  }
-  if (!Mock.uartSendString_CallbackBool &&
-      Mock.uartSendString_CallbackFunctionPointer != NULL)
-  {
-    Mock.uartSendString_CallbackFunctionPointer(pstring, Mock.uartSendString_CallbackCalls++);
     UNITY_CLR_DETAILS();
     return;
   }
@@ -1061,10 +725,6 @@ void uartSendString(uint8_t* pstring)
       { UNITY_TEST_ASSERT_NULL(pstring, cmock_line, CMockStringExpNULL); }
     else
       { UNITY_TEST_ASSERT_EQUAL_HEX8_ARRAY(cmock_call_instance->Expected_pstring, pstring, 1, cmock_line, CMockStringMismatch); }
-  }
-  if (Mock.uartSendString_CallbackFunctionPointer != NULL)
-  {
-    Mock.uartSendString_CallbackFunctionPointer(pstring, Mock.uartSendString_CallbackCalls++);
   }
   if (cmock_call_instance->ReturnThruPtr_pstring_Used)
   {
@@ -1106,20 +766,6 @@ void uartSendString_CMockExpect(UNITY_LINE_TYPE cmock_line, uint8_t* pstring)
   CMockExpectParameters_uartSendString(cmock_call_instance, pstring);
 }
 
-void uartSendString_AddCallback(CMOCK_uartSendString_CALLBACK Callback)
-{
-  Mock.uartSendString_IgnoreBool = (char)0;
-  Mock.uartSendString_CallbackBool = (char)1;
-  Mock.uartSendString_CallbackFunctionPointer = Callback;
-}
-
-void uartSendString_Stub(CMOCK_uartSendString_CALLBACK Callback)
-{
-  Mock.uartSendString_IgnoreBool = (char)0;
-  Mock.uartSendString_CallbackBool = (char)0;
-  Mock.uartSendString_CallbackFunctionPointer = Callback;
-}
-
 void uartSendString_CMockReturnMemThruPtr_pstring(UNITY_LINE_TYPE cmock_line, uint8_t* pstring, size_t cmock_size)
 {
   CMOCK_uartSendString_CALL_INSTANCE* cmock_call_instance = (CMOCK_uartSendString_CALL_INSTANCE*)CMock_Guts_GetAddressFor(CMock_Guts_MemEndOfChain(Mock.uartSendString_CallInstance));
@@ -1152,23 +798,12 @@ _Bool uartNewData(void)
          sizeof(_Bool[sizeof(cmock_call_instance->ReturnVal) == sizeof(_Bool) ? 1 : -1])); /* add _Bool to :treat_as_array if this causes an error */
     return cmock_call_instance->ReturnVal;
   }
-  if (!Mock.uartNewData_CallbackBool &&
-      Mock.uartNewData_CallbackFunctionPointer != NULL)
-  {
-    _Bool cmock_cb_ret = Mock.uartNewData_CallbackFunctionPointer(Mock.uartNewData_CallbackCalls++);
-    UNITY_CLR_DETAILS();
-    return cmock_cb_ret;
-  }
   UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringCalledMore);
   cmock_line = cmock_call_instance->LineNumber;
   if (cmock_call_instance->CallOrder > ++GlobalVerifyOrder)
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledEarly);
   if (cmock_call_instance->CallOrder < GlobalVerifyOrder)
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledLate);
-  if (Mock.uartNewData_CallbackFunctionPointer != NULL)
-  {
-    cmock_call_instance->ReturnVal = Mock.uartNewData_CallbackFunctionPointer(Mock.uartNewData_CallbackCalls++);
-  }
   UNITY_CLR_DETAILS();
   return cmock_call_instance->ReturnVal;
 }
@@ -1207,20 +842,6 @@ void uartNewData_CMockExpectAndReturn(UNITY_LINE_TYPE cmock_line, _Bool cmock_to
          sizeof(_Bool[sizeof(cmock_to_return) == sizeof(_Bool) ? 1 : -1])); /* add _Bool to :treat_as_array if this causes an error */
 }
 
-void uartNewData_AddCallback(CMOCK_uartNewData_CALLBACK Callback)
-{
-  Mock.uartNewData_IgnoreBool = (char)0;
-  Mock.uartNewData_CallbackBool = (char)1;
-  Mock.uartNewData_CallbackFunctionPointer = Callback;
-}
-
-void uartNewData_Stub(CMOCK_uartNewData_CALLBACK Callback)
-{
-  Mock.uartNewData_IgnoreBool = (char)0;
-  Mock.uartNewData_CallbackBool = (char)0;
-  Mock.uartNewData_CallbackFunctionPointer = Callback;
-}
-
 _Bool SPIRead(uint8_t reg, uint8_t* data, uint8_t length)
 {
   UNITY_LINE_TYPE cmock_line = TEST_LINE_NUM;
@@ -1236,13 +857,6 @@ _Bool SPIRead(uint8_t reg, uint8_t* data, uint8_t length)
     memcpy((void*)(&Mock.SPIRead_FinalReturn), (void*)(&cmock_call_instance->ReturnVal),
          sizeof(_Bool[sizeof(cmock_call_instance->ReturnVal) == sizeof(_Bool) ? 1 : -1])); /* add _Bool to :treat_as_array if this causes an error */
     return cmock_call_instance->ReturnVal;
-  }
-  if (!Mock.SPIRead_CallbackBool &&
-      Mock.SPIRead_CallbackFunctionPointer != NULL)
-  {
-    _Bool cmock_cb_ret = Mock.SPIRead_CallbackFunctionPointer(reg, data, length, Mock.SPIRead_CallbackCalls++);
-    UNITY_CLR_DETAILS();
-    return cmock_cb_ret;
   }
   UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringCalledMore);
   cmock_line = cmock_call_instance->LineNumber;
@@ -1267,10 +881,6 @@ _Bool SPIRead(uint8_t reg, uint8_t* data, uint8_t length)
   {
     UNITY_SET_DETAILS(CMockString_SPIRead,CMockString_length);
     UNITY_TEST_ASSERT_EQUAL_HEX8(cmock_call_instance->Expected_length, length, cmock_line, CMockStringMismatch);
-  }
-  if (Mock.SPIRead_CallbackFunctionPointer != NULL)
-  {
-    cmock_call_instance->ReturnVal = Mock.SPIRead_CallbackFunctionPointer(reg, data, length, Mock.SPIRead_CallbackCalls++);
   }
   if (cmock_call_instance->ReturnThruPtr_data_Used)
   {
@@ -1329,20 +939,6 @@ void SPIRead_CMockExpectAndReturn(UNITY_LINE_TYPE cmock_line, uint8_t reg, uint8
          sizeof(_Bool[sizeof(cmock_to_return) == sizeof(_Bool) ? 1 : -1])); /* add _Bool to :treat_as_array if this causes an error */
 }
 
-void SPIRead_AddCallback(CMOCK_SPIRead_CALLBACK Callback)
-{
-  Mock.SPIRead_IgnoreBool = (char)0;
-  Mock.SPIRead_CallbackBool = (char)1;
-  Mock.SPIRead_CallbackFunctionPointer = Callback;
-}
-
-void SPIRead_Stub(CMOCK_SPIRead_CALLBACK Callback)
-{
-  Mock.SPIRead_IgnoreBool = (char)0;
-  Mock.SPIRead_CallbackBool = (char)0;
-  Mock.SPIRead_CallbackFunctionPointer = Callback;
-}
-
 void SPIRead_CMockReturnMemThruPtr_data(UNITY_LINE_TYPE cmock_line, uint8_t* data, size_t cmock_size)
 {
   CMOCK_SPIRead_CALL_INSTANCE* cmock_call_instance = (CMOCK_SPIRead_CALL_INSTANCE*)CMock_Guts_GetAddressFor(CMock_Guts_MemEndOfChain(Mock.SPIRead_CallInstance));
@@ -1389,13 +985,6 @@ _Bool SPIWrite(uint8_t reg, uint8_t command)
          sizeof(_Bool[sizeof(cmock_call_instance->ReturnVal) == sizeof(_Bool) ? 1 : -1])); /* add _Bool to :treat_as_array if this causes an error */
     return cmock_call_instance->ReturnVal;
   }
-  if (!Mock.SPIWrite_CallbackBool &&
-      Mock.SPIWrite_CallbackFunctionPointer != NULL)
-  {
-    _Bool cmock_cb_ret = Mock.SPIWrite_CallbackFunctionPointer(reg, command, Mock.SPIWrite_CallbackCalls++);
-    UNITY_CLR_DETAILS();
-    return cmock_cb_ret;
-  }
   UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringCalledMore);
   cmock_line = cmock_call_instance->LineNumber;
   if (cmock_call_instance->CallOrder > ++GlobalVerifyOrder)
@@ -1411,10 +1000,6 @@ _Bool SPIWrite(uint8_t reg, uint8_t command)
   {
     UNITY_SET_DETAILS(CMockString_SPIWrite,CMockString_command);
     UNITY_TEST_ASSERT_EQUAL_HEX8(cmock_call_instance->Expected_command, command, cmock_line, CMockStringMismatch);
-  }
-  if (Mock.SPIWrite_CallbackFunctionPointer != NULL)
-  {
-    cmock_call_instance->ReturnVal = Mock.SPIWrite_CallbackFunctionPointer(reg, command, Mock.SPIWrite_CallbackCalls++);
   }
   UNITY_CLR_DETAILS();
   return cmock_call_instance->ReturnVal;
@@ -1462,20 +1047,6 @@ void SPIWrite_CMockExpectAndReturn(UNITY_LINE_TYPE cmock_line, uint8_t reg, uint
   CMockExpectParameters_SPIWrite(cmock_call_instance, reg, command);
   memcpy((void*)(&cmock_call_instance->ReturnVal), (void*)(&cmock_to_return),
          sizeof(_Bool[sizeof(cmock_to_return) == sizeof(_Bool) ? 1 : -1])); /* add _Bool to :treat_as_array if this causes an error */
-}
-
-void SPIWrite_AddCallback(CMOCK_SPIWrite_CALLBACK Callback)
-{
-  Mock.SPIWrite_IgnoreBool = (char)0;
-  Mock.SPIWrite_CallbackBool = (char)1;
-  Mock.SPIWrite_CallbackFunctionPointer = Callback;
-}
-
-void SPIWrite_Stub(CMOCK_SPIWrite_CALLBACK Callback)
-{
-  Mock.SPIWrite_IgnoreBool = (char)0;
-  Mock.SPIWrite_CallbackBool = (char)0;
-  Mock.SPIWrite_CallbackFunctionPointer = Callback;
 }
 
 void SPIWrite_CMockIgnoreArg_reg(UNITY_LINE_TYPE cmock_line)

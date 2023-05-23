@@ -16,6 +16,7 @@ extern void test_verifica_correcta_conversion_datos(void);
 extern void test_verifica_lectura_aceleracion_todos_ejes(void);
 extern void test_verifica_lectura_aceleracion_eje_x(void);
 extern void test_verifica_lectura_resolucion_actual(void);
+extern void test_verifica_lectura_temperatura(void);
 
 
 /*=======Mock Management=====*/
@@ -89,10 +90,11 @@ static void run_test(UnityTestFunction func, const char* name, UNITY_LINE_TYPE l
 int main(void)
 {
   UnityBegin("test_MPU9255.c");
-  run_test(test_verifica_correcta_conversion_datos, "test_verifica_correcta_conversion_datos", 18);
-  run_test(test_verifica_lectura_aceleracion_todos_ejes, "test_verifica_lectura_aceleracion_todos_ejes", 27);
-  run_test(test_verifica_lectura_aceleracion_eje_x, "test_verifica_lectura_aceleracion_eje_x", 41);
-  run_test(test_verifica_lectura_resolucion_actual, "test_verifica_lectura_resolucion_actual", 53);
+  run_test(test_verifica_correcta_conversion_datos, "test_verifica_correcta_conversion_datos", 19);
+  run_test(test_verifica_lectura_aceleracion_todos_ejes, "test_verifica_lectura_aceleracion_todos_ejes", 28);
+  run_test(test_verifica_lectura_aceleracion_eje_x, "test_verifica_lectura_aceleracion_eje_x", 43);
+  run_test(test_verifica_lectura_resolucion_actual, "test_verifica_lectura_resolucion_actual", 57);
+  run_test(test_verifica_lectura_temperatura, "test_verifica_lectura_temperatura", 70);
 
   CMock_Guts_MemFreeFinal();
   return UnityEnd();

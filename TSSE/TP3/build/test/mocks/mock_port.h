@@ -30,100 +30,60 @@ void APISysInit_CMockIgnore(void);
 void APISysInit_CMockStopIgnore(void);
 #define APISysInit_Expect() APISysInit_CMockExpect(__LINE__)
 void APISysInit_CMockExpect(UNITY_LINE_TYPE cmock_line);
-typedef void (* CMOCK_APISysInit_CALLBACK)(int cmock_num_calls);
-void APISysInit_AddCallback(CMOCK_APISysInit_CALLBACK Callback);
-void APISysInit_Stub(CMOCK_APISysInit_CALLBACK Callback);
-#define APISysInit_StubWithCallback APISysInit_Stub
 #define SystemClock_Config_Ignore() SystemClock_Config_CMockIgnore()
 void SystemClock_Config_CMockIgnore(void);
 #define SystemClock_Config_StopIgnore() SystemClock_Config_CMockStopIgnore()
 void SystemClock_Config_CMockStopIgnore(void);
 #define SystemClock_Config_Expect() SystemClock_Config_CMockExpect(__LINE__)
 void SystemClock_Config_CMockExpect(UNITY_LINE_TYPE cmock_line);
-typedef void (* CMOCK_SystemClock_Config_CALLBACK)(int cmock_num_calls);
-void SystemClock_Config_AddCallback(CMOCK_SystemClock_Config_CALLBACK Callback);
-void SystemClock_Config_Stub(CMOCK_SystemClock_Config_CALLBACK Callback);
-#define SystemClock_Config_StubWithCallback SystemClock_Config_Stub
 #define MX_GPIO_Init_Ignore() MX_GPIO_Init_CMockIgnore()
 void MX_GPIO_Init_CMockIgnore(void);
 #define MX_GPIO_Init_StopIgnore() MX_GPIO_Init_CMockStopIgnore()
 void MX_GPIO_Init_CMockStopIgnore(void);
 #define MX_GPIO_Init_Expect() MX_GPIO_Init_CMockExpect(__LINE__)
 void MX_GPIO_Init_CMockExpect(UNITY_LINE_TYPE cmock_line);
-typedef void (* CMOCK_MX_GPIO_Init_CALLBACK)(int cmock_num_calls);
-void MX_GPIO_Init_AddCallback(CMOCK_MX_GPIO_Init_CALLBACK Callback);
-void MX_GPIO_Init_Stub(CMOCK_MX_GPIO_Init_CALLBACK Callback);
-#define MX_GPIO_Init_StubWithCallback MX_GPIO_Init_Stub
 #define MX_DMA_Init_Ignore() MX_DMA_Init_CMockIgnore()
 void MX_DMA_Init_CMockIgnore(void);
 #define MX_DMA_Init_StopIgnore() MX_DMA_Init_CMockStopIgnore()
 void MX_DMA_Init_CMockStopIgnore(void);
 #define MX_DMA_Init_Expect() MX_DMA_Init_CMockExpect(__LINE__)
 void MX_DMA_Init_CMockExpect(UNITY_LINE_TYPE cmock_line);
-typedef void (* CMOCK_MX_DMA_Init_CALLBACK)(int cmock_num_calls);
-void MX_DMA_Init_AddCallback(CMOCK_MX_DMA_Init_CALLBACK Callback);
-void MX_DMA_Init_Stub(CMOCK_MX_DMA_Init_CALLBACK Callback);
-#define MX_DMA_Init_StubWithCallback MX_DMA_Init_Stub
 #define MX_TIM1_Init_Ignore() MX_TIM1_Init_CMockIgnore()
 void MX_TIM1_Init_CMockIgnore(void);
 #define MX_TIM1_Init_StopIgnore() MX_TIM1_Init_CMockStopIgnore()
 void MX_TIM1_Init_CMockStopIgnore(void);
 #define MX_TIM1_Init_Expect() MX_TIM1_Init_CMockExpect(__LINE__)
 void MX_TIM1_Init_CMockExpect(UNITY_LINE_TYPE cmock_line);
-typedef void (* CMOCK_MX_TIM1_Init_CALLBACK)(int cmock_num_calls);
-void MX_TIM1_Init_AddCallback(CMOCK_MX_TIM1_Init_CALLBACK Callback);
-void MX_TIM1_Init_Stub(CMOCK_MX_TIM1_Init_CALLBACK Callback);
-#define MX_TIM1_Init_StubWithCallback MX_TIM1_Init_Stub
 #define MX_SPI1_Init_Ignore() MX_SPI1_Init_CMockIgnore()
 void MX_SPI1_Init_CMockIgnore(void);
 #define MX_SPI1_Init_StopIgnore() MX_SPI1_Init_CMockStopIgnore()
 void MX_SPI1_Init_CMockStopIgnore(void);
 #define MX_SPI1_Init_Expect() MX_SPI1_Init_CMockExpect(__LINE__)
 void MX_SPI1_Init_CMockExpect(UNITY_LINE_TYPE cmock_line);
-typedef void (* CMOCK_MX_SPI1_Init_CALLBACK)(int cmock_num_calls);
-void MX_SPI1_Init_AddCallback(CMOCK_MX_SPI1_Init_CALLBACK Callback);
-void MX_SPI1_Init_Stub(CMOCK_MX_SPI1_Init_CALLBACK Callback);
-#define MX_SPI1_Init_StubWithCallback MX_SPI1_Init_Stub
 #define MX_USART3_UART_Init_Ignore() MX_USART3_UART_Init_CMockIgnore()
 void MX_USART3_UART_Init_CMockIgnore(void);
 #define MX_USART3_UART_Init_StopIgnore() MX_USART3_UART_Init_CMockStopIgnore()
 void MX_USART3_UART_Init_CMockStopIgnore(void);
 #define MX_USART3_UART_Init_Expect() MX_USART3_UART_Init_CMockExpect(__LINE__)
 void MX_USART3_UART_Init_CMockExpect(UNITY_LINE_TYPE cmock_line);
-typedef void (* CMOCK_MX_USART3_UART_Init_CALLBACK)(int cmock_num_calls);
-void MX_USART3_UART_Init_AddCallback(CMOCK_MX_USART3_UART_Init_CALLBACK Callback);
-void MX_USART3_UART_Init_Stub(CMOCK_MX_USART3_UART_Init_CALLBACK Callback);
-#define MX_USART3_UART_Init_StubWithCallback MX_USART3_UART_Init_Stub
 #define uartInit_Ignore() uartInit_CMockIgnore()
 void uartInit_CMockIgnore(void);
 #define uartInit_StopIgnore() uartInit_CMockStopIgnore()
 void uartInit_CMockStopIgnore(void);
 #define uartInit_Expect() uartInit_CMockExpect(__LINE__)
 void uartInit_CMockExpect(UNITY_LINE_TYPE cmock_line);
-typedef void (* CMOCK_uartInit_CALLBACK)(int cmock_num_calls);
-void uartInit_AddCallback(CMOCK_uartInit_CALLBACK Callback);
-void uartInit_Stub(CMOCK_uartInit_CALLBACK Callback);
-#define uartInit_StubWithCallback uartInit_Stub
 #define uartReceiveString_IgnoreAndReturn(cmock_retval) uartReceiveString_CMockIgnoreAndReturn(__LINE__, cmock_retval)
 void uartReceiveString_CMockIgnoreAndReturn(UNITY_LINE_TYPE cmock_line, uint8_t cmock_to_return);
 #define uartReceiveString_StopIgnore() uartReceiveString_CMockStopIgnore()
 void uartReceiveString_CMockStopIgnore(void);
 #define uartReceiveString_ExpectAndReturn(cmock_retval) uartReceiveString_CMockExpectAndReturn(__LINE__, cmock_retval)
 void uartReceiveString_CMockExpectAndReturn(UNITY_LINE_TYPE cmock_line, uint8_t cmock_to_return);
-typedef uint8_t (* CMOCK_uartReceiveString_CALLBACK)(int cmock_num_calls);
-void uartReceiveString_AddCallback(CMOCK_uartReceiveString_CALLBACK Callback);
-void uartReceiveString_Stub(CMOCK_uartReceiveString_CALLBACK Callback);
-#define uartReceiveString_StubWithCallback uartReceiveString_Stub
 #define uartSendString_Ignore() uartSendString_CMockIgnore()
 void uartSendString_CMockIgnore(void);
 #define uartSendString_StopIgnore() uartSendString_CMockStopIgnore()
 void uartSendString_CMockStopIgnore(void);
 #define uartSendString_Expect(pstring) uartSendString_CMockExpect(__LINE__, pstring)
 void uartSendString_CMockExpect(UNITY_LINE_TYPE cmock_line, uint8_t* pstring);
-typedef void (* CMOCK_uartSendString_CALLBACK)(uint8_t* pstring, int cmock_num_calls);
-void uartSendString_AddCallback(CMOCK_uartSendString_CALLBACK Callback);
-void uartSendString_Stub(CMOCK_uartSendString_CALLBACK Callback);
-#define uartSendString_StubWithCallback uartSendString_Stub
 #define uartSendString_ReturnThruPtr_pstring(pstring) uartSendString_CMockReturnMemThruPtr_pstring(__LINE__, pstring, sizeof(uint8_t))
 #define uartSendString_ReturnArrayThruPtr_pstring(pstring, cmock_len) uartSendString_CMockReturnMemThruPtr_pstring(__LINE__, pstring, cmock_len * sizeof(*pstring))
 #define uartSendString_ReturnMemThruPtr_pstring(pstring, cmock_size) uartSendString_CMockReturnMemThruPtr_pstring(__LINE__, pstring, cmock_size)
@@ -136,20 +96,12 @@ void uartNewData_CMockIgnoreAndReturn(UNITY_LINE_TYPE cmock_line, _Bool cmock_to
 void uartNewData_CMockStopIgnore(void);
 #define uartNewData_ExpectAndReturn(cmock_retval) uartNewData_CMockExpectAndReturn(__LINE__, cmock_retval)
 void uartNewData_CMockExpectAndReturn(UNITY_LINE_TYPE cmock_line, _Bool cmock_to_return);
-typedef _Bool (* CMOCK_uartNewData_CALLBACK)(int cmock_num_calls);
-void uartNewData_AddCallback(CMOCK_uartNewData_CALLBACK Callback);
-void uartNewData_Stub(CMOCK_uartNewData_CALLBACK Callback);
-#define uartNewData_StubWithCallback uartNewData_Stub
 #define SPIRead_IgnoreAndReturn(cmock_retval) SPIRead_CMockIgnoreAndReturn(__LINE__, cmock_retval)
 void SPIRead_CMockIgnoreAndReturn(UNITY_LINE_TYPE cmock_line, _Bool cmock_to_return);
 #define SPIRead_StopIgnore() SPIRead_CMockStopIgnore()
 void SPIRead_CMockStopIgnore(void);
 #define SPIRead_ExpectAndReturn(reg, data, length, cmock_retval) SPIRead_CMockExpectAndReturn(__LINE__, reg, data, length, cmock_retval)
 void SPIRead_CMockExpectAndReturn(UNITY_LINE_TYPE cmock_line, uint8_t reg, uint8_t* data, uint8_t length, _Bool cmock_to_return);
-typedef _Bool (* CMOCK_SPIRead_CALLBACK)(uint8_t reg, uint8_t* data, uint8_t length, int cmock_num_calls);
-void SPIRead_AddCallback(CMOCK_SPIRead_CALLBACK Callback);
-void SPIRead_Stub(CMOCK_SPIRead_CALLBACK Callback);
-#define SPIRead_StubWithCallback SPIRead_Stub
 #define SPIRead_ReturnThruPtr_data(data) SPIRead_CMockReturnMemThruPtr_data(__LINE__, data, sizeof(uint8_t))
 #define SPIRead_ReturnArrayThruPtr_data(data, cmock_len) SPIRead_CMockReturnMemThruPtr_data(__LINE__, data, cmock_len * sizeof(*data))
 #define SPIRead_ReturnMemThruPtr_data(data, cmock_size) SPIRead_CMockReturnMemThruPtr_data(__LINE__, data, cmock_size)
@@ -166,10 +118,6 @@ void SPIWrite_CMockIgnoreAndReturn(UNITY_LINE_TYPE cmock_line, _Bool cmock_to_re
 void SPIWrite_CMockStopIgnore(void);
 #define SPIWrite_ExpectAndReturn(reg, command, cmock_retval) SPIWrite_CMockExpectAndReturn(__LINE__, reg, command, cmock_retval)
 void SPIWrite_CMockExpectAndReturn(UNITY_LINE_TYPE cmock_line, uint8_t reg, uint8_t command, _Bool cmock_to_return);
-typedef _Bool (* CMOCK_SPIWrite_CALLBACK)(uint8_t reg, uint8_t command, int cmock_num_calls);
-void SPIWrite_AddCallback(CMOCK_SPIWrite_CALLBACK Callback);
-void SPIWrite_Stub(CMOCK_SPIWrite_CALLBACK Callback);
-#define SPIWrite_StubWithCallback SPIWrite_Stub
 #define SPIWrite_IgnoreArg_reg() SPIWrite_CMockIgnoreArg_reg(__LINE__)
 void SPIWrite_CMockIgnoreArg_reg(UNITY_LINE_TYPE cmock_line);
 #define SPIWrite_IgnoreArg_command() SPIWrite_CMockIgnoreArg_command(__LINE__)

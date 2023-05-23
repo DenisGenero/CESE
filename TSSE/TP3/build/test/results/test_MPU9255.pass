@@ -1,0 +1,34 @@
+---
+:source:
+  :path: test
+  :file: test_MPU9255.c
+:successes:
+- :test: test_verifica_correcta_conversion_datos
+  :line: 19
+  :message: ''
+  :unity_test_time: 0
+- :test: test_verifica_lectura_aceleracion_todos_ejes
+  :line: 28
+  :message: ''
+  :unity_test_time: 0
+- :test: test_verifica_lectura_aceleracion_eje_x
+  :line: 43
+  :message: ''
+  :unity_test_time: 0
+- :test: test_verifica_lectura_resolucion_actual
+  :line: 57
+  :message: ''
+  :unity_test_time: 0
+- :test: test_verifica_lectura_temperatura
+  :line: 70
+  :message: ''
+  :unity_test_time: 0
+:failures: []
+:ignores: []
+:counts:
+  :total: 5
+  :passed: 5
+  :failed: 0
+  :ignored: 0
+:stdout: []
+:time: 0.0070491419992322335

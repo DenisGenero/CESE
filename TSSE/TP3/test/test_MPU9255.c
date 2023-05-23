@@ -10,6 +10,7 @@ corroborar el funcionamiento de la misma.
 
 #define ACCEL_DIR   59
 #define ACCEL_RES   28
+#define TEMP_DIR    65
 
 /* 1- Test static uint16_t converData(uint8_t msbData, uint8_t lsbData)
 Es una función privada de la libreria que sirve para obtener
@@ -29,12 +30,13 @@ void test_verifica_lectura_aceleracion_todos_ejes(void){
      uint8_t bytes = 6;
      uint8_t *pData = &bytes;
      // Función Mock que será llamada
-     // SPIRead_ExpectAndReturn(ACCEL_DIR, pData, bytes, 0);
-     // SPIRead_IgnoreArg_pdata();
-     PSIRead_ReturnThruPtr_data();
+     SPIRead_ExpectAndReturn(ACCEL_DIR, pData, bytes, 0);
+     SPIRead_IgnoreArg_data();
+     SPIRead_ReturnThruPtr_data(&bytes);
+     // SPIRead_ReturnMemThruPtr_data(&bytes, 6);
      // Lectura del puntero pasado por parámetro
      MPUReadAccel(pData);
-     TEST_ASSERT_EQUAL_HEX16(0x06, *pData);
+     TEST_ASSERT_EQUAL_HEX16(0x0006, *pData);
 }
 
 /* 3- Verifiica lectura de acelerómetro en eje X*/
@@ -44,6 +46,8 @@ void test_verifica_lectura_aceleracion_eje_x(void){
      uint8_t *pData = &bytes;
      // Función Mock que será llamada
      SPIRead_ExpectAndReturn(ACCEL_DIR, pData, bytes, 0);
+     SPIRead_IgnoreArg_data();
+     SPIRead_ReturnThruPtr_data(&bytes);
      // Aceleración obtenida
      accel = MPUReadAccelXAxis();
      TEST_ASSERT_EQUAL_HEX16(0x0200, accel);
@@ -53,9 +57,25 @@ void test_verifica_lectura_aceleracion_eje_x(void){
 void test_verifica_lectura_resolucion_actual(void){
      uint8_t resolucion;
      uint8_t bytes = 1;
-     uint8_t data = 50;
-     SPIRead_ExpectAndReturn(ACCEL_RES, &data, bytes, 0);
-     SPIRead_ReturnThruPtr_data();
+     uint8_t *pData;
+
+     SPIRead_ExpectAndReturn(ACCEL_RES, pData, bytes, 0);
+     SPIRead_IgnoreArg_data();
+     SPIRead_ReturnThruPtr_data(&bytes);
      resolucion = MPUGetAccelResolution();
-     TEST_ASSERT_EQUAL_HEX16(0x50, resolucion);
+     TEST_ASSERT_EQUAL_HEX16(0x001, resolucion);
+}
+
+/* 5- Verifiica lectura de temperatura*/
+void test_verifica_lectura_temperatura(void){
+     uint16_t temp;
+     uint8_t bytes = 2;
+     uint8_t *pData = &bytes;
+     // Función Mock que será llamada
+     SPIRead_ExpectAndReturn(TEMP_DIR, pData, bytes, 0);
+     SPIRead_IgnoreArg_data();
+     SPIRead_ReturnThruPtr_data(&bytes);
+     // Aceleración obtenida
+     temp = MPUReadTemperature();
+     TEST_ASSERT_EQUAL_HEX16(0x0200, temp);
 }
