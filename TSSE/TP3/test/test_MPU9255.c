@@ -12,7 +12,7 @@ corroborar el funcionamiento de la misma.
 #define ACCEL_RES   28
 #define TEMP_DIR    65
 
-/* 1- Test static uint16_t converData(uint8_t msbData, uint8_t lsbData)
+/* 1- Test converData(uint8_t msbData, uint8_t lsbData)
 Es una función privada de la libreria que sirve para obtener
 un dato uint16_t a partir de dos datos uint8_t recibidos por SPI
 */
@@ -29,11 +29,10 @@ void test_verifica_lectura_aceleracion_todos_ejes(void){
      // Cantidad de bytes de datos (2 por eje)
      uint8_t bytes = 6;
      uint8_t *pData = &bytes;
-     // Función Mock que será llamada
+     // Función Mock que será llamada: SPIRead
      SPIRead_ExpectAndReturn(ACCEL_DIR, pData, bytes, 0);
      SPIRead_IgnoreArg_data();
      SPIRead_ReturnThruPtr_data(&bytes);
-     // SPIRead_ReturnMemThruPtr_data(&bytes, 6);
      // Lectura del puntero pasado por parámetro
      MPUReadAccel(pData);
      TEST_ASSERT_EQUAL_HEX16(0x0006, *pData);
@@ -58,7 +57,7 @@ void test_verifica_lectura_resolucion_actual(void){
      uint8_t resolucion;
      uint8_t bytes = 1;
      uint8_t *pData;
-
+     // Función Mock que será llamada: SPIRead
      SPIRead_ExpectAndReturn(ACCEL_RES, pData, bytes, 0);
      SPIRead_IgnoreArg_data();
      SPIRead_ReturnThruPtr_data(&bytes);
@@ -71,7 +70,7 @@ void test_verifica_lectura_temperatura(void){
      uint16_t temp;
      uint8_t bytes = 2;
      uint8_t *pData = &bytes;
-     // Función Mock que será llamada
+     // Función Mock que será llamada: SPIRead
      SPIRead_ExpectAndReturn(TEMP_DIR, pData, bytes, 0);
      SPIRead_IgnoreArg_data();
      SPIRead_ReturnThruPtr_data(&bytes);
