@@ -57,12 +57,16 @@ void test_prender_y_apagar_varios_leds(void){
 void test_prendo_led_y_consulto_estado(void){
     ledsTurnOnOne(9);
     TEST_ASSERT_EQUAL_HEX16(0x100, puerto_virtual); // 0x100 = 0000 0000 1000 0000 (bit 8 --> led 9)
+    // Consulto el estado --> deber ser true
+    TEST_ASSERT_TRUE(getLedState(9));
 }
 
 // 6- Apago un led, consulto el estado y tiene que estar apagado.
 void test_apago_led_y_consulto_estado(void){
     ledsTurnOffOne(13);
     TEST_ASSERT_EQUAL_HEX16(0x000, puerto_virtual);
+    // Consulto el estado --> debe ser false
+    TEST_ASSERT_FALSE(getLedState(13));
 }
 
 // 7- Con todos los leds apagados, prendo todos los leds y verifico que se encienden.
