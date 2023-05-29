@@ -404,13 +404,9 @@ static void MX_GPIO_Init(void)
 /* Funciones de la guía de ejercicios */
 /* Ej 1: Hacer una función que inicialice un vector con todos ceros */
 void zeros(uint32_t *vector, uint32_t longitud){
-	memset(vector, 0, longitud);
-	/*Implementación clásica*/
-	/*
 	 for (uint32_t i = longitud - 1; i>=0; i --){
 		vector[i] = 0;
 	}
-	*/
 }
 
 /*Ej 2: función que realice producto escalar entre un vector y un escalar*/
