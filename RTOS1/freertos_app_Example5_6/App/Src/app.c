@@ -74,7 +74,7 @@ TaskHandle_t xTaskLedHandle;
 
 /* Declare a variable of type QueueHandle_t.  This is used to send messages from
 the button task to the Led task. */
-QueueHandle_t QueueHandle;
+ SemaphoreHandle_t SemaphoreHandle;
 
 // ------ internal functions declaration -------------------------------
 
@@ -100,17 +100,17 @@ void appInit( void )
 
     /* Before a queue is used it must be explicitly created.
      * The queue is created to hold a maximum of 5 long values. */
-	QueueHandle = xQueueCreate( 5, sizeof( ledFlag_t ) );
+	SemaphoreHandle = xSemaphoreCreateBinary();
 
 	/* Check the queues was created successfully */
-	configASSERT( QueueHandle != NULL );
+	configASSERT( SemaphoreHandle != NULL );
 
 	ptr = &LDX_Config[0];
 	/* Task Led thread at priority 1 */
 	ret = xTaskCreate( vTaskLed,					/* Pointer to the function thats implement the task. */
 					   "Task Led",						/* Text name for the task. This is to facilitate debugging only. */
 					   (2 * configMINIMAL_STACK_SIZE),	/* Stack depth in words. 				*/
-	                   (void*)ptr,    				/* Pass the ptr as the task parameter. */
+	                   (void*) SemaphoreHandle,    				/* Pass the ptr as the task parameter. */
 					   (tskIDLE_PRIORITY + 1UL),	/* This task will run at priority 1. 		*/
 					   &xTaskLedHandle );			/* We are using a variable as task handle.	*/
 
@@ -122,7 +122,7 @@ void appInit( void )
 	ret = xTaskCreate( vTaskButton,					/* Pointer to the function thats implement the task. */
 					   "Task Button",				/* Text name for the task. This is to facilitate debugging only. */
 					   (2 * configMINIMAL_STACK_SIZE),	/* Stack depth in words. 				*/
-	                   (void*)ptr,    				/* Pass the ptr as the task parameter. */
+	                   (void*) SemaphoreHandle,    				/* Pass the ptr as the task parameter. */
 					   (tskIDLE_PRIORITY + 1UL),	/* This task will run at priority 1. 		*/
 					   &xTaskButtonHandle );		/* We are using a variable as task handle.	*/
 

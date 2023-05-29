@@ -92,6 +92,7 @@ void vTaskButton( void *pvParameters )
 {
 	/*  Declare & Initialize Task Function variables for argument, led, button and task */
 	static ledFlag_t lValueToSend = NotBlinking;
+	SemaphoreHandle_t Sem = (SemaphoreHandle_t) pvParameters;
 
 	char *pcTaskName = (char *) pcTaskGetName( NULL );
 
@@ -115,11 +116,13 @@ void vTaskButton( void *pvParameters )
 				lValueToSend = NotBlinking;
             	vPrintTwoStrings( pcTaskName, pcTextForTask_BlinkingOff );
 			}
-			xQueueSendToBack( QueueHandle, &lValueToSend, portMAX_DELAY );
 		}
 
 		/* We want this task to execute every 250 milliseconds. */
 		vTaskDelay( buttonTickCntMAX );
+		if (lValueToSend == Blinking){
+			xSemaphoreGive(Sem);
+		}
 
 	}
 }
