@@ -169,6 +169,10 @@ int main(void)
   PrivilegiosSVC ();
 
   const uint32_t Resultado = asm_sum (5, 3);
+
+  uint32_t vector[10] = {0xFF, 0xFF, 0xFF, 0xFF};
+
+  asm_zeros(vector, 10);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -404,22 +408,25 @@ static void MX_GPIO_Init(void)
 /* Funciones de la guía de ejercicios */
 /* Ej 1: Hacer una función que inicialice un vector con todos ceros */
 void zeros(uint32_t *vector, uint32_t longitud){
-	 for (uint32_t i = longitud - 1; i>=0; i --){
-		vector[i] = 0;
+	// Ojo con poner igual a cero en unsigned
+	// vector 	--> se pasa por r0
+	// longitud --> se pasa por r1
+	 for (longitud; longitud > 0; longitud --){
+		vector[longitud-1] = 0;
 	}
 }
 
 /*Ej 2: función que realice producto escalar entre un vector y un escalar*/
 void productoEscalar32(uint32_t *vectorIn, uint32_t *vectorOut, uint32_t longitud, uint32_t escalar){
-	for (uint32_t i = longitud - 1; i>=0; i --){
-		vectorOut[i] = vectorIn[i]*escalar;
+	for (longitud; longitud > 0; longitud --){
+		vectorOut[longitud-1] = vectorIn[longitud-1]*escalar;
 	}
 }
 
 /*Ej 3: adaptar la función del ej 2 para vectores con elementos de 16 bits*/
 void productoEscalar16(uint16_t *vectorIn, uint16_t *vectorOut, uint32_t longitud, uint16_t escalar){
-	for (uint32_t i = longitud - 1; i>=0; i --){
-		vectorOut[i] = vectorIn[i]*escalar;
+	for (longitud; longitud > 0; longitud --){
+		vectorOut[longitud-1] = vectorIn[longitud-1]*escalar;
 	}
 }
 
