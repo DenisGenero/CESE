@@ -170,9 +170,14 @@ int main(void)
 
   const uint32_t Resultado = asm_sum (5, 3);
 
-  uint32_t vector[10] = {0xFF, 0xFF, 0xFF, 0xFF};
+  uint16_t vector[10] = {13, 4, 2, 3, 4, 3000, 6000, 7, 8, 9};
+  uint16_t resultado[10];
+  uint16_t escalar = 2;
 
-  asm_zeros(vector, 10);
+  asm_zeros16(resultado, 10);
+//  asm_productoEscalar32(vector, resultado, 10, escalar);
+//  asm_productoEscalar16(vector, resultado, 10, escalar);
+  asm_productoEscalar12(vector, resultado, 10, escalar);
   /* USER CODE END 2 */
 
   /* Infinite loop */
