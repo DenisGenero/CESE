@@ -37,5 +37,11 @@
 - *freertos_book_example020: Rewriting vPrintString() to use a semaphore*  
 - *freertos_book_example030: Synchronizing tasks*  
 
-**Simulacro de Examen: puente angosto:**  
-- *freertos_Example001*  
+**Simulacros de Examen:**  
+- *freertos_Example001 --> Puente angosto*  
+- *freertos_Example002 --> Sistema de parking*  
+
+**Interrupciones**  
+- *freertos_book_example016: Using a binary semaphore to synchronize a task with an interrupt*  
+- *freertos_book_example017: Using a counting semaphore to synchronize a task with an interrupt**  
+- *freertos_book_example019: Sending and receiving on a queue from within an interrupt*  
