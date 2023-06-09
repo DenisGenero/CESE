@@ -65,12 +65,22 @@ static void MX_USB_OTG_FS_PCD_Init(void);
 /* Funciones de la guía de ejercicios */
 /* Ej 1: Hacer una función que inicialice un vector con todos ceros */
 void zeros(uint32_t *vector, uint32_t longitud);
-/*Ej 2: función que realice producto escalar entre un vector y un escalar*/
+/*Ej 2: función que realice producto escalar entre un vector y un escalar */
 void productoEscalar32(uint32_t *vectorIn, uint32_t *vectorOut, uint32_t longitud, uint32_t escalar);
-/*Ej 3: adaptar la función del ej 2 para vectores con elementos de 16 bits*/
+/*Ej 3: adaptar la función del ej 2 para vectores con elementos de 16 bits */
 void productoEscalar16(uint16_t *vectorIn, uint16_t *vectorOut, uint32_t longitud, uint16_t escalar);
-/*Ej 4: adaptar la función del ej 3 para vectores con elementos de 12 bits*/
+/*Ej 4: adaptar la función del ej 3 para vectores con elementos de 12 bits */
 void productoEscalar12(uint16_t *vectorIn, uint16_t *vectorOut, uint32_t longitud, uint16_t escalar);
+/* Ej 4 usando Intrinsic function */
+void productoEscalar12Intr(uint16_t *vectorIn, uint16_t *vectorOut, uint32_t longitud, uint16_t escalar);
+/* Ej 5: implementar una función que haga un filtro ventana con 11 valores */
+void filtroVentana10(uint16_t *vectorIn, uint16_t *vectorOut, uint32_t longitud);
+/* Ej 6: emapquetar un vector con datos de 32 bits en un vector con datos de 16 bits*/
+void pack32to16(int32_t *vectorIn, int16_t *vectorOut, uint32_t longitud);
+/* Ej 6: usando Intrinsic Function */
+//void pack32to16Intr(int32_t *vectorIn, int16_t *vectorOut, uint32_t longitud);
+/* Ej 7: función que reciba un vector y devuelva la posición del máximo */
+uint32_t max(int32_t *vectorIn, uint32_t longitud);
 
 /* USER CODE BEGIN PFP */
 
@@ -168,16 +178,23 @@ int main(void)
   /* USER CODE BEGIN 2 */
   PrivilegiosSVC ();
 
-  const uint32_t Resultado = asm_sum (5, 3);
+//  const uint32_t Resultado = asm_sum (5, 3);
+  uint32_t tam = 15;
+  int32_t vector[] = {13, 4, 2, 3, 4,
+		  	  	  	  	 -3000, 6535560, 7, 8, 9,
+						 50, 69, 4, -255, 980};/*,
+  	  	  	  	  	  	 6, 130, 887, 32, 9563};*/
+  int16_t resultado[tam];
+//  uint16_t escalar = 2;
 
-  uint16_t vector[10] = {13, 4, 2, 3, 4, 3000, 6000, 7, 8, 9};
-  uint16_t resultado[10];
-  uint16_t escalar = 2;
+//  asm_zeros(resultado, tam);
+//  asm_productoEscalar32(vector, resultado, tam, escalar);
+//  asm_productoEscalar16(vector, resultado, tam, escalar);
+//  asm_productoEscalar12(vector, resultado, tam, escalar);
+//  filtroVentana10(vector, resultado, tam);
+//  pack32to16(vector, resultado, tam);
+//  uint32_t index = max(vector, tam);
 
-  asm_zeros16(resultado, 10);
-//  asm_productoEscalar32(vector, resultado, 10, escalar);
-//  asm_productoEscalar16(vector, resultado, 10, escalar);
-  asm_productoEscalar12(vector, resultado, 10, escalar);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -411,43 +428,103 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 
 /* Funciones de la guía de ejercicios */
+
+/* ################################ Funciones en C ################################ */
+
 /* Ej 1: Hacer una función que inicialice un vector con todos ceros */
 void zeros(uint32_t *vector, uint32_t longitud){
 	// Ojo con poner igual a cero en unsigned
 	// vector 	--> se pasa por r0
 	// longitud --> se pasa por r1
-	 for (longitud; longitud > 0; longitud --){
-		vector[longitud-1] = 0;
+	 for (uint32_t i=longitud; i > 0; i --){
+		vector[i-1] = 0;
 	}
 }
 
-/*Ej 2: función que realice producto escalar entre un vector y un escalar*/
+/* Ej 2: función que realice producto escalar entre un vector y un escalar */
 void productoEscalar32(uint32_t *vectorIn, uint32_t *vectorOut, uint32_t longitud, uint32_t escalar){
-	for (longitud; longitud > 0; longitud --){
-		vectorOut[longitud-1] = vectorIn[longitud-1]*escalar;
+	for (uint32_t i=longitud; i > 0; i --){
+		vectorOut[i-1] = vectorIn[longitud-1]*escalar;
 	}
 }
 
-/*Ej 3: adaptar la función del ej 2 para vectores con elementos de 16 bits*/
+/* Ej 3: adaptar la función del ej 2 para vectores con elementos de 16 bits */
 void productoEscalar16(uint16_t *vectorIn, uint16_t *vectorOut, uint32_t longitud, uint16_t escalar){
-	for (longitud; longitud > 0; longitud --){
-		vectorOut[longitud-1] = vectorIn[longitud-1]*escalar;
+	for (uint32_t i=longitud; i > 0; i --){
+		vectorOut[i-1] = vectorIn[longitud-1]*escalar;
 	}
 }
 
-/*Ej 4: adaptar la función del ej 3 para vectores con elementos de 12 bits*/
+/* Ej 4: adaptar la función del ej 3 para vectores con elementos de 12 bits */
 void productoEscalar12(uint16_t *vectorIn, uint16_t *vectorOut, uint32_t longitud, uint16_t escalar){
 	uint32_t parcial;
 	// Límite de 12 bits --> 2^12 = 4096
-	uint16_t limiteSat = 4096;
-	for (uint32_t i = longitud - 1; i>=0; i --){
-		parcial = vectorIn[i]*escalar;
-		if(parcial >= limiteSat){
+	uint16_t limiteSat = 4095;
+	for (uint32_t i = longitud; i > 0; i --){
+		parcial = vectorIn[i-1]*escalar;
+		if(parcial > limiteSat){
 			parcial = 4095;
 		}
-		vectorOut[i] = parcial;
+		vectorOut[i-1] = parcial;
 	}
 }
+
+/* Ej 5: implementar una función que haga un filtro ventana con 11 valores (índice actual más 5 valores antes
+ * y 5 valores después) sobre un vector de muestras */
+void filtroVentana10(uint16_t *vectorIn, uint16_t *vectorOut, uint32_t longitud){
+	uint8_t SampleOffset = 5;
+	uint32_t tam = longitud - 1;
+	for (int32_t i = tam; i > 0; i--){
+		for (int32_t j = i + SampleOffset; j >= i - SampleOffset; j--){
+			if(j > tam || j < 0){
+				vectorOut[i] += 0;
+			}
+			else{
+				vectorOut[i] += vectorIn[j];
+			}
+		}
+		vectorOut[i] /= (SampleOffset*2 + 1);
+	}
+}
+
+/* Ej 6: emapquetar un vector con datos de 32 bits en un vector con datos de 16 bits*/
+void pack32to16(int32_t *vectorIn, int16_t *vectorOut, uint32_t longitud){
+	for (uint32_t i = longitud; i > 0; i--){
+		vectorOut[i] = (uint16_t)(vectorIn[i]>>8);
+	}
+}
+
+/* Ej 7: función que reciba un vector y devuelva la posición del máximo */
+uint32_t max(int32_t *vectorIn, uint32_t longitud){
+	int32_t max = vectorIn[longitud - 1];
+	uint32_t index = longitud - 1;
+	for (uint32_t i = longitud - 1; i > 0; i--){
+		if(vectorIn[i-1] > max){
+			max = vectorIn[i-1];
+			index = i - 1;
+		}
+	}
+	return index;
+}
+
+
+/* ################################ Funciones en C con Intrinsic ################################ */
+/* Ej 4: multiplicación de vector por escalar saturando a 12 bits */
+void productoEscalar12Intr(uint16_t *vectorIn, uint16_t *vectorOut, uint32_t longitud, uint16_t escalar){
+	uint32_t parcial;
+	// Límite de 12 bits --> 2^12 = 4096
+	for (uint32_t i = longitud - 1; i>=0; i --){
+		parcial = vectorIn[i]*escalar;
+		vectorOut[i] = __USAT(parcial, 12);
+	}
+}
+
+/* Ej 6: emapquetar un vector con datos de 32 bits en un vector con datos de 16 bits*/
+//void pack32to16Intr(int32_t *vectorIn, int16_t *vectorOut, uint32_t longitud){
+//	for (uint32_t i = longitud; i > 0; i--){
+//		vectorOut[i] = __ROR(vectorIn[i], 8);
+//	}
+//}
 
 /* USER CODE END 4 */
 

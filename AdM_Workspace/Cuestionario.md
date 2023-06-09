@@ -178,6 +178,16 @@ datos de 8 bits, y sus valores límites son 128 y -127, veamos que sucede con y 
 - Aritmética saturada:	B = -124 - 50 	--> B = -127: No hay underflow, se supera el límite mínimo, pero la variable queda con el valor del límite inferior.
 
 **4- Describa brevemente la interfaz entre assembler y C ¿Cómo se reciben los argumentos de las funciones? ¿Cómo se devuelve el resultado? ¿Qué registros deben guardarse en la pila antes de ser modificados?**
+
+Los argumentos se reciben a través de los registros de propóisto generales, comenzando con r0 para el primer argumento y continuando con los demás según la cantidad de parámetros que tenga la función. 
+El resultado de una función se devuelve meidante r0. Los registros que deben guardarse en la pila antes de utilizarce son de r4 a r12. Se debe tener la precaución de hacer un push al inicio de la 
+función y un pop antes de retornar de la misma. Tanto el push y el pop se deben hacer con el mismo orden de los registros, por ejemplo:  
+MiFunc_asm:  
+	push {r4-r7}  //Guarda los valores de los registro r4 a r7  
+	...  
+	...  
+	pop {r4-r7}  //Restaura el valor de los registros para no afectar el comprtamiento del programa principal  
+	bx lr		 //Retorna al programa principal  
 	
 **5- ¿Qué es una instrucción SIMD? ¿En qué se aplican y que ventajas reporta su uso? Dé un ejemplo.**
 
