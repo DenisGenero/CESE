@@ -235,10 +235,34 @@
 @
 @ Valor de retorno: Nada
 @
+#define SampleOffset 6
+#define LimInfVentana 11
 .thumb_func
     asm_filtroVentana10:
+    	push {r4-r10}
+    	mov r3, r2		// Resguardo longitud (r2) para ver cuando estoy fuera del vector
+    _for3:
+    	subs r3, #1		// r3 = r3 - 1 --> r3 indice que recorre el vector
+    	beq _exit2		// Salir del programa si se terminaron las muestras
+    	add r4, r3, #SampleOffset	// r4 = r3 + 6 --> r4 indice para mover la ventana
+    	cmp r4, LimInfVentana
+    	it ls			// Si el tamamño de la ventana es mas grande que las muestras que quedan, se compara con cero
+    	subls r7, r3, #SampleOffset	// Límite inferior de la ventana, si es necesario
+    	_for4:
+    		subs r4, #1
+    		cmp r2, r4		// ignorar operaciones si estamos afura del vector
+    		bls _for4		// retorna al for para seguir descontando r4
+    		bne _for3		// si r4 es cero volver al bucle principal
+    		cmp r4, r7		// Comparo con el limite inferior
+    		ldrh r5, [r0, r3, LSL #2]	// r5 = *(r0 + (r3>>2))
+    		add r6, r6, r5				// r6 = r6 + r5
+    		bne _for4
 
-        bx lr       @ vuelve adonde fue llamada (especificamente, si "pc"
+    	strh r6, [r1, r3, LSL #2]	// *(r1 + (r3>>2)) = r6
+
+    _exit2:
+    	pop {r4-r10}
+    	bx lr       @ vuelve adonde fue llamada (especificamente, si "pc"
                     @ es la direccion, en el codigo del programa, de la
                     @ instruccion "bl asm_sum" usada para saltar a
                     @ esta funcion, entonces "lr" contiene ese "pc" + 4).
@@ -263,6 +287,14 @@
 @
 .thumb_func
     asm_pack32to16:
+    	push {r4}				// Resguardar r4
+    _for5:
+    	subs r2, #1					// r2 = r2 - 1
+    	ldr r4, [r0, r2, LSL #2]	// r4 = *(r0 + (r2 << 4))
+    	asr r3, r4, #16				// r3 = r4>>16 --> aritmetic shift right (tiene en cuenta el signo)
+    	strh r3, [r1, r2, LSL #1]	// *(r1 + (r2 << 2)) = r3
+        bne _for5					// Seguir en el ciclo mientras r2>0
+        pop {r4}
 
         bx lr       @ vuelve adonde fue llamada (especificamente, si "pc"
                     @ es la direccion, en el codigo del programa, de la

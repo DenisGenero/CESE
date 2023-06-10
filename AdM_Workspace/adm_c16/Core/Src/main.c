@@ -180,19 +180,24 @@ int main(void)
 
 //  const uint32_t Resultado = asm_sum (5, 3);
   uint32_t tam = 15;
-  int32_t vector[] = {13, 4, 2, 3, 4,
-		  	  	  	  	 -3000, 6535560, 7, 8, 9,
-						 50, 69, 4, -255, 980};/*,
-  	  	  	  	  	  	 6, 130, 887, 32, 9563};*/
-  int16_t resultado[tam];
+//  int32_t vector[] = {13, 4, 2, 3, 4,
+//		  	  	  	  -3000, -65355600, 7, 8, 9000000,
+//					  50, 69, 65355600, 5120000, 980};//,
+  	  	  	  	  	  	 /*6, 130, 887, 32, 9563};*/
+  uint32_t vector[] = {13, 4, 2, 3, 4,
+  		  	  	  	  3000, 65355600, 7, 8, 9000000,
+  					  50, 69, 65355600, 5120000, 980};
+  uint16_t resultado[tam];
 //  uint16_t escalar = 2;
 
 //  asm_zeros(resultado, tam);
 //  asm_productoEscalar32(vector, resultado, tam, escalar);
 //  asm_productoEscalar16(vector, resultado, tam, escalar);
 //  asm_productoEscalar12(vector, resultado, tam, escalar);
-//  filtroVentana10(vector, resultado, tam);
+  filtroVentana10(vector, resultado, tam);
+
 //  pack32to16(vector, resultado, tam);
+//  asm_pack32to16(vector, resultado, tam);
 //  uint32_t index = max(vector, tam);
 
   /* USER CODE END 2 */
@@ -472,25 +477,37 @@ void productoEscalar12(uint16_t *vectorIn, uint16_t *vectorOut, uint32_t longitu
 /* Ej 5: implementar una función que haga un filtro ventana con 11 valores (índice actual más 5 valores antes
  * y 5 valores después) sobre un vector de muestras */
 void filtroVentana10(uint16_t *vectorIn, uint16_t *vectorOut, uint32_t longitud){
+	int32_t tam;
 	uint8_t SampleOffset = 5;
-	uint32_t tam = longitud - 1;
-	for (int32_t i = tam; i > 0; i--){
-		for (int32_t j = i + SampleOffset; j >= i - SampleOffset; j--){
-			if(j > tam || j < 0){
-				vectorOut[i] += 0;
-			}
-			else{
-				vectorOut[i] += vectorIn[j];
+	for (int32_t i = longitud; i > 0; i--){
+		tam = i - 1;
+		for (int32_t j = tam + SampleOffset; j >= tam - SampleOffset; j--){
+			if( (j < (longitud - 1)) && (j > 0) ){
+				vectorOut[tam] += vectorIn[j];
 			}
 		}
-		vectorOut[i] /= (SampleOffset*2 + 1);
+		vectorOut[tam] /= (SampleOffset*2 + 1);
 	}
 }
 
 /* Ej 6: emapquetar un vector con datos de 32 bits en un vector con datos de 16 bits*/
 void pack32to16(int32_t *vectorIn, int16_t *vectorOut, uint32_t longitud){
+	int32_t Res;
+	int16_t parcial;
+	uint8_t negFlag = 0;
 	for (uint32_t i = longitud; i > 0; i--){
-		vectorOut[i] = (uint16_t)(vectorIn[i]>>8);
+		Res = vectorIn[i-1];
+		if(vectorIn[i-1] < 0){
+			Res = vectorIn[i-1]*-1;
+			negFlag = 1;
+		}
+		 parcial = (int16_t)(Res>>16);
+		 vectorOut[i-1] = parcial;
+		 if(parcial>0 && negFlag){
+			 vectorOut[i-1] *= -1;
+			 negFlag = 0;
+		 }
+
 	}
 }
 
