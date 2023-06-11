@@ -14,6 +14,7 @@
 .global asm_pack32to16
 .global asm_max
 .global asm_downSampleM
+.global invertir
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ Prototipo en "C":
@@ -400,6 +401,38 @@
     	add r4, #1   // Se actualiza el índice del vector de entrada
     	cmp r4, r2  // Si el índice llego a la longitud se sale de la función
     	bne _for7  // Si no se llegó al final, se sigue iterando
+
+    	pop {r4-r7}
+        bx lr       @ vuelve adonde fue llamada (especificamente, si "pc"
+                    @ es la direccion, en el codigo del programa, de la
+                    @ instruccion "bl asm_sum" usada para saltar a
+                    @ esta funcion, entonces "lr" contiene ese "pc" + 4).
+                    @ el valor de retorno debe quedar en el registro r0.
+                    @ En este caso, r0 es el resultado de r0 + r1.
+
+        @ Otras alternativas para el retorno
+        @ mov pc,lr
+        @ bx lr
+        @ push {lr} ... pop {pc}
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Prototipo en "C":
+@   void invertir(uint16_t *vectorIn, uint32_t longitud);
+@
+@ Parametros recibidos:
+@   r0: dirección del vector entrada
+@   r1: longitud
+@
+@ Valor de retorno: indice donde se encuentra el mayor valor
+@
+.thumb_func
+    asm_invertir:
+    	push {r4-r7}
+    	mov r2, #0  // Índice para invertir el vector
+
+    _for8:
+
+    	bne _for8  // Si no se llegó al final, se sigue iterando
 
     	pop {r4-r7}
         bx lr       @ vuelve adonde fue llamada (especificamente, si "pc"

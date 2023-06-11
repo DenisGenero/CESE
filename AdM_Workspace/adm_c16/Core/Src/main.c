@@ -198,13 +198,13 @@ int main(void)
 
 //  const uint32_t Resultado = asm_sum (5, 3);
   uint32_t tam = 15;
-  int32_t vector[] = {13, 4, 2, 3, 4,
-		  	  	  	  -3000, -65355600, 7, 8, 9000000,
-					  50, 69, 65355600, 5120000, 980};//,
+//  int32_t vector[] = {13, 4, 2, 3, 4,
+//		  	  	  	  -3000, -65355600, 7, 8, 9000000,
+//					  50, 69, 65355600, 5120000, 980};//,
   	  	  	  	  	  	 /*6, 130, 887, 32, 9563};*/
-//  uint16_t vector[] = {13, 4, 2, 3, 4,
-//  		  	  	  	  3000, 6535, 7, 8, 9000,
-//  					  50, 69, 6535, 5120, 980};
+  uint16_t vector[] = {13, 4, 2, 3, 4,
+  		  	  	  	  3000, 6535, 7, 8, 9000,
+  					  50, 69, 6535, 5120, 980};
   int32_t resultado[10] = {0,0,0,0,0,0,0,0,0,0};
 //  zeros(resultado, 10);
 
@@ -262,12 +262,19 @@ int main(void)
 //    uint32_t indexASM = asm_max(vector, tam);
 //    ciclos_ASM = DWT->CYCCNT;
 
-    DWT->CYCCNT = 0;
-    downSampleM(vector, resultado, tam, 3);
-    ciclos_C = DWT->CYCCNT;
-    DWT->CYCCNT = 0;
-    asm_downSampleM(vector, resultado, tam, 3);
-    ciclos_ASM = DWT->CYCCNT;
+//    DWT->CYCCNT = 0;
+//    downSampleM(vector, resultado, tam, 3);
+//    ciclos_C = DWT->CYCCNT;
+//    DWT->CYCCNT = 0;
+//    asm_downSampleM(vector, resultado, tam, 3);
+//    ciclos_ASM = DWT->CYCCNT;
+
+//    DWT->CYCCNT = 0;
+    invertir(vector, tam);
+//    ciclos_C = DWT->CYCCNT;
+//    DWT->CYCCNT = 0;
+//    asm_invertir(vector,tam);
+//    ciclos_ASM = DWT->CYCCNT;
 
   /* USER CODE END 2 */
 
@@ -611,6 +618,18 @@ void downSampleM(int32_t *vectorIn, int32_t *vectorOut, uint32_t longitud, uint3
 	}
 }
 
+/* Ej 9: invertir el orden de las muestras de un vector*/
+void invertir(uint16_t *vectorIn, uint32_t longitud){
+	uint32_t vec[longitud];
+	for (uint32_t i = longitud - 1; i > 0; i --){
+		vec [longitud - 1 - i] = vectorIn[i];
+	}
+	vec [longitud - 1] = vectorIn[0];
+	for (uint32_t i = longitud - 1; i > 0; i --){
+			vectorIn[i] = vec [i];
+	}
+}
+
 
 /* ################################ Funciones en C con Intrinsic ################################ */
 /* Ej 4: multiplicación de vector por escalar saturando a 12 bits */
@@ -623,12 +642,6 @@ void productoEscalar12Intr(uint16_t *vectorIn, uint16_t *vectorOut, uint32_t lon
 	}
 }
 
-/* Ej 6: emapquetar un vector con datos de 32 bits en un vector con datos de 16 bits*/
-//void pack32to16Intr(int32_t *vectorIn, int16_t *vectorOut, uint32_t longitud){
-//	for (uint32_t i = longitud; i > 0; i--){
-//		vectorOut[i] = __ROR(vectorIn[i], 8);
-//	}
-//}
 
 /* USER CODE END 4 */
 

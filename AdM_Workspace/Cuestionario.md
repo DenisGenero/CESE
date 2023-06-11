@@ -218,15 +218,15 @@ Referencias:
 - **Asm vs C:** Relación porcentual entre los ciclos ejecutandos en Assembly respecto de los ejecutados en C  
 - **N/A:** No aplicable  
 
-| Función           | SIMD  | Asm   | Int   | C      | Asm vs C |    
-| :---              | :---: | :---: | :---: | :---:  |  :---:   |  
-| zeros             | N/A   | 103   | N/A   | 431    |  `418%`  |  
-| productoEscalar32 | N/A   | 180   | N/A   | 655    |  `364%`  |  
-| productoEscalar16 | N/A   | 670   | N/A   | 175    |  `383%`  |  
-| productoEscalar12 | N/A   | 192   | 787   | 907    |  `472%`  |  
-| filtroVentana10   | N/A   | 2.392 | N/A   | 10.441 |  `436%`  |  
-| pack32to16        | N/A   | 177   | N/A   | 1.170  |  `661%`  |  
-| max               | N/A   | 179   | N/A   | 544    |  `304%`  |  
-| downSampleM       | N/A   | 202   | N/A   | 726    |  `359%`  |  
-| invertir          | N/A   | XXX   | N/A   | XXX    |  `XXXX`  |  
-| Promedio			|		|       |       |		 |  `XXXX`  |
+| Función              | SIMD  | Asm   | Int   | C      | Asm vs C |    
+| :---                 | :---: | :---: | :---: | :---:  |  :---:   |  
+| 1- zeros             | N/A   | 103   | N/A   | 431    |  `418%`  |  
+| 2- productoEscalar32 | N/A   | 180   | N/A   | 655    |  `364%`  |  
+| 3- productoEscalar16 | N/A   | 670   | N/A   | 175    |  `383%`  |  
+| 4- productoEscalar12 | N/A   | 192   | 787   | 907    |  `472%`  |  
+| 5- filtroVentana10   | N/A   | 2.392 | N/A   | 10.441 |  `436%`  |  
+| 6- pack32to16        | N/A   | 177   | N/A   | 1.170  |  `661%`  |  
+| 7- max               | N/A   | 179   | N/A   | 544    |  `304%`  |  
+| 8- downSampleM       | N/A   | 202   | N/A   | 726    |  `359%`  |  
+| 9- invertir          | N/A   | XXX   | N/A   | XXX    |  `XXXX`  |  
+| Promedio			   |       |       |       |        |  `XXXX`  |
