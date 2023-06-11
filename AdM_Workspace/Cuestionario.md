@@ -214,7 +214,7 @@ Referencias:
 - **SIMD:** Función implementada en Assembly utilizando comandos de la SIMD  
 - **Asm:** Función inplementada en Assembly  
 - **Int:** Función implementada en C, utilizando las *Intrincis Functions*  
-- **C:** Función implementaen C  
+- **C:** Función implementa en C  
 - **Asm vs C:** Relación porcentual entre los ciclos ejecutandos en Assembly respecto de los ejecutados en C  
 - **N/A:** No aplicable  
 
@@ -229,3 +229,4 @@ Referencias:
 | max               | N/A   | 179   | N/A   | 544    |  `304%`  |  
 | downSampleM       | N/A   | 202   | N/A   | 726    |  `359%`  |  
 | invertir          | N/A   | XXX   | N/A   | XXX    |  `XXXX`  |  
+| Promedio			|								 |  `XXXX`  |
