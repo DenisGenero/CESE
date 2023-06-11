@@ -229,4 +229,4 @@ Referencias:
 | max               | N/A   | 179   | N/A   | 544    |  `304%`  |  
 | downSampleM       | N/A   | 202   | N/A   | 726    |  `359%`  |  
 | invertir          | N/A   | XXX   | N/A   | XXX    |  `XXXX`  |  
-| Promedio			|								 |  `XXXX`  |
+| Promedio			|		|       |       |		 |  `XXXX`  |
