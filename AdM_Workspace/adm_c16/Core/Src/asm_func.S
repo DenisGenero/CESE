@@ -13,6 +13,7 @@
 .global asm_filtroVentana10
 .global asm_pack32to16
 .global asm_max
+.global asm_downSampleM
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ Prototipo en "C":
@@ -52,7 +53,7 @@
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ Prototipo en "C":
-@   void asm_zeros(uint32_t * vector, uint32_t longitud)
+@   void zeros(uint32_t * vector, uint32_t longitud)
 @
 @ Parametros recibidos:
 @   r0: dirección del vector
@@ -87,7 +88,7 @@
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ Prototipo en "C":
-@   void asm_zeros(uint32_t * vector, uint32_t longitud)
+@   void zeros16(uint16_t * vector, uint16_t longitud)
 @
 @ Parametros recibidos:
 @   r0: dirección del vector
@@ -329,7 +330,7 @@
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ Prototipo en "C":
-@   uint32_t asm_max(int32_t *vectorIn, uint32_t longitud);
+@   uint32_t max(int32_t *vectorIn, uint32_t longitud);
 @
 @ Parametros recibidos:
 @   r0: dirección del vector entrada
@@ -339,9 +340,68 @@
 @
 .thumb_func
     asm_max:
-    	mov r2, [r0, r1, LSL #2] // Guardamos el primer valor para comparar
-    	mov r3, r1	//guardamos el índice
+    	push {r4-r7}
+    	sub r1, #1
+    	ldr r2, [r0, r1, LSL #2] // Se guarda el primer valor para comparar
+    	mov r3, r1	// Se guarda el índice
+    	subs r1, #1
 
+    _for6:
+    	ldr r4, [r0, r1, LSL #2] // Se carga siguiente valor para comparar
+    	cmp r4, r2 // Se compara con el valor cargado previo
+    	itt gt
+    	movgt r2, r4 // Si el nuevo valor es mayor, se almacena en r2 para volver a comparar
+    	movgt r3, r1 // Se guarda el indice
+    	subs r1, #1
+    	bne _for6
+
+    	pop {r4-r7}
+    	mov r0, r3	// Se guarda el valor de retorno
+        bx lr       @ vuelve adonde fue llamada (especificamente, si "pc"
+                    @ es la direccion, en el codigo del programa, de la
+                    @ instruccion "bl asm_sum" usada para saltar a
+                    @ esta funcion, entonces "lr" contiene ese "pc" + 4).
+                    @ el valor de retorno debe quedar en el registro r0.
+                    @ En este caso, r0 es el resultado de r0 + r1.
+
+        @ Otras alternativas para el retorno
+        @ mov pc,lr
+        @ bx lr
+        @ push {lr} ... pop {pc}
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Prototipo en "C":
+@   uint32_t downSampleM(int32_t *vectorIn, int32_t *vectorOut, uint32_t longitud, uint32_t N)
+@
+@ Parametros recibidos:
+@   r0: dirección del vector entrada
+@   r1: dirección del vector salida
+@   r2: longitud
+@   r3: N
+@
+@ Valor de retorno: indice donde se encuentra el mayor valor
+@
+.thumb_func
+    asm_downSampleM:
+    	push {r4-r7}
+    	mov r4, #0  // Indice para recorrer el vector
+    	mov r5, #0  // Indice para guardar los valores
+    	mov r6, r3  // Se copia n para ir modificando el valor de comparación
+    	sub r6, #1  // Se resta uno para tener en cuenta la muestra en posición cero
+    	sub r2, #1  // Se resta uno, para no exceder el límite del vector
+
+    _for7:
+    	ldr r7, [r0, r4, LSL #2]  // Se carga el valor del vector de entrada
+    	cmp r4, r6  // Se compara con el N, que se va desplazando (por eso se hizo la copia)
+    	itee eq
+    	addeq r6, r6, r3	// Si es igual a N, omitir la muestra y actualizar el N de comparación
+    	strne r7, [r1, r5, LSL #2] // Si es distinto, se guarda en el vector destino
+    	addne r5, #1  // Se actualiza el índice del vector de salida
+    	add r4, #1   // Se actualiza el índice del vector de entrada
+    	cmp r4, r2  // Si el índice llego a la longitud se sale de la función
+    	bne _for7  // Si no se llegó al final, se sigue iterando
+
+    	pop {r4-r7}
         bx lr       @ vuelve adonde fue llamada (especificamente, si "pc"
                     @ es la direccion, en el codigo del programa, de la
                     @ instruccion "bl asm_sum" usada para saltar a

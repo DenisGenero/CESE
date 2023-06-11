@@ -81,6 +81,11 @@ void pack32to16(int32_t *vectorIn, int16_t *vectorOut, uint32_t longitud);
 //void pack32to16Intr(int32_t *vectorIn, int16_t *vectorOut, uint32_t longitud);
 /* Ej 7: función que reciba un vector y devuelva la posición del máximo */
 uint32_t max(int32_t *vectorIn, uint32_t longitud);
+/* Ej 8: decimar un vector de muestras descartando una cada N muestras*/
+void downSampleM(int32_t *vectorIn, int32_t *vectorOut, uint32_t longitud, uint32_t N);
+/* Ej 9: invertir el orden de las muestras de un vector*/
+void invertir(uint16_t *vectorIn, uint32_t longitud);
+/* Ej */
 
 /* USER CODE BEGIN PFP */
 
@@ -200,8 +205,8 @@ int main(void)
 //  uint16_t vector[] = {13, 4, 2, 3, 4,
 //  		  	  	  	  3000, 6535, 7, 8, 9000,
 //  					  50, 69, 6535, 5120, 980};
-  int16_t resultado[tam];
-  uint16_t escalar = 2;
+  int32_t resultado[10] = {0,0,0,0,0,0,0,0,0,0};
+//  zeros(resultado, 10);
 
 //  DWT->CYCCNT = 0;
 //  zeros(resultado, tam);
@@ -209,6 +214,8 @@ int main(void)
 //  DWT->CYCCNT = 0;
 //  asm_zeros(resultado, tam);
 //  ciclos_ASM = DWT->CYCCNT;
+
+//  uint16_t escalar = 2;
 
 //  DWT->CYCCNT = 0;
 //  productoEscalar32(vector, resultado, tam, escalar);
@@ -248,14 +255,19 @@ int main(void)
 //  asm_pack32to16(vector, resultado, tam);
 //  ciclos_ASM = DWT->CYCCNT;
 
+//    DWT->CYCCNT = 0;
+//    uint32_t indexC = max(vector, tam);
+//    ciclos_C = DWT->CYCCNT;
+//    DWT->CYCCNT = 0;
+//    uint32_t indexASM = asm_max(vector, tam);
+//    ciclos_ASM = DWT->CYCCNT;
+
     DWT->CYCCNT = 0;
-    uint32_t indexC = max(vector, tam);
+    downSampleM(vector, resultado, tam, 3);
     ciclos_C = DWT->CYCCNT;
     DWT->CYCCNT = 0;
-    uint32_t indexASM = asm_max(vector, tam);
+    asm_downSampleM(vector, resultado, tam, 3);
     ciclos_ASM = DWT->CYCCNT;
-
-//  uint32_t index = max(vector, tam);
 
   /* USER CODE END 2 */
 
@@ -580,6 +592,23 @@ uint32_t max(int32_t *vectorIn, uint32_t longitud){
 		}
 	}
 	return index;
+}
+
+/* Ej 8: decimar un vector de muestras descartando una cada N muestras*/
+void downSampleM(int32_t *vectorIn, int32_t *vectorOut, uint32_t longitud, uint32_t N){
+	uint32_t multiplo = 2;
+	uint32_t SaltoMuestra = N;
+	uint32_t cont = 0;
+	for(uint32_t i = 0; i < longitud; i ++){
+		if(i == N - 1){
+			N = SaltoMuestra*multiplo;
+			multiplo ++;
+		}
+		else{
+			vectorOut[cont] = vectorIn[i];
+			cont ++;
+		}
+	}
 }
 
 
