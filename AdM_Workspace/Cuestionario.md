@@ -209,10 +209,10 @@ en utilizar los registros de 32 bits para almacenar 2 datos de 16 o 4 de 8 bits,
 
 ## Tabla comparativa de ciclos  
 
-** .... Función ... | Assembly. | ... C ... |**   
-**_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _**  
-**zeros ........... | .. 103 .. | .. 431 .. |**  
-**productoEscalar32 | .. XXX .. | .. XXX .. |**  
-**productoEscalar16 | .. XXX .. | .. XXX .. |**  
-**productoEscalar12 | .. XXX .. | .. XXX .. |**  
-**filtroVentana10 . | .. XXX .. | .. XXX .. |**  
+** |    Función        | Assembly  |    C    |**   
+** |-------------------|-----------|---------|**  
+** | zeros             |    103    |   431   |**  
+** | productoEscalar32 |    XXX    |   XXX   |**  
+** | productoEscalar16 |    XXX    |   XXX   |**  
+** | productoEscalar12 |    XXX    |   XXX   |**  
+** | filtroVentana10   |    XXX    |   XXX   |**  
