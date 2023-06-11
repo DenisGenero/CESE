@@ -333,13 +333,14 @@
 @
 @ Parametros recibidos:
 @   r0: dirección del vector entrada
-@   r1: dirección del vector resultado
-@	r2: longitud
+@   r1: longitud
 @
 @ Valor de retorno: indice donde se encuentra el mayor valor
 @
 .thumb_func
     asm_max:
+    	mov r2, [r0, r1, LSL #2] // Guardamos el primer valor para comparar
+    	mov r3, r1	//guardamos el índice
 
         bx lr       @ vuelve adonde fue llamada (especificamente, si "pc"
                     @ es la direccion, en el codigo del programa, de la

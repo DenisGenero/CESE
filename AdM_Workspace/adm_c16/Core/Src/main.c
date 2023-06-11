@@ -189,26 +189,26 @@ int main(void)
   //const volatile uint32_t Ciclos = DWT->CYCCNT;
 
 //  const volatile uint32_t ciclos_C, ciclos_ASM;
-  uint32_t ciclos_C, ciclos_ASM;
+  uint32_t ciclos_C, ciclos_ASM, ciclos_Intr, ciclos_SIMD;
 
 //  const uint32_t Resultado = asm_sum (5, 3);
   uint32_t tam = 15;
-//  int32_t vector[] = {13, 4, 2, 3, 4,
-//		  	  	  	  -3000, -65355600, 7, 8, 9000000,
-//					  50, 69, 65355600, 5120000, 980};//,
+  int32_t vector[] = {13, 4, 2, 3, 4,
+		  	  	  	  -3000, -65355600, 7, 8, 9000000,
+					  50, 69, 65355600, 5120000, 980};//,
   	  	  	  	  	  	 /*6, 130, 887, 32, 9563};*/
-  uint16_t vector[] = {13, 4, 2, 3, 4,
-  		  	  	  	  3000, 6535, 7, 8, 9000,
-  					  50, 69, 6535, 5120, 980};
-  uint32_t resultado[tam];
-//  uint16_t escalar = 2;
+//  uint16_t vector[] = {13, 4, 2, 3, 4,
+//  		  	  	  	  3000, 6535, 7, 8, 9000,
+//  					  50, 69, 6535, 5120, 980};
+  int16_t resultado[tam];
+  uint16_t escalar = 2;
 
-  DWT->CYCCNT = 0;
-  zeros(resultado, tam);
-  ciclos_C = DWT->CYCCNT;
-  DWT->CYCCNT = 0;
-  asm_zeros(resultado, tam);
-  ciclos_ASM = DWT->CYCCNT;
+//  DWT->CYCCNT = 0;
+//  zeros(resultado, tam);
+//  ciclos_C = DWT->CYCCNT;
+//  DWT->CYCCNT = 0;
+//  asm_zeros(resultado, tam);
+//  ciclos_ASM = DWT->CYCCNT;
 
 //  DWT->CYCCNT = 0;
 //  productoEscalar32(vector, resultado, tam, escalar);
@@ -228,18 +228,33 @@ int main(void)
 //  productoEscalar12(vector, resultado, tam, escalar);
 //  ciclos_C = DWT->CYCCNT;
 //  DWT->CYCCNT = 0;
+//  productoEscalar12Intr(vector, resultado, tam, escalar);
+//  ciclos_Intr = DWT->CYCCNT;
+//  DWT->CYCCNT = 0;
 //  asm_productoEscalar12(vector, resultado, tam, escalar);
 //  ciclos_ASM = DWT->CYCCNT;
 
 //  DWT->CYCCNT = 0;
-  filtroVentana10(vector, resultado, tam);
+//  filtroVentana10(vector, resultado, tam);
 //  ciclos_C = DWT->CYCCNT;
 //  DWT->CYCCNT = 0;
-  asm_filtroVentana10(vector, resultado, tam);
+//  asm_filtroVentana10(vector, resultado, tam);
 //  ciclos_ASM = DWT->CYCCNT;
 
+//  DWT->CYCCNT = 0;
 //  pack32to16(vector, resultado, tam);
+//  ciclos_C = DWT->CYCCNT;
+//  DWT->CYCCNT = 0;
 //  asm_pack32to16(vector, resultado, tam);
+//  ciclos_ASM = DWT->CYCCNT;
+
+    DWT->CYCCNT = 0;
+    uint32_t indexC = max(vector, tam);
+    ciclos_C = DWT->CYCCNT;
+    DWT->CYCCNT = 0;
+    uint32_t indexASM = asm_max(vector, tam);
+    ciclos_ASM = DWT->CYCCNT;
+
 //  uint32_t index = max(vector, tam);
 
   /* USER CODE END 2 */
@@ -573,7 +588,7 @@ uint32_t max(int32_t *vectorIn, uint32_t longitud){
 void productoEscalar12Intr(uint16_t *vectorIn, uint16_t *vectorOut, uint32_t longitud, uint16_t escalar){
 	uint32_t parcial;
 	// Límite de 12 bits --> 2^12 = 4096
-	for (uint32_t i = longitud - 1; i>=0; i --){
+	for (uint32_t i = longitud - 1; i>0; i --){
 		parcial = vectorIn[i]*escalar;
 		vectorOut[i] = __USAT(parcial, 12);
 	}
