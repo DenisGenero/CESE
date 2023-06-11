@@ -209,12 +209,12 @@ en utilizar los registros de 32 bits para almacenar 2 datos de 16 o 4 de 8 bits,
 
 ## Tabla comparativa de ciclos  
 
-| Función | SIMD | Asm | Int | C |
-| :--- | :---: | :---: | :---: |
-| zeros | N/A | 103 | N/A | 431 |
-| productoEscalar32 | N/A | XXX | N/A | XXX |
-| productoEscalar16 | N/A | XXX | N/A | XXX |
-| productoEscalar12 | N/A | XXX | XXX | XXX |
-| filtroVentana10 | N/A | XXX | N/A | XXX |
-| pack32to16 | N/A | XXX | N/A | XXX |
-| max | N/A | XXX | N/A | XXX |
+| Función | SIMD | Asm | Int | C |  
+| :--- | :---: | :---: | :---: |  
+| zeros | N/A | 103 | N/A | 431 |  
+| productoEscalar32 | N/A | XXX | N/A | XXX |  
+| productoEscalar16 | N/A | XXX | N/A | XXX |  
+| productoEscalar12 | N/A | XXX | XXX | XXX |  
+| filtroVentana10 | N/A | XXX | N/A | XXX |  
+| pack32to16 | N/A | XXX | N/A | XXX |  
+| max | N/A | XXX | N/A | XXX |  
