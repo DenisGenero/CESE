@@ -237,28 +237,47 @@
 @
 #define SampleOffset 6
 #define LimInfVentana 11
+
+/* Uso de registros:
+ * -r3: Indice para recorrer el vector de muestras
+ * -r4: Indice para moverse en la ventana
+ * -r5: Carga el valor de muestras, y sirve para hacer la división por el ancho de la ventana
+ * -r6: Valor acumulado para cargar en el vector de salida
+ * -r7: Límite inferior de la ventana en el vector de muestras
+*/
+
 .thumb_func
     asm_filtroVentana10:
     	push {r4-r10}
     	mov r3, r2		// Resguardo longitud (r2) para ver cuando estoy fuera del vector
+    // Vucle que recorre el vector de muestras
     _for3:
     	subs r3, #1		// r3 = r3 - 1 --> r3 indice que recorre el vector
     	beq _exit2		// Salir del programa si se terminaron las muestras
+    	mov r6, #0		// Reinicio el valor del acumulador cada vez que me muevo de muestra
     	add r4, r3, #SampleOffset	// r4 = r3 + 6 --> r4 indice para mover la ventana
-    	cmp r4, LimInfVentana
-    	it ls			// Si el tamamño de la ventana es mas grande que las muestras que quedan, se compara con cero
-    	subls r7, r3, #SampleOffset	// Límite inferior de la ventana, si es necesario
+    	cmp r4, #LimInfVentana	// Comparo con la cantidad de muestras que tiene la ventana
+    	mov r7, #0	// Límite inferior igual a cero si no quedan más muestras --> ventana más grande que cantidad de muestras restantes
+    	itt hi			// Si el tamamño de la ventana es mas grande que las muestras que quedan, se compara con cero
+    	subhi r7, r4, #LimInfVentana	// Límite inferior de la ventana, si es necesario --> ventana más pequeña que muestras restantes
+    	subhi r7, #1
+
+    	// Bucle que recorre las muestras en la ventana
     	_for4:
     		subs r4, #1
+    		beq _for3		// si r4 es cero volver al bucle principal
     		cmp r2, r4		// ignorar operaciones si estamos afura del vector
     		bls _for4		// retorna al for para seguir descontando r4
-    		bne _for3		// si r4 es cero volver al bucle principal
+    		mov r5, #LimInfVentana // No se puede dividir directamente por un número, se acá para no esta dentror de it y sacar una instrucción
     		cmp r4, r7		// Comparo con el limite inferior
-    		ldrh r5, [r0, r3, LSL #2]	// r5 = *(r0 + (r3>>2))
+    		ittt ls			// Comparo para ver si llegue al límite del recorrido
+    		udivls r6, r6, r5	// Si llegué al límite divido por la cantidad de muestras (cargadas en r5 previamente)
+    		strhls r6, [r1, r3, LSL #1]	// *(r1 + (r3>>1)) = r6 --> guardo resultado en vector de salida
+    		bls _for3		// Vuelvo al bucle principal
+    		// En caso de que no llegue al límite, sigo acumulando
+    		ldrh r5, [r0, r4, LSL #1]	// r5 = *(r0 + (r3>>1)) --> cargo un nuevo valor del vector de muestras
     		add r6, r6, r5				// r6 = r6 + r5
-    		bne _for4
-
-    	strh r6, [r1, r3, LSL #2]	// *(r1 + (r3>>2)) = r6
+    		b _for4
 
     _exit2:
     	pop {r4-r10}

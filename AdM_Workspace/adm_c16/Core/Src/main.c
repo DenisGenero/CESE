@@ -178,23 +178,65 @@ int main(void)
   /* USER CODE BEGIN 2 */
   PrivilegiosSVC ();
 
+  // Activa contador de ciclos (iniciar una sola vez)
+  DWT->CTRL |= 1 << DWT_CTRL_CYCCNTENA_Pos;
+
+  /* ################### Pasos para medir tiempo ################### */
+  // Antes de la función a medir: contador de ciclos a cero
+  //DWT->CYCCNT = 0;
+  // funcionAMedir ();
+  // Obtiene cantidad de ciclos que demoró la función
+  //const volatile uint32_t Ciclos = DWT->CYCCNT;
+
+//  const volatile uint32_t ciclos_C, ciclos_ASM;
+  uint32_t ciclos_C, ciclos_ASM;
+
 //  const uint32_t Resultado = asm_sum (5, 3);
   uint32_t tam = 15;
 //  int32_t vector[] = {13, 4, 2, 3, 4,
 //		  	  	  	  -3000, -65355600, 7, 8, 9000000,
 //					  50, 69, 65355600, 5120000, 980};//,
   	  	  	  	  	  	 /*6, 130, 887, 32, 9563};*/
-  uint32_t vector[] = {13, 4, 2, 3, 4,
-  		  	  	  	  3000, 65355600, 7, 8, 9000000,
-  					  50, 69, 65355600, 5120000, 980};
-  uint16_t resultado[tam];
+  uint16_t vector[] = {13, 4, 2, 3, 4,
+  		  	  	  	  3000, 6535, 7, 8, 9000,
+  					  50, 69, 6535, 5120, 980};
+  uint32_t resultado[tam];
 //  uint16_t escalar = 2;
 
-//  asm_zeros(resultado, tam);
+  DWT->CYCCNT = 0;
+  zeros(resultado, tam);
+  ciclos_C = DWT->CYCCNT;
+  DWT->CYCCNT = 0;
+  asm_zeros(resultado, tam);
+  ciclos_ASM = DWT->CYCCNT;
+
+//  DWT->CYCCNT = 0;
+//  productoEscalar32(vector, resultado, tam, escalar);
+//  ciclos_C = DWT->CYCCNT;
+//  DWT->CYCCNT = 0;
 //  asm_productoEscalar32(vector, resultado, tam, escalar);
+//  ciclos_ASM = DWT->CYCCNT;
+
+//  DWT->CYCCNT = 0;
+//  productoEscalar16(vector, resultado, tam, escalar);
+//  ciclos_C = DWT->CYCCNT;
+//  DWT->CYCCNT = 0;
 //  asm_productoEscalar16(vector, resultado, tam, escalar);
+//  ciclos_ASM = DWT->CYCCNT;
+
+//  DWT->CYCCNT = 0;
+//  productoEscalar12(vector, resultado, tam, escalar);
+//  ciclos_C = DWT->CYCCNT;
+//  DWT->CYCCNT = 0;
 //  asm_productoEscalar12(vector, resultado, tam, escalar);
+//  ciclos_ASM = DWT->CYCCNT;
+
+//  DWT->CYCCNT = 0;
   filtroVentana10(vector, resultado, tam);
+//  ciclos_C = DWT->CYCCNT;
+//  DWT->CYCCNT = 0;
+  asm_filtroVentana10(vector, resultado, tam);
+//  ciclos_ASM = DWT->CYCCNT;
 
 //  pack32to16(vector, resultado, tam);
 //  asm_pack32to16(vector, resultado, tam);
@@ -481,8 +523,9 @@ void filtroVentana10(uint16_t *vectorIn, uint16_t *vectorOut, uint32_t longitud)
 	uint8_t SampleOffset = 5;
 	for (int32_t i = longitud; i > 0; i--){
 		tam = i - 1;
+		vectorOut[tam] = 0;
 		for (int32_t j = tam + SampleOffset; j >= tam - SampleOffset; j--){
-			if( (j < (longitud - 1)) && (j > 0) ){
+			if( (j <= (longitud - 1)) && (j > 0) ){
 				vectorOut[tam] += vectorIn[j];
 			}
 		}

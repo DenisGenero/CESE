@@ -87,9 +87,12 @@ y pasado al modo no privilegiado, no se puede volver al modo privilegiado. Esto 
 
 **7- ¿Qué se entiende por modelo de registros ortogonal? Dé un ejemplo**
 
-Los registros ortogonales son aquellos en los cuales al modificar el valor en uno, el otro no se ve afectado.
+Los registros ortogonales son aquellos en los cuales al modificar el valor en uno, el otro no se ve afectado. Un ejemplo de esto es el banco de registros de uso general que tiene el procesador R0 a R12.  
 
 **8- ¿Qué ventajas presenta el uso de intrucciones de ejecución condicional (IT)? Dé un ejemplo**
+
+Las instrucciones IT son similares al "if" que conocemos del lenguaje C. Su uso permite ejecutar una instrucción si se cumple una condición determinada. Por consiguiente se puede alterar el curso 
+del programa, dependiendo la condición que se utilice.
 
 **9- Describa brevemente las excepciones más prioritarias (reset, NMI, Hardfault).**
 
@@ -117,20 +120,20 @@ algunos casos) como pueden ser el NVIC, SysTick Timer y la MPU, donde estos últ
 El resto de los periféricos dependerá del fabricante que desarrolle el procesador, y pueden ser módulos de comunicación (USART, SPI, I2C), Timers, ADCs, DACs, etc. En este caso será la empresa 
 quién decida cuales, cuantos y en en que direcciones de memoria estarán estos periféricos.
 
-**13- ¿Cómo se implementan las prioridades de las interrupciones? Dé un ejemplo**
+**13- ¿Cómo se implementan las prioridades de las interrupciones? Dé un ejemplo**  
 
-**14- ¿Qué es el CMSIS? ¿Qué función cumple? ¿Quién lo provee? ¿Qué ventajas aporta?**
+**14- ¿Qué es el CMSIS? ¿Qué función cumple? ¿Quién lo provee? ¿Qué ventajas aporta?**  
 
 La CMSIS en un conjunto de librerias escritas en C que las provee ARM y permiten hacer uso de toda la funcionalidad de los procesadores Cortex. Esto representa una gran ventaja en la 
 portabilidad del código, ya que se puede cambiar de un fabricante a otro y reutilizar el código ya desarrollado.
 
-**15- Cuando ocurre una interrupción, asumiendo que está habilitada ¿Cómo opera el microprocesador para atender a la subrutina correspondiente? Explique con un ejemplo**
+**15- Cuando ocurre una interrupción, asumiendo que está habilitada ¿Cómo opera el microprocesador para atender a la subrutina correspondiente? Explique con un ejemplo**  
 
-**16- ¿Cómo cambia la operación de stacking al utilizar la unidad de punto flotante?**
+**16- ¿Cómo cambia la operación de stacking al utilizar la unidad de punto flotante?**  
 
-**17- Explique las características avanzadas de atención a interrupciones: tail chaining y late arrival.**
+**17- Explique las características avanzadas de atención a interrupciones: tail chaining y late arrival.**  
 
-**18- ¿Qué es el systick? ¿Por qué puede afirmarse que su implementación favorece la portabilidad de los sistemas operativos embebidos?**
+**18- ¿Qué es el systick? ¿Por qué puede afirmarse que su implementación favorece la portabilidad de los sistemas operativos embebidos?**  
 
 Es un timer que etsá en la arquitectura Cortex-M (no en M0 y M0+), por lo general de 24 bits, que se suele configurar para que produzca una interrupción cada 1 milisegundo. Este se utiliza 
 como base de tiempo	para los RTOS, por lo que si se implementa un RTOS en un Cortex M3, es muy fácil portarlo a un M4, ya que ambos poseen la misma base de timepo.
@@ -141,11 +144,18 @@ Como su nombre lo indica, la función de la MPU es proteger sectores de memoria 
 tiene un RTOS, en donde el Kernel es quién gestiona la memoria y asigna los recursos a cada tarea que se crea. En caso de que por algún motivo la tarea quiera utilizar más memoria de la asignada,
  se le bloqueará el acceso a dicho sector, el Kernel será avisado de esto y se tomararán acciones: matar o reiniciar la tarea, por ejemplo.
 
-**20- ¿Cuántas regiones pueden configurarse como máximo? ¿Qué ocurre en caso de haber solapamientos de las regiones? ¿Qué ocurre con las zonas de memoria no cubiertas por las regiones definidas?**
-	
-**21- ¿Para qué se suele utilizar la excepción PendSV? ¿Cómo se relaciona su uso con el resto de las excepciones? Dé un ejemplo**
+**20- ¿Cuántas regiones pueden configurarse como máximo? ¿Qué ocurre en caso de haber solapamientos de las regiones? ¿Qué ocurre con las zonas de memoria no cubiertas por las regiones definidas?**  
 
-**22- ¿Para qué se suele utilizar la excepción SVC? Expliquelo dentro de un marco de un sistema operativo embebido.**
+Se pueden configurar como máximo hasta 8 regiones. En caso de que se produzca un solapamiento de regiones, en dicha zona rigen los permisos y atributos de la región de mayor número. En caso de que se 
+se quiera acceder a una zona de memoria que no está cubierta por las zonas definidas en la MPU, la transferencia se bloqueará y se producirá una excepción.  
+	
+**21- ¿Para qué se suele utilizar la excepción PendSV? ¿Cómo se relaciona su uso con el resto de las excepciones? Dé un ejemplo**  
+
+La excepsión PsndSV se suele utilizar por el kernel de un sistema operativo para ejecutar un cambio de contexto. En FreeRtos por ejemplo, cuando se cumple un "time slice" el SysTick Timer genera una 
+interrupción y luego llama a esta excepción para que en ella se pueda produicir el cambio de contexto, y así poder ejecutar otra tarea, guardando el contexto de la tarea previamente ejecutada. Se debe 
+tener presente que dentro de esta excepción, el procesador se encuentra en modo Handler, teniendo acceso a todos los recursos (modo privilegiado).  
+
+**22- ¿Para qué se suele utilizar la excepción SVC? Expliquelo dentro de un marco de un sistema operativo embebido.**  
 
 La excepción del SVC es aquella que se puede inducir o invocar por software, y por lo general es utilizada para pasar de modo "no privilegiado" a "privilegiado". Esto se logra ya que el procesador 
 al ingresar en una excepción, sale del modo *Thread* y entra en modo *Handler*, donde por defecto tiene el modo privilegiado, permitiendo así modificar el registro de CONTROL (cambiando el estado de
@@ -189,6 +199,17 @@ MiFunc_asm:
 	pop {r4-r7}  //Restaura el valor de los registros para no afectar el comprtamiento del programa principal  
 	bx lr		 //Retorna al programa principal  
 	
-**5- ¿Qué es una instrucción SIMD? ¿En qué se aplican y que ventajas reporta su uso? Dé un ejemplo.**
+**5- ¿Qué es una instrucción SIMD? ¿En qué se aplican y que ventajas reporta su uso? Dé un ejemplo.**  
+
+Como su nombre en inglés lo indica, SIMD significa Single Instruction, Multiple Data. Esto se refiere a la posibilidad de realizar operaciones con multiples datos en un solo ciclo de reloj. El secreto está 
+en utilizar los registros de 32 bits para almacenar 2 datos de 16 o 4 de 8 bits, y realizar operaciones como suma, resta, etc, como si fueran registros independientes. Para lograr esto, el procesador crea una 
+"barrera" entre los datos, de manera que las operaciones sobre un dato no afectan al contiguo. Un ejemplo simple puede ser la ADD8, en donde en una sola instrucción se suman 4 pares de datos de 8 bits cada uno.  
 
 ***
+
+## Tabla comparativa de ciclos  
+
+**_ _ _ _ _ _ Función _|_ Assembly |_ _ C _ _|**   
+- - - - - - - - - - - - - - - - - - - - - -  
+zeros _ _ _ _ _ _ _ _|_ _ 103 _ _|_ _ 431 _ _|  
+productoEscalar32 _ _|_ _ 
