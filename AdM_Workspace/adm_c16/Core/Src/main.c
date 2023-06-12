@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "string.h"
+#include <stdlib.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -85,7 +86,11 @@ uint32_t max(int32_t *vectorIn, uint32_t longitud);
 void downSampleM(int32_t *vectorIn, int32_t *vectorOut, uint32_t longitud, uint32_t N);
 /* Ej 9: invertir el orden de las muestras de un vector*/
 void invertir(uint16_t *vectorIn, uint32_t longitud);
-/* Ej */
+/* Ej 10: función que crea un eco de la mitad de amplitud a partir de 20 mseg */
+/* Función para crear el vector */
+void generaVector(int16_t *vectorIn, uint32_t longitud);
+/* Función que genera eco a los msegRetardo mseg */
+void generaEco(int16_t *vectorIn, int16_t *vectorOut, uint32_t longitud, uint32_t msegRetardo);
 
 /* USER CODE BEGIN PFP */
 
@@ -197,14 +202,15 @@ int main(void)
   uint32_t ciclos_C, ciclos_ASM, ciclos_Intr, ciclos_SIMD;
 
 //  const uint32_t Resultado = asm_sum (5, 3);
-  uint32_t tam = 15;
+//  uint32_t tam = 15;
 //  int32_t vector[] = {13, 4, 2, 3, 4,
 //		  	  	  	  -3000, -65355600, 7, 8, 9000000,
-//					  50, 69, 65355600, 5120000, 980};//,
+//					  50, 69, 65355600, 5120000, 980};
 
-  uint16_t vector[] = {13, 4, 2, 3, 4,
-  		  	  	  	  3000, 6535, 7, 8, 9000,
-  					  50, 69, 6535, 5120, 980};
+//  uint16_t resultado[tam];
+//  uint16_t vector[] = {13, 4, 2, 3, 4,
+//  		  	  	  	  3000, 6535, 7, 8, 9000,
+//  					  50, 69, 6535, 5120, 980};
 //  int32_t resultado[10] = {0,0,0,0,0,0,0,0,0,0};
 //  zeros(resultado, 10);
 
@@ -275,6 +281,20 @@ int main(void)
 //  DWT->CYCCNT = 0;
 //  asm_invertir(vector, tam);
 //  ciclos_ASM = DWT->CYCCNT;
+
+  uint32_t tam2 = 4096;
+  int16_t vec[tam2], res[tam2];
+  generaVector(vec, tam2);
+  DWT->CYCCNT = 0;
+  generaEco(vec, res, tam2, 20);
+  ciclos_C = DWT->CYCCNT;
+  DWT->CYCCNT = 0;
+  asm_generaEco(vec, res, tam2, 20);
+  ciclos_ASM = DWT->CYCCNT;
+  DWT->CYCCNT = 0;
+  asm_generaEcoSIMD(vec, res, tam2, 20);
+  ciclos_SIMD = DWT->CYCCNT;
+
 
   /* USER CODE END 2 */
 
@@ -633,6 +653,37 @@ void invertir(uint16_t *vectorIn, uint32_t longitud){
 	}
 }
 
+/* Ej 10: función que crea un eco de la mitad de amplitud a partir de 20 mseg */
+/* Función para crear el vector */
+void generaVector(int16_t *vectorIn, uint32_t longitud){
+	for(uint32_t i = longitud; i > 0; i --){
+		vectorIn[i-1] = rand();
+	}
+}
+/* Función que genera eco a los msegRetardo mseg */
+#define SAMPLE_FREQ	44100
+#define LIM_SUP32	32767
+#define LIM_INF32	-32768
+
+void generaEco(int16_t *vectorIn, int16_t *vectorOut, uint32_t longitud, uint32_t msegRetardo){
+	uint32_t sampleEco = msegRetardo*SAMPLE_FREQ/1000;
+	uint32_t cont = 0;
+	int32_t sample;
+	for(uint32_t i = 0; i < sampleEco; i ++){
+		vectorOut[i] = vectorIn[i];
+	}
+	for(uint32_t i = sampleEco; i < longitud; i ++){
+		sample = vectorIn[i] + (vectorIn[cont]/2);
+		if(sample > LIM_SUP32){
+			sample = LIM_SUP32;
+		}
+		if(sample < LIM_INF32){
+			sample = LIM_INF32;
+		}
+		vectorOut[i] = (int16_t)sample;
+		cont ++;
+	}
+}
 
 /* ################################ Funciones en C con Intrinsic ################################ */
 /* Ej 4: multiplicación de vector por escalar saturando a 12 bits */

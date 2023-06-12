@@ -25,3 +25,7 @@ uint32_t asm_max(int32_t *vectorIn, uint32_t longitud);
 void asm_downSampleM(int32_t *vectorIn, int32_t *vectorOut, uint32_t longitud, uint32_t N);
 /* Ej 9 */
 void asm_invertir(uint16_t *vectorIn, uint32_t longitud);
+/* Ej 10 */
+void asm_generaEco(int16_t *vectorIn, int16_t *vectorOut, uint32_t longitud, uint32_t msegRetardo);
+/* Ej 10 con SIMD */
+void asm_generaEcoSIMD(int16_t *vectorIn, int16_t *vectorOut, uint32_t longitud, uint32_t msegRetardo);
