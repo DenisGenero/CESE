@@ -201,11 +201,11 @@ int main(void)
 //  int32_t vector[] = {13, 4, 2, 3, 4,
 //		  	  	  	  -3000, -65355600, 7, 8, 9000000,
 //					  50, 69, 65355600, 5120000, 980};//,
-  	  	  	  	  	  	 /*6, 130, 887, 32, 9563};*/
+
   uint16_t vector[] = {13, 4, 2, 3, 4,
   		  	  	  	  3000, 6535, 7, 8, 9000,
   					  50, 69, 6535, 5120, 980};
-  int32_t resultado[10] = {0,0,0,0,0,0,0,0,0,0};
+//  int32_t resultado[10] = {0,0,0,0,0,0,0,0,0,0};
 //  zeros(resultado, 10);
 
 //  DWT->CYCCNT = 0;
@@ -255,26 +255,26 @@ int main(void)
 //  asm_pack32to16(vector, resultado, tam);
 //  ciclos_ASM = DWT->CYCCNT;
 
-//    DWT->CYCCNT = 0;
-//    uint32_t indexC = max(vector, tam);
-//    ciclos_C = DWT->CYCCNT;
-//    DWT->CYCCNT = 0;
-//    uint32_t indexASM = asm_max(vector, tam);
-//    ciclos_ASM = DWT->CYCCNT;
+//  DWT->CYCCNT = 0;
+//  uint32_t indexC = max(vector, tam);
+//  ciclos_C = DWT->CYCCNT;
+//  DWT->CYCCNT = 0;
+//  uint32_t indexASM = asm_max(vector, tam);
+//  ciclos_ASM = DWT->CYCCNT;
 
-//    DWT->CYCCNT = 0;
-//    downSampleM(vector, resultado, tam, 3);
-//    ciclos_C = DWT->CYCCNT;
-//    DWT->CYCCNT = 0;
-//    asm_downSampleM(vector, resultado, tam, 3);
-//    ciclos_ASM = DWT->CYCCNT;
+//  DWT->CYCCNT = 0;
+//  downSampleM(vector, resultado, tam, 3);
+//  ciclos_C = DWT->CYCCNT;
+//  DWT->CYCCNT = 0;
+//  asm_downSampleM(vector, resultado, tam, 3);
+//  ciclos_ASM = DWT->CYCCNT;
 
-//    DWT->CYCCNT = 0;
-    invertir(vector, tam);
-//    ciclos_C = DWT->CYCCNT;
-//    DWT->CYCCNT = 0;
-//    asm_invertir(vector,tam);
-//    ciclos_ASM = DWT->CYCCNT;
+//  DWT->CYCCNT = 0;
+//  invertir(vector, tam);
+//  ciclos_C = DWT->CYCCNT;
+//  DWT->CYCCNT = 0;
+//  asm_invertir(vector, tam);
+//  ciclos_ASM = DWT->CYCCNT;
 
   /* USER CODE END 2 */
 
@@ -620,13 +620,16 @@ void downSampleM(int32_t *vectorIn, int32_t *vectorOut, uint32_t longitud, uint3
 
 /* Ej 9: invertir el orden de las muestras de un vector*/
 void invertir(uint16_t *vectorIn, uint32_t longitud){
-	uint32_t vec[longitud];
+	uint16_t auxVal1, auxVal2;
+	uint32_t cont = 0;
 	for (uint32_t i = longitud - 1; i > 0; i --){
-		vec [longitud - 1 - i] = vectorIn[i];
-	}
-	vec [longitud - 1] = vectorIn[0];
-	for (uint32_t i = longitud - 1; i > 0; i --){
-			vectorIn[i] = vec [i];
+		if(cont < i){
+			auxVal1 = vectorIn[i];
+			auxVal2 = vectorIn[cont];
+			vectorIn[i] = auxVal2;
+			vectorIn[cont] = auxVal1;
+			cont ++;
+		}
 	}
 }
 

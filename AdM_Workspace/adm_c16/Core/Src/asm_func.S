@@ -14,7 +14,7 @@
 .global asm_pack32to16
 .global asm_max
 .global asm_downSampleM
-.global invertir
+.global asm_invertir
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ Prototipo en "C":
@@ -431,9 +431,18 @@
     	mov r2, #0  // Índice para invertir el vector
 
     _for8:
-
+    	subs r1, #1	// Se decrementa el contador
+    	ldrh r3, [r0, r1, LSL #1]  // Se carga el valor de muestras
+    	ldrh r4, [r0, r2, LSL #1]  // Se guarda en el vector auxiliar, usando el índice de manera creciente
+    	cmp r1, r2
+    	itte hi
+    	strhhi r4, [r0, r1, LSL #1]
+		strhhi r3, [r0, r2, LSL #1]
+		bls _exit3
+    	add r2, #1		// Se incrementa el índice del nuevo vector auxiliar, contendrá el valor de longitud al terminar
     	bne _for8  // Si no se llegó al final, se sigue iterando
 
+    _exit3:
     	pop {r4-r7}
         bx lr       @ vuelve adonde fue llamada (especificamente, si "pc"
                     @ es la direccion, en el codigo del programa, de la

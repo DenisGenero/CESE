@@ -14,5 +14,5 @@ main.c:571:6:pack32to16	5
 main.c:592:10:max	3
 main.c:605:6:downSampleM	3
 main.c:622:6:invertir	3
-main.c:636:6:productoEscalar12Intr	2
-main.c:652:6:Error_Handler	1
+main.c:639:6:productoEscalar12Intr	2
+main.c:655:6:Error_Handler	1
