@@ -91,7 +91,12 @@ void invertir(uint16_t *vectorIn, uint32_t longitud);
 void generaVector(int16_t *vectorIn, uint32_t longitud);
 /* Función que genera eco a los msegRetardo mseg */
 void generaEco(int16_t *vectorIn, int16_t *vectorOut, uint32_t longitud, uint32_t msegRetardo);
-
+/* Función que genera eco implementando Intrinsic Functions */
+void generaEcoIntr(int16_t *vectorIn, int16_t *vectorOut, uint32_t longitud, uint32_t msegRetardo);
+/* Ej 11: función que calcule la correlación cruzada entre dos vectores*/
+void corr(int16_t *vectorX, int16_t *vectorY, int16_t *vectorCorr, uint32_t longitud);
+/* Función que calcule la correlación cruzada entre dos vectores implementando Intrinsic Functions*/
+void corrInt(int16_t *vectorX, int16_t *vectorY, int16_t *vectorCorr, uint32_t longitud);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -197,6 +202,7 @@ int main(void)
   // funcionAMedir ();
   // Obtiene cantidad de ciclos que demoró la función
   //const volatile uint32_t Ciclos = DWT->CYCCNT;
+  /* ############################################################### */
 
 //  const volatile uint32_t ciclos_C, ciclos_ASM;
   uint32_t ciclos_C, ciclos_ASM, ciclos_Intr, ciclos_SIMD;
@@ -282,18 +288,39 @@ int main(void)
 //  asm_invertir(vector, tam);
 //  ciclos_ASM = DWT->CYCCNT;
 
-  uint32_t tam2 = 4096;
-  int16_t vec[tam2], res[tam2];
-  generaVector(vec, tam2);
+//  uint32_t tam2 = 4096;
+//  int16_t vec[tam2], res[tam2];
+//  generaVector(vec, tam2);
+//  DWT->CYCCNT = 0;
+//  generaEco(vec, res, tam2, 20);
+//  ciclos_C = DWT->CYCCNT;
+//  DWT->CYCCNT = 0;
+//  generaEcoIntr(vec, res, tam2, 20);
+//  ciclos_Intr = DWT->CYCCNT;
+//  DWT->CYCCNT = 0;
+//  asm_generaEco(vec, res, tam2, 20);
+//  ciclos_ASM = DWT->CYCCNT;
+//  DWT->CYCCNT = 0;
+//  asm_generaEcoSIMD(vec, res, tam2, 20);
+//  ciclos_SIMD = DWT->CYCCNT;
+
+  uint32_t lon = 15;
+
+  int16_t vecX[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, -1, -2, -3, -4, -5};
+  int16_t vecY[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, -1, -2, -3, -4, -5};
+  int16_t vecRes[lon];
   DWT->CYCCNT = 0;
-  generaEco(vec, res, tam2, 20);
+  corr(vecX, vecY, vecRes, lon);
   ciclos_C = DWT->CYCCNT;
   DWT->CYCCNT = 0;
-  asm_generaEco(vec, res, tam2, 20);
-  ciclos_ASM = DWT->CYCCNT;
-  DWT->CYCCNT = 0;
-  asm_generaEcoSIMD(vec, res, tam2, 20);
-  ciclos_SIMD = DWT->CYCCNT;
+  corrInt(vecX, vecY, vecRes, lon);
+  ciclos_Intr = DWT->CYCCNT;
+//  DWT->CYCCNT = 0;
+//  asm_corr(vec, res, tam2, 20);
+//  ciclos_ASM = DWT->CYCCNT;
+//  DWT->CYCCNT = 0;
+//  asm_corrSIMD(vec, res, tam2, 20);
+//  ciclos_SIMD = DWT->CYCCNT;
 
 
   /* USER CODE END 2 */
@@ -570,6 +597,16 @@ void productoEscalar12(uint16_t *vectorIn, uint16_t *vectorOut, uint32_t longitu
 	}
 }
 
+/* Ej 4: multiplicación de vector por escalar saturando a 12 bits con Intrinsic Functions */
+void productoEscalar12Intr(uint16_t *vectorIn, uint16_t *vectorOut, uint32_t longitud, uint16_t escalar){
+	uint32_t parcial;
+	// Límite de 12 bits --> 2^12 = 4096
+	for (uint32_t i = longitud - 1; i>0; i --){
+		parcial = vectorIn[i]*escalar;
+		vectorOut[i] = __USAT(parcial, 12);
+	}
+}
+
 /* Ej 5: implementar una función que haga un filtro ventana con 11 valores (índice actual más 5 valores antes
  * y 5 valores después) sobre un vector de muestras */
 void filtroVentana10(uint16_t *vectorIn, uint16_t *vectorOut, uint32_t longitud){
@@ -685,17 +722,56 @@ void generaEco(int16_t *vectorIn, int16_t *vectorOut, uint32_t longitud, uint32_
 	}
 }
 
-/* ################################ Funciones en C con Intrinsic ################################ */
-/* Ej 4: multiplicación de vector por escalar saturando a 12 bits */
-void productoEscalar12Intr(uint16_t *vectorIn, uint16_t *vectorOut, uint32_t longitud, uint16_t escalar){
-	uint32_t parcial;
-	// Límite de 12 bits --> 2^12 = 4096
-	for (uint32_t i = longitud - 1; i>0; i --){
-		parcial = vectorIn[i]*escalar;
-		vectorOut[i] = __USAT(parcial, 12);
+/* Función que genera eco a los msegRetardo mseg con Intrinsic Functions */
+void generaEcoIntr(int16_t *vectorIn, int16_t *vectorOut, uint32_t longitud, uint32_t msegRetardo){
+	uint32_t sampleEco = msegRetardo*SAMPLE_FREQ/1000;
+	uint32_t cont = 0;
+	int32_t SIMDSamp, SIMDSampEco, SIMDSampRes;
+	for(uint32_t i = 0; i < sampleEco; i ++){
+		vectorOut[i] = vectorIn[i];
+	}
+	for(uint32_t i = sampleEco; i < longitud; i += 2){
+		SIMDSamp = __PKHBT(vectorIn[i]/2, vectorIn[i+1]/2, 16);
+//		SIMDSamp = vectorIn[i] + (vectorIn[i+1]<<16);
+		SIMDSampEco = __PKHBT(vectorIn[cont]/2, vectorIn[cont+1]/2, 16);
+//		SIMDSampEco = (vectorIn[cont]/2) + ((vectorIn[cont+1]/2)<<16);
+		SIMDSampRes = __QADD16(SIMDSamp, SIMDSampEco);
+		vectorOut[i] = (int16_t)SIMDSampRes;
+		vectorOut[i+1] = (int16_t)(SIMDSampRes>>16);
+		cont +=2;
 	}
 }
 
+/* Ej 11: función que calcule la correlación cruzada entre dos vectores*/
+void corr(int16_t *vectorX, int16_t *vectorY, int16_t *vectorCorr, uint32_t longitud){
+	for(uint32_t l = 0; l < longitud; l ++){
+		vectorCorr[l] = 0;
+		for(uint32_t n = 0; n < longitud; n ++){
+			if (n>=l){
+				vectorCorr[l] += vectorX[n]*vectorY[n-l];
+			}
+		}
+	}
+}
+
+void corrInt(int16_t *vectorX, int16_t *vectorY, int16_t *vectorCorr, uint32_t longitud){
+	int32_t SIMDSampX, SIMDSampY,SIMDSampRes;
+	uint32_t j;
+	for(uint32_t l = 0; l < longitud; l ++){
+		SIMDSampRes = 0;
+		for(uint32_t n = 0; n < longitud; n += 2){
+			if (n>=l){
+				j = n-l;
+//				SIMDSampX = vectorX[n] + (vectorX[n+1]<<16);
+				SIMDSampX = __PKHBT(vectorX[n], vectorX[n+1], 16);
+//				SIMDSampY = vectorY[j] + (vectorY[j+1]<<16);
+				SIMDSampY = __PKHBT(vectorY[j], vectorY[j+1], 16);
+				SIMDSampRes += __SMUAD(SIMDSampX, SIMDSampY);
+			}
+			vectorCorr[l] = (int16_t)(SIMDSampRes);
+		}
+	}
+}
 
 /* USER CODE END 4 */
 

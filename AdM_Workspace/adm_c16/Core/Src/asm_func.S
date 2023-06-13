@@ -460,7 +460,7 @@
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ Prototipo en "C":
-@   void asm_generaEcoSIMD(int16_t *vectorIn, int16_t *vectorOut, uint32_t longitud, uint32_t msegRetardo)
+@   void asm_generaEco(int16_t *vectorIn, int16_t *vectorOut, uint32_t longitud, uint32_t msegRetardo)
 @
 @ Parametros recibidos:
 @   r0: dirección del vector entrada
@@ -517,6 +517,19 @@
         @ bx lr
         @ push {lr} ... pop {pc}
 
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Prototipo en "C":
+@   void asm_generaEcoSIMD(int16_t *vectorIn, int16_t *vectorOut, uint32_t longitud, uint32_t msegRetardo)
+@
+@ Parametros recibidos:
+@   r0: dirección del vector entrada
+@   r1: dirección del vector de salida
+@   r2: longitud
+@   r3: retardo del eco
+@
+@ Valor de retorno: Nada
+@
+
 .thumb_func
     asm_generaEcoSIMD:
     	push {r4-r10}
@@ -526,15 +539,17 @@
     	mul r4, r4, r3    // r4 = SAMPLE_FREQ*msegRetardo
     	mov r3, #1000  // Se recicla r3 --> 1000 por que son milisegundos, y la frecuencia está en segundos
     	udiv r4, r4, r3  // r4 = r4/1000 (para el ej 10 debería da 882)
-    	lsr r4, #1
-    	lsr r2, #1
+    	lsr r4, #1 // Como ahora se cargan 2 registros los índices se dividen por 2
+    	lsr r2, #1 // Como ahora se cargan 2 registros los índices se dividen por 2
     	sub r2, #1  // longitud = longitud - 1
+    	mov r7, #0  // Es un registro dummy, para poder hacer la atenuación por 2 (shift a la derecha) en la muestra con eco
 
     _for11:
-    	sub r3, r2, r4  // Se recicla r3 = longitud - muestraEco(882 en el ejemplo)
-    	ldr r5, [r0, r2, LSL #2]  // Desde la última muestra
-    	ldr r6, [r0, r3, LSL #2]  // Desde la muestra del eco
-    	asr r6, #1 // muestra de eco dividido por 2
+    	// Como ahora se cargan 2 registros los índices se incrementan el doble
+    	sub r3, r2, r4  // Se recicla r3 = (longitud - muestraEco)/2 --> (441 en el ejemplo)
+    	ldr r5, [r0, r2, LSL #2]  // Desde la última muestra (ahora se cargan 32 bits)
+    	ldr r6, [r0, r3, LSL #2]  // Desde la muestra del eco (ahora se cargan 32 bits)
+    	shadd16 r6, r6, r7 // muestra de eco dividido por 2 (r7 = 0, por lo que no afecta a r6)
     	qadd16 r6, r6, r5	// r6 = sat(r6 + r5, 16bits)
     	str r6, [r1, r2, LSL #2] // Se guarda con el índice r2
     	cmp r2, r4  // Si el índice es igual al offset del eco, se debe dejar de añadir
