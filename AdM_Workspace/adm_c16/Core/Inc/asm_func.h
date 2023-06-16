@@ -29,3 +29,7 @@ void asm_invertir(uint16_t *vectorIn, uint32_t longitud);
 void asm_generaEco(int16_t *vectorIn, int16_t *vectorOut, uint32_t longitud, uint32_t msegRetardo);
 /* Ej 10 con SIMD */
 void asm_generaEcoSIMD(int16_t *vectorIn, int16_t *vectorOut, uint32_t longitud, uint32_t msegRetardo);
+/* Ej 11 */
+void asm_corr(int16_t *vectorX, int16_t *vectorY, int16_t *vectorCorr, uint32_t longitud);
+/* Ej 11 con SIMD */
+void asm_corrSIMD(int16_t *vectorX, int16_t *vectorY, int16_t *vectorCorr, uint32_t longitud);

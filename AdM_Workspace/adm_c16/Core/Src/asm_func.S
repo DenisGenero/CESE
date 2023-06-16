@@ -17,6 +17,8 @@
 .global asm_invertir
 .global asm_generaEco
 .global asm_generaEcoSIMD
+.global asm_corr
+.global asm_corrSIMD
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @ Prototipo en "C":
@@ -562,6 +564,118 @@
     	strh r5, [r1, r2, LSL #1]
     	subs r2, #1
     	bne _for12
+
+    	pop {r4-r10}
+        bx lr       @ vuelve adonde fue llamada (especificamente, si "pc"
+                    @ es la direccion, en el codigo del programa, de la
+                    @ instruccion "bl asm_sum" usada para saltar a
+                    @ esta funcion, entonces "lr" contiene ese "pc" + 4).
+                    @ el valor de retorno debe quedar en el registro r0.
+                    @ En este caso, r0 es el resultado de r0 + r1.
+
+        @ Otras alternativas para el retorno
+        @ mov pc,lr
+        @ bx lr
+        @ push {lr} ... pop {pc}
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Prototipo en "C":
+@   void corr(int16_t *vectorX, int16_t *vectorY, int16_t *vectorCorr, uint32_t longitud)
+@
+@ Parametros recibidos:
+@   r0: dirección del vector X
+@   r1: dirección del vector Y
+@   r2: dirección del vector de salida
+@   r3: longitud
+@
+@ Valor de retorno: Nada
+@
+
+.thumb_func
+    asm_corr:
+    	push {r4-r10}
+    	// Loop principal, para el vector de correlación
+    	mov r4, #0  // índice l
+    	mov r5, #0  // índice n
+    	mov r9, #0  // acumulador
+    	sub r3, #1 // longitud = longitud - 1
+
+    _for13:
+    	sub r6, r5, r4 // r6 = r5 - r4 (n-l)
+    	ldrh r7, [r0, r5, LSL #1]  // x[n]
+    	ldrh r8, [r1, r6, LSL #1]  // y[n-l]
+    	mul r7, r7, r8  // r7 = x[n]*y[n-l]
+    	add r9, r9, r7  // r9 = sum(x[n]*y[n-l])
+    	cmp r5, r3    // n == longitud ?
+    	ittt eq			// si es cierto:
+    	//ssateq r8, #16, r9
+    	strheq r9, [r2, r4, LSL #1]  // Terminó el cilco, se guarda el resultado acumulado
+    	moveq r9, #0  // Se resetea el acumulador
+    	beq _for14  // Se pasa al otro bucle, donde se decrementa l
+    	add r5, #1  // Si el proceso continúan, incremento r5
+    	b _for13
+
+    _for14:
+    	add r4, #1  // Se incrementa l
+    	mov r5, r4  // n = l, ya que para n menores la comparación no tiene sentido (n<0)
+    	cmp r3, r4 // Si l == longitud, termina la función, sino se sigue iterando
+    	bne _for13
+
+    	pop {r4-r10}
+        bx lr       @ vuelve adonde fue llamada (especificamente, si "pc"
+                    @ es la direccion, en el codigo del programa, de la
+                    @ instruccion "bl asm_sum" usada para saltar a
+                    @ esta funcion, entonces "lr" contiene ese "pc" + 4).
+                    @ el valor de retorno debe quedar en el registro r0.
+                    @ En este caso, r0 es el resultado de r0 + r1.
+
+        @ Otras alternativas para el retorno
+        @ mov pc,lr
+        @ bx lr
+        @ push {lr} ... pop {pc}
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ Prototipo en "C":
+@   void corr(int16_t *vectorX, int16_t *vectorY, int16_t *vectorCorr, uint32_t longitud)
+@
+@ Parametros recibidos:
+@   r0: dirección del vector X
+@   r1: dirección del vector Y
+@   r2: dirección del vector de salida
+@   r3: longitud
+@
+@ Valor de retorno: Nada
+@
+
+.thumb_func
+    asm_corrSIMD:
+    	push {r4-r10}
+    	// Loop principal, para el vector de correlación
+    	mov r4, #0  // índice l
+    	mov r5, #0  // índice n
+    	mov r9, #0  // acumulador
+    	lsr r3, #1  // Ahora se cargan 2 valores, por lo que se debe iterar la mitad de veces
+    	sub r3, #1 // longitud = longitud - 1
+
+    _for15:
+    	subs r6, r5, r4 // r6 = r5 - r4 (n-l)
+    	ldr r7, [r0, r5, LSL #2]  // x[n], x[n+1]
+    	ldr r8, [r1, r6, LSL #2]  // y[n-l], y[n+1-l]
+    	smuad r7, r7, r8  // r7 = x[n]*y[n-l] + x[n+1]*y[n+1-l]
+    	add r9, r9, r7  // r9 = acumulado + r7
+    	cmp r5, r3    // n == longitud ?
+    	itt eq			// si es cierto:
+    	strheq r9, [r2, r4, LSL #1]  // Terminó el cilco, se guarda el resultado acumulado
+    	beq _for16  // Se pasa al otro bucle, donde se decrementa l
+    	add r5, #1  // Si el proceso continúan, incremento r5 (índice n)
+    	b _for15
+
+    _for16:
+    	mov r9, #0  // Se resetea el acumulador
+    	add r4, #1  // Se incrementa el índice l
+    	mov r5, r4  // n = l, ya que para n menores la comparación no tiene sentido (n<0)
+    	cmp r3, r4 // Si l == longitud, termina la función, sino se sigue iterando
+    	bne _for15
 
     	pop {r4-r10}
         bx lr       @ vuelve adonde fue llamada (especificamente, si "pc"

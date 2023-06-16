@@ -210,7 +210,9 @@ en utilizar los registros de 32 bits para almacenar 2 datos de 16 o 4 de 8 bits,
 ## Tabla comparativa de ciclos  
 
 En esta tabla se encuentran los ciclos de reloj que le tomo al microcontrolador ejecutar cada función[^1].  
-Etiquetas:  
+
+*Etiquetas:*  
+
 - **SIMD:** Función implementada en Assembly utilizando comandos de la SIMD  
 - **Asm:** Función inplementada en Assembly  
 - **Int:** Función implementada en C, utilizando las *Intrincis Functions*  
@@ -218,26 +220,30 @@ Etiquetas:
 - **C vs Asm:** Relación porcentual entre los ciclos ejecutandos en C respecto de los ejecutados en Assembly (Ciclos_C/Ciclos_Asm)\*100%  
 - **Asm vs SIMD:** Relación porcentual entre los ciclos ejecutandos en Assembly respecto de los ejecutados en Assembly con SIMD (Ciclos_Asm/Ciclos_SIMD)\*100%  
 - **C vs SIMD:** Relación porcentual entre los ciclos ejecutandos en C respecto de los ejecutados en Assembly con SIMD (Ciclos_C/Ciclos_SIMD)\*100%  
+- **C vs Int:** Relación porcentual entre los ciclos ejecutandos en C respecto de los ejecutados en C con llamados a las *Intrinsic Functions* (Ciclos_C/Ciclos_Int)\*100%  
 
-| **Función**          |**SIMD**   |**Asm**|**Int**     |**C**   |**C vs Asm**| **Asm vs SIMD**| **C vs SIMD** |  
-| :---                 | :---:     | :---: | :---:      | :---:  |  :---:     |     :---:      |    :---:      |  
-| 1- zeros             | --        | 103   | --         | 431    |  `418%`    |     --         |     --        |  
-| 2- productoEscalar32 | --        | 180   | --         | 655    |  `364%`    |     --         |     --        |  
-| 3- productoEscalar16 | --        | 670   | --         | 175    |  `383%`    |     --         |     --        |  
-| 4- productoEscalar12 | --        | 192   |787 [^2]    | 907    |  `472%`    |     --         |     --        |  
-| 5- filtroVentana10   | --        | 2.270 | --         | 10.447 |  `460%`    |     --         |     --        |  
-| 6- pack32to16        | --        | 177   | --         | 1.170  |  `661%`    |     --         |     --        |  
-| 7- max               | --        | 179   | --         | 544    |  `304%`    |     --         |     --        |  
-| 8- downSampleM       | --        | 202   | --         | 726    |  `359%`    |     --         |     --        |  
-| 9- invertir          | --        | 166   | --         | 755    |  `455%`    |     --         |     --        |  
-| 10- generaEco        |24.023 [^4]|52.162 |240.497 [^3]| 276.993|  `531%`    |     `217%`     |     `1153%`   |  
-| 11- corr             | XXX   [^6]| XXX   |9.968  [^5] | 11.651 |  `XXX%`    |     `XXX%`     |     `XXX%`    |  
-| Promedio			   |           |       |            |        |  `XXX%`    |     `XXX%`     |     `XXX%`    |  
+
+| **Función**          |**SIMD**   |**Asm**|**Int**     |**C**   |**C vs Asm**| **Asm vs SIMD**| **C vs SIMD** | **C vs Int** |  
+| :---                 | :---:     | :---: | :---:      | :---:  |  :---:     |     :---:      |    :---:      |     :---:    |  
+| 1- zeros             | --        | 103   | --         | 431    |  `418%`    |     --         |     --        |      --      |  
+| 2- productoEscalar32 | --        | 180   | --         | 655    |  `364%`    |     --         |     --        |      --      |  
+| 3- productoEscalar16 | --        | 670   | --         | 175    |  `383%`    |     --         |     --        |      --      |  
+| 4- productoEscalar12 | --        | 192   |787 [^2]    | 907    |  `472%`    |     --         |     --        |     `115%`   |  
+| 5- filtroVentana10   | --        | 2.270 | --         | 10.447 |  `460%`    |     --         |     --        |      --      |  
+| 6- pack32to16        | --        | 177   | --         | 1.170  |  `661%`    |     --         |     --        |      --      |  
+| 7- max               | --        | 179   | --         | 544    |  `304%`    |     --         |     --        |      --      |  
+| 8- downSampleM       | --        | 202   | --         | 726    |  `359%`    |     --         |     --        |      --      |  
+| 9- invertir          | --        | 166   | --         | 755    |  `455%`    |     --         |     --        |      --      |  
+| 10- generaEco        |24.023 [^4]|52.162 |240.497 [^3]| 276.993|  `531%`    |     `217%`     |     `1153%`   |     `115%`   |
+| 11- corr             | XXX   [^6]| XXX   |9.968  [^5] | 11.651 |  `XXX%`    |     `XXX%`     |     `XXX%`    |     `117%`   |
+| **Promedio %**  	   |           |       |            |        |  `XXX%`    |     `XXX%`     |     `XXX%`    |   `115,7%`   |  
+
+***
 
 *Referencias:*  
-[^1]: Se utilizaron vectores de 15 elementos para realizar las pruebas (hasta el ejercicio 9).  
+[^1]: Se utilizaron vectores de 15 elementos para realizar las pruebas (con excepción del ejercicio 10).  
 [^2]: Se utilizó la función __USSAT().  
 [^3]: Se utilizaron las funciones __PKHBT() y __QADD16().  
 [^4]: Se utilizaron las instrucciones **shadd16** y **qadd16**.  
 [^5]: Se utilizaron las funciones __PKHBT() y __SMUAD().  
-[^6]: Se utilizaron las instrucciones **shadd16** y **qadd16**.  
+[^6]: Se utilizaron las instrucciones XXX y XXX.  

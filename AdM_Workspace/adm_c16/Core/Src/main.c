@@ -315,12 +315,12 @@ int main(void)
   DWT->CYCCNT = 0;
   corrInt(vecX, vecY, vecRes, lon);
   ciclos_Intr = DWT->CYCCNT;
-//  DWT->CYCCNT = 0;
-//  asm_corr(vec, res, tam2, 20);
-//  ciclos_ASM = DWT->CYCCNT;
-//  DWT->CYCCNT = 0;
-//  asm_corrSIMD(vec, res, tam2, 20);
-//  ciclos_SIMD = DWT->CYCCNT;
+  DWT->CYCCNT = 0;
+  asm_corr(vecX, vecY, vecRes, lon);
+  ciclos_ASM = DWT->CYCCNT;
+  DWT->CYCCNT = 0;
+  asm_corrSIMD(vecX, vecY, vecRes, lon);
+  ciclos_SIMD = DWT->CYCCNT;
 
 
   /* USER CODE END 2 */
@@ -742,15 +742,16 @@ void generaEcoIntr(int16_t *vectorIn, int16_t *vectorOut, uint32_t longitud, uin
 	}
 }
 
+
 /* Ej 11: función que calcule la correlación cruzada entre dos vectores*/
 void corr(int16_t *vectorX, int16_t *vectorY, int16_t *vectorCorr, uint32_t longitud){
+	int32_t sample;
 	for(uint32_t l = 0; l < longitud; l ++){
-		vectorCorr[l] = 0;
-		for(uint32_t n = 0; n < longitud; n ++){
-			if (n>=l){
-				vectorCorr[l] += vectorX[n]*vectorY[n-l];
-			}
+		sample = 0;
+		for(uint32_t n = l; n < longitud; n ++){
+			sample += vectorX[n]*vectorY[n-l];
 		}
+		vectorCorr[l] = (uint16_t)sample;
 	}
 }
 
@@ -759,18 +760,22 @@ void corrInt(int16_t *vectorX, int16_t *vectorY, int16_t *vectorCorr, uint32_t l
 	uint32_t j;
 	for(uint32_t l = 0; l < longitud; l ++){
 		SIMDSampRes = 0;
-		for(uint32_t n = 0; n < longitud; n += 2){
-			if (n>=l){
+		for(uint32_t n = 0; n < longitud-1; n +=2){
+			if(l <= n){
 				j = n-l;
-//				SIMDSampX = vectorX[n] + (vectorX[n+1]<<16);
+				// SIMDSampX = vectorX[n] + (vectorX[n+1]<<16);
 				SIMDSampX = __PKHBT(vectorX[n], vectorX[n+1], 16);
-//				SIMDSampY = vectorY[j] + (vectorY[j+1]<<16);
+				// SIMDSampY = vectorY[j] + (vectorY[j+1]<<16);
 				SIMDSampY = __PKHBT(vectorY[j], vectorY[j+1], 16);
 				SIMDSampRes += __SMUAD(SIMDSampX, SIMDSampY);
 			}
-			vectorCorr[l] = (int16_t)(SIMDSampRes);
 		}
+		if(longitud%2 != 0){
+			SIMDSampRes += vectorX[longitud-1]*vectorY[longitud-1-l];
+		}
+		vectorCorr[l] = (int16_t)(SIMDSampRes);
 	}
+
 }
 
 /* USER CODE END 4 */

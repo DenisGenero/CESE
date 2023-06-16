@@ -18,6 +18,6 @@ main.c:679:6:invertir	3
 main.c:695:6:generaVector	2
 main.c:705:6:generaEco	5
 main.c:726:6:generaEcoIntr	3
-main.c:746:6:corr	4
-main.c:757:6:corrInt	4
-main.c:782:6:Error_Handler	1
+main.c:747:6:corr	3
+main.c:758:6:corrInt	5
+main.c:787:6:Error_Handler	1
