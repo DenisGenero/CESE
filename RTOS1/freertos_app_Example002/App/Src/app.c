@@ -64,6 +64,7 @@
 #include "app.h"
 #include "task_A.h"
 #include "task_B.h"
+
 #include "task_Test.h"
 
 // ------ Macros and definitions ---------------------------------------
@@ -72,8 +73,9 @@
 /* Declare a variable of type xSemaphoreHandle.  This is used to reference the
  * semaphore that is used to synchronize a task with other task. */
 xSemaphoreHandle xBinarySemaphoreEntry;
-xSemaphoreHandle xBinarySemaphoreExit;
-xSemaphoreHandle xBinarySemaphoreContinue;
+xSemaphoreHandle xBinarySemaphoreExit1;
+xSemaphoreHandle xBinarySemaphoreExit2;
+xSemaphoreHandle xCountingSemaphoreContinue;
 
 /* Declare a variable of type xSemaphoreHandle.  This is used to reference the
  * mutex type semaphore that is used to ensure mutual exclusive access to ........ */
@@ -82,7 +84,11 @@ xSemaphoreHandle xMutex;
 /* Declare a variable of type xTaskHandle. This is used to reference tasks. */
 xTaskHandle vTask_AHandle;
 xTaskHandle vTask_BHandle;
+xTaskHandle vTask_B2Handle;
 xTaskHandle vTask_TestHandle;
+xTaskHandle vTask_Monitor;
+
+QueueHandle_t xQueueVehicle;
 
 /* Task A & B Counter	*/
 uint32_t	lTasksCnt;
@@ -109,18 +115,21 @@ void appInit( void )
     /* Before a semaphore is used it must be explicitly created.
      * In this example a binary semaphore is created. */
     vSemaphoreCreateBinary( xBinarySemaphoreEntry    );
-    vSemaphoreCreateBinary( xBinarySemaphoreExit     );
-    vSemaphoreCreateBinary( xBinarySemaphoreContinue );
+    vSemaphoreCreateBinary( xBinarySemaphoreExit1);
+    vSemaphoreCreateBinary( xBinarySemaphoreExit2);
+    xCountingSemaphoreContinue = xSemaphoreCreateCounting(3, 0);
 
     /* Check the semaphore was created successfully. */
 	configASSERT( xBinarySemaphoreEntry    !=  NULL );
-	configASSERT( xBinarySemaphoreExit     !=  NULL );
-	configASSERT( xBinarySemaphoreContinue !=  NULL );
+	configASSERT( xBinarySemaphoreExit1     !=  NULL );
+	configASSERT( xBinarySemaphoreExit2     !=  NULL );
+	configASSERT( xCountingSemaphoreContinue !=  NULL );
 
     /* Add semaphore to registry. */
 	vQueueAddToRegistry(xBinarySemaphoreEntry,    "xBinarySemaphoreEntry");
-    vQueueAddToRegistry(xBinarySemaphoreExit,     "xBinarySemaphoreExit");
-    vQueueAddToRegistry(xBinarySemaphoreContinue, "xBinarySemaphoreContinue");
+    vQueueAddToRegistry(xBinarySemaphoreExit1,     "xBinarySemaphoreExit1");
+    vQueueAddToRegistry(xBinarySemaphoreExit2,     "xBinarySemaphoreExit2");
+    vQueueAddToRegistry(xCountingSemaphoreContinue, "xCountingSemaphoreContinue");
 
     /* Before a semaphore is used it must be explicitly created.
      * In this example a mutex semaphore is created. */
@@ -131,6 +140,16 @@ void appInit( void )
 
     /* Add mutex to registry. */
 	vQueueAddToRegistry(xMutex, "xMutex");
+
+	typedef struct {
+		char number[6];
+		xTaskHandle tarea;
+		char DataTime[14];
+	}Vehiculo_t;
+
+	Vehiculo_t vehiculo;
+
+	xQueueVehicle = xQueueCreate(4, sizeof(Vehiculo_t));
 
 	BaseType_t ret;
 
@@ -149,9 +168,20 @@ void appInit( void )
     ret = xTaskCreate( vTask_B,						/* Pointer to the function thats implement the task. */
 					   "Task B",					/* Text name for the task. This is to facilitate debugging only. */
 					   (2 * configMINIMAL_STACK_SIZE),	/* Stack depth in words. 				*/
-					   NULL,						/* We are not using the task parameter.		*/
+					   xBinarySemaphoreExit1,		/* Semaforo de salida 1		*/
 					   (tskIDLE_PRIORITY + 2UL),	/* This task will run at priority 1. 		*/
 					   &vTask_BHandle );				/* We are using a variable as task handle.	*/
+
+    /* Check the task was created successfully. */
+    configASSERT( ret == pdPASS );
+
+    /* Task B2 thread at priority 2 */
+    ret = xTaskCreate( vTask_B,						/* Pointer to the function thats implement the task. */
+					   "Task B2",					/* Text name for the task. This is to facilitate debugging only. */
+					   (2 * configMINIMAL_STACK_SIZE),	/* Stack depth in words. 				*/
+					   xBinarySemaphoreExit2,						/* We are not using the task parameter.		*/
+					   (tskIDLE_PRIORITY + 2UL),	/* This task will run at priority 1. 		*/
+					   &vTask_B2Handle );				/* We are using a variable as task handle.	*/
 
     /* Check the task was created successfully. */
     configASSERT( ret == pdPASS );

@@ -99,6 +99,7 @@ void vTask_B( void *pvParameters )
 	/* Print out the name of this task. */
 	vPrintString( pcTextForTask_B );
 
+	xSemaphoreHandle xBinarySemaphoreExit = pvParameters;
 	/* As per most tasks, this task is implemented within an infinite loop.
 	 *
 	 * Take the semaphore once to start with so the semaphore is empty before the
@@ -157,7 +158,7 @@ void vTask_B( void *pvParameters )
 
         			/* 'Give' the semaphore to unblock the task A. */
        	        	vPrintString( pcTextForTask_B_SignalContinue );
-       	        	xSemaphoreGive( xBinarySemaphoreContinue );
+       	        	xSemaphoreGive( xCountingSemaphoreContinue );
        			}
         	}
         }

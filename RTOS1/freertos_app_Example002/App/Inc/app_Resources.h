@@ -59,8 +59,9 @@
 /* Declare a variable of type xSemaphoreHandle.  This is used to reference the
  * semaphore that is used to synchronize a task with other task. */
 extern xSemaphoreHandle xBinarySemaphoreEntry;
-extern xSemaphoreHandle xBinarySemaphoreExit;
-extern xSemaphoreHandle xBinarySemaphoreContinue;
+extern xSemaphoreHandle xBinarySemaphoreExit1;
+extern xSemaphoreHandle xBinarySemaphoreExit2;
+extern xSemaphoreHandle xCountingSemaphoreContinue;
 
 /* Declare a variable of type xSemaphoreHandle.  This is used to reference the
  * mutex type semaphore that is used to ensure mutual exclusive access to...*/
@@ -69,7 +70,11 @@ extern xSemaphoreHandle xMutex;
 /* Used to hold the handle of Tasks. */
 extern xTaskHandle vTask_AHandle;
 extern xTaskHandle vTask_BHandle;
+extern xTaskHandle vTask_B2Handle;
 extern xTaskHandle vTask_TestHandle;
+
+extern QueueHandle_t xQueueVehicle;
+extern QueueHandle_t xQueueVehicleDataTime;
 
 /* Task A & B Counter	*/
 #define lTasksCntMAX	3
