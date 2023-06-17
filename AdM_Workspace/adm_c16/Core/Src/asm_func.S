@@ -655,15 +655,20 @@
     	mov r5, #0  // índice n
     	mov r9, #0  // acumulador
     	lsr r3, #1  // Ahora se cargan 2 valores, por lo que se debe iterar la mitad de veces
-    	sub r3, #1 // longitud = longitud - 1
+    	sub r3, #2 // longitud = longitud - 2
 
     _for15:
-    	subs r6, r5, r4 // r6 = r5 - r4 (n-l)
+    	sub r6, r5, r4 // r6 = r5 - r4 (n-l)
     	ldr r7, [r0, r5, LSL #2]  // x[n], x[n+1]
     	ldr r8, [r1, r6, LSL #2]  // y[n-l], y[n+1-l]
     	smuad r7, r7, r8  // r7 = x[n]*y[n-l] + x[n+1]*y[n+1-l]
+    	cmp r5, r3    // n == longitud - 2?
+    	itttt eq
+    	addeq r5, #1
+    	ldrheq r7, [r0, r5, LSL #2]
+    	ldrheq r8, [r0, r6, LSL #2]
+    	muleq r7, r7, r8
     	add r9, r9, r7  // r9 = acumulado + r7
-    	cmp r5, r3    // n == longitud ?
     	itt eq			// si es cierto:
     	strheq r9, [r2, r4, LSL #1]  // Terminó el cilco, se guarda el resultado acumulado
     	beq _for16  // Se pasa al otro bucle, donde se decrementa l
