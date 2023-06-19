@@ -288,39 +288,39 @@ int main(void)
 //  asm_invertir(vector, tam);
 //  ciclos_ASM = DWT->CYCCNT;
 
-//  uint32_t tam2 = 4096;
-//  int16_t vec[tam2], res[tam2];
-//  generaVector(vec, tam2);
-//  DWT->CYCCNT = 0;
-//  generaEco(vec, res, tam2, 20);
-//  ciclos_C = DWT->CYCCNT;
-//  DWT->CYCCNT = 0;
-//  generaEcoIntr(vec, res, tam2, 20);
-//  ciclos_Intr = DWT->CYCCNT;
-//  DWT->CYCCNT = 0;
-//  asm_generaEco(vec, res, tam2, 20);
-//  ciclos_ASM = DWT->CYCCNT;
-//  DWT->CYCCNT = 0;
-//  asm_generaEcoSIMD(vec, res, tam2, 20);
-//  ciclos_SIMD = DWT->CYCCNT;
-
-  uint32_t lon = 15;
-
-  int16_t vecX[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, -1, -2, -3, -4, -5};
-  int16_t vecY[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, -1, -2, -3, -4, -5};
-  int16_t vecRes[lon];
+  uint32_t tam2 = 4096;
+  int16_t vec[tam2], res[tam2];
+  generaVector(vec, tam2);
   DWT->CYCCNT = 0;
-  corr(vecX, vecY, vecRes, lon);
+  generaEco(vec, res, tam2, 20);
   ciclos_C = DWT->CYCCNT;
   DWT->CYCCNT = 0;
-  corrInt(vecX, vecY, vecRes, lon);
+  generaEcoIntr(vec, res, tam2, 20);
   ciclos_Intr = DWT->CYCCNT;
   DWT->CYCCNT = 0;
-  asm_corr(vecX, vecY, vecRes, lon);
+  asm_generaEco(vec, res, tam2, 20);
   ciclos_ASM = DWT->CYCCNT;
   DWT->CYCCNT = 0;
-  asm_corrSIMD(vecX, vecY, vecRes, lon);
+  asm_generaEcoSIMD(vec, res, tam2, 20);
   ciclos_SIMD = DWT->CYCCNT;
+
+//  uint32_t lon = 15;
+//
+//  int16_t vecX[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, -1, -2, -3, -4, -5};
+//  int16_t vecY[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, -1, -2, -3, -4, -5};
+//  int16_t vecRes[lon];
+//  DWT->CYCCNT = 0;
+//  corr(vecX, vecY, vecRes, lon);
+//  ciclos_C = DWT->CYCCNT;
+//  DWT->CYCCNT = 0;
+//  corrInt(vecX, vecY, vecRes, lon);
+//  ciclos_Intr = DWT->CYCCNT;
+//  DWT->CYCCNT = 0;
+//  asm_corr(vecX, vecY, vecRes, lon);
+//  ciclos_ASM = DWT->CYCCNT;
+//  DWT->CYCCNT = 0;
+//  asm_corrSIMD(vecX, vecY, vecRes, lon);
+//  ciclos_SIMD = DWT->CYCCNT;
 
 
   /* USER CODE END 2 */
@@ -758,6 +758,8 @@ void corr(int16_t *vectorX, int16_t *vectorY, int16_t *vectorCorr, uint32_t long
 void corrInt(int16_t *vectorX, int16_t *vectorY, int16_t *vectorCorr, uint32_t longitud){
 	int32_t SIMDSampX, SIMDSampY,SIMDSampRes;
 	uint32_t j;
+	vectorX[longitud] = 0;
+	vectorY[longitud] = 0;
 	for(uint32_t l = 0; l < longitud; l ++){
 		SIMDSampRes = 0;
 		for(uint32_t n = 0; n < longitud-1; n +=2){

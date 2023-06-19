@@ -122,6 +122,11 @@ quién decida cuales, cuantos y en en que direcciones de memoria estarán estos 
 
 **13- ¿Cómo se implementan las prioridades de las interrupciones? Dé un ejemplo**  
 
+Las interrupciones están en el NVIC (Nested Vector Interrupt Controller) y se atienden en función de prioridades. Las prioridades parten de 1 siendo la más prioritaria, y siguen en orden decreciente 
+de prioridades en función de dicho número. Las interrupciones serán generadas en su mayoría por periféricos del procesador, y es el desarrollador quié debe decidir que prioridad asignará a cada 
+interrupción que habilite. Ejemplos de periféricos que puedan ser manejados por interrupciones pueden ser una conoversión de ADC disparada por el Timer, la llegada de un dato por puerto serie (UART, 
+SPI, I2C, etc.).  
+
 **14- ¿Qué es el CMSIS? ¿Qué función cumple? ¿Quién lo provee? ¿Qué ventajas aporta?**  
 
 La CMSIS en un conjunto de librerias escritas en C que las provee ARM y permiten hacer uso de toda la funcionalidad de los procesadores Cortex. Esto representa una gran ventaja en la 
@@ -129,13 +134,27 @@ portabilidad del código, ya que se puede cambiar de un fabricante a otro y reut
 
 **15- Cuando ocurre una interrupción, asumiendo que está habilitada ¿Cómo opera el microprocesador para atender a la subrutina correspondiente? Explique con un ejemplo**  
 
+Cuando se produce una interrupción el microcontrolador termina de ejecutar la instrucción que tiene cargada en el pipeline y luego guarda en el stack el contexto de ejecución del programa, que consta 
+básicamente en guardar los registros (el stack frame) haciendo un push en el stack, y salta a la porción de memoria donde esta el código de la rutina de interrupción. Luego de ser atendida 
+regresa al lugar del programa principal donde estaba, carga los valores de la stack mediante un pop y continua la ejecución del programa. Un ejemplo podría ser la interrupción del SysTick timer.
+El stack frame esta constituído por los registros r0 a r3, r12, la dirección de retorno y el PSR.
+
 **16- ¿Cómo cambia la operación de stacking al utilizar la unidad de punto flotante?**  
+
+Al utilizar la FPU, cuando se produce una interrupción o una excepción, el procesador además de hacer el stacking explicado en la respuesta15, debe guardar los registros de dicha unidad. En sí este stacking 
+solo sería necesario hacerlo en caso de que tanto el programa principal como la iterrupción/excepción esten ocupando la FPU. 
 
 **17- Explique las características avanzadas de atención a interrupciones: tail chaining y late arrival.**  
 
+- *Late arrival:* Se produce cuando al estar haciendo el stacking de una interrupción, se produce una interrupción de mayor prioridad. En ese caso, como el stacking es igual para todas las prioridades lo que 
+se hace es continuar con el proceso de stacking, pero cuando se hace el fetch para saltar a la rutina de interrupción, lo que se va a cargar es la dirección de la interrupción con mayor prioridad.  
+- *Tail chaining:* Se da cuando el procesador está ejecutando una interrupción, y durante dicha ejecución se produce una interrupción de menor o igual prioridad. En ese caso, el procesador continuará ejecutando 
+las instrucciones de la interrupción actual hasta terminar, y luego, en lugar de volver al modo Thread, directamente salta a ejecutar el código de la otra interrupción, evitando de esta manera hacer un "context 
+switching" innecesario, obteniendo un mejor desempeño.  
+
 **18- ¿Qué es el systick? ¿Por qué puede afirmarse que su implementación favorece la portabilidad de los sistemas operativos embebidos?**  
 
-Es un timer que etsá en la arquitectura Cortex-M (no en M0 y M0+), por lo general de 24 bits, que se suele configurar para que produzca una interrupción cada 1 milisegundo. Este se utiliza 
+Es un timer que está en la arquitectura Cortex-M (no en M0 y M0+), por lo general de 24 bits, que se suele configurar para que produzca una interrupción cada 1 milisegundo. Este se utiliza 
 como base de tiempo	para los RTOS, por lo que si se implementa un RTOS en un Cortex M3, es muy fácil portarlo a un M4, ya que ambos poseen la misma base de timepo.
 
 **19- ¿Qué funciones cumple la unidad de protección de memoria (MPU)?**
@@ -246,4 +265,4 @@ En esta tabla se encuentran los ciclos de reloj que le tomo al microcontrolador 
 [^3]: Se utilizaron las funciones __PKHBT() y __QADD16().  
 [^4]: Se utilizaron las instrucciones **shadd16** y **qadd16**.  
 [^5]: Se utilizaron las funciones __PKHBT() y __SMUAD().  
-[^6]: Se utilizaron las instrucciones XXX y XXX.  
+[^6]: Se utilizó la instrucción **smuad**.  
