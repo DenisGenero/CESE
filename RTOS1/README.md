@@ -41,7 +41,10 @@
 - *freertos_Example001 --> Puente angosto*  
 - *freertos_Example002 --> Sistema de parking*  
 
-**Interrupciones**  
+** Examen 13/06/2023:**  
+- *freertos_Example003 --> Examen resuelto*  
+
+**Interrupciones:**  
 - *freertos_book_example016: Using a binary semaphore to synchronize a task with an interrupt*  
 - *freertos_book_example017: Using a counting semaphore to synchronize a task with an interrupt**  
 - *freertos_book_example019: Sending and receiving on a queue from within an interrupt*  
